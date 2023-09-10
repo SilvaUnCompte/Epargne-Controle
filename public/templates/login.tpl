@@ -17,11 +17,6 @@
 <link rel="stylesheet" href="/public/styles/login/login.css">
 
 
-<a id="home" href="/controler/pages/index.php">
-    <ion-icon name="home-outline" id="home-outline"></ion-icon>
-    <ion-icon name="home" id="home-full"></ion-icon>
-</a>
-
 <section id="section-core">
     <div class="form-box">
         <div class="form-value">
@@ -38,11 +33,11 @@
                     <label for="password_id">Password</label>
                 </div>
                 <div class="forget">
-                    <a href="#">Forget Password?</a>
+                    <a href="#good-luck-bro">Forget Password?</a>
                 </div>
                 <input type="submit" value="Login">
                 <div class="register">
-                    <p>Don't have an account? <a href="#">Call your pilot</a></p>
+                    <p>Don't have an account? <a href="#">Call me</a></p>
                     <p class="error">
                         {if $state == (1)}
                         Ce mail n'existe pas

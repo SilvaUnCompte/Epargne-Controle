@@ -1,8 +1,8 @@
 <?php
 
-# Ne pas toucher stp :)
+# Don't change
 require($_SERVER['DOCUMENT_ROOT']."/controler/template_engine.php");
 
-# William tu peux modif ici
-$smarty->assign("title", "epargne-controle");
+# Can be change
+$smarty->assign("title", "Epargne-controle - Home");
 $smarty->display("index.tpl");
