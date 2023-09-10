@@ -1,0 +1,58 @@
+$parallax-header-height: 20%;
+$parallax-bg-color: #b4a99c;
+
+body{
+  background-color: $parallax-bg-color;
+}
+
+.sample-header { /* Met l'image en fond d'écran */
+  position: fixed;
+  left: 0;
+  top: 49px;
+  width: 100%;
+  background-image: url("/assets/images/bg_stage.webp");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 620px) {
+  .sample-header{
+    top: 200px;
+  }
+}
+
+.sample-header::before { /* Met un filtre sur l'image */
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgb(75, 43, 4);
+  opacity: 0.1;
+}
+
+.sample-header-section {
+  position: relative;
+  padding: $parallax-header-height+5% 0 $parallax-header-height;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  font-family: "Montserrat", sans-serif;
+}
+
+.sample-section-wrap {
+  position: relative;
+  background-color: $parallax-bg-color;
+}
+
+.sample-section {
+  position: relative;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 40px;
+}

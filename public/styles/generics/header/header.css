@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css?family=Shadows+Into+Light&display=swap");
+#company_name {
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+
+#login_button,
+#register_button {
+  color: rgb(255, 255, 255);
+  border: 0;
+  box-shadow: inset 0 0 0 1px rgb(88, 61, 23);
+  background-color: rgb(88, 61, 23);
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  margin-right: 2vw;
+  font-size: 1em;
+  font-weight: 600;
+}
+#login_button span,
+#register_button span {
+  transition: all 0.2s ease-out;
+  z-index: 2;
+}
+
+#register_button {
+  margin-right: 0.5vw;
+}
+
+#login_button:hover,
+#register_button:hover {
+  background-color: rgb(255, 255, 255);
+  box-shadow: inset 0 0 0 4px #eee;
+}
+#login_button:hover span,
+#register_button:hover span {
+  color: rgb(140, 95, 58);
+}
+
+#second_header ul,
+#second_header {
+  background-color: rgb(77, 77, 77);
+  display: flex;
+  flex-direction: row !important;
+  align-content: center !important;
+}
+#second_header ul a,
+#second_header a {
+  color: whitesmoke;
+}
+#second_header ul li,
+#second_header li {
+  margin: 10px 10px 10px 25px;
+  font-weight: 600;
+}
+
+#account_avatar {
+  display: none;
+  margin-right: 20px;
+  filter: invert(1);
+}
+
+@media screen and (max-width: 620px) {
+  #account_avatar {
+    display: block;
+  }
+  #login_button,
+  #register_button {
+    display: none;
+  }
+  #second_header {
+    flex-direction: column !important;
+  }
+}
+#native-header {
+  z-index: 5;
+  position: sticky;
+  top: 0px;
+}/*# sourceMappingURL=header.css.map */

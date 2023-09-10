@@ -1,0 +1,57 @@
+footer {
+  position: sticky;
+}
+
+#media_icon_facebook {
+  color: rgb(0, 68, 255);
+}
+
+#media_icon_twitter {
+  color: lightblue;
+}
+
+#media_icon_instagram {
+  color: goldenrod;
+}
+
+#media_icon_linkedin {
+  color: aqua;
+}
+
+#media_icon_github {
+  color: red;
+}
+
+#media_icon_facebook:hover,
+#media_icon_twitter:hover,
+#media_icon_instagram:hover,
+#media_icon_linkedin:hover,
+#media_icon_github:hover {
+  color: whitesmoke;
+}
+
+.links p {
+  color: rgb(137, 183, 243);
+}
+
+.links h6 {
+  color: whitesmoke;
+}
+
+.fab {
+  font-size: 25px;
+}
+
+.footer_text {
+  color: whitesmoke;
+  text-align: justify;
+}
+
+.row {
+  justify-content: center;
+}
+
+.carousel {
+  margin: 10px 10px;
+  position: sticky;
+}/*# sourceMappingURL=footer.css.map */

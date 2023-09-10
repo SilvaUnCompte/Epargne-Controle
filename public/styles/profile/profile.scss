@@ -1,0 +1,148 @@
+.text-row {
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+
+    .informations-div {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .info-col {
+            margin-left: 10px;
+            margin-right: 70px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+    }
+
+    .space {
+        margin-top: 30px;
+    }
+
+    .text-data {
+        margin-bottom: 15px;
+    }
+
+    .info-div {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.offer-example,
+.account-example {
+    border: 0;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: flex-end
+}
+
+
+.pagination-div {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+@media screen and (max-width: 400px) {
+    .offer-example {
+        font-size: 2vh;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .text-row .informations-div {
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .offer-example {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+button {
+    width: 120px;
+    padding: 7px;
+    margin: 10px 10px;
+    background-color: #ffffff;
+    color: #8f8f8f;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    top: 0;
+}
+
+#logout-btn {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .add {
+        width: 80%;
+    }
+}
+
+.research-account-div {
+    margin-bottom: 10px;
+}
+
+// #student-list {
+//     height: 320px;
+//     margin-top: 10px;
+//     display: flex;
+//     flex-direction: column;
+
+//     .studend-card-example {
+//         display: flex;
+//         flex-direction: row;
+//         justify-content: space-between;
+//         align-items: center;
+//         background-color: whitesmoke;
+//         border: 0;
+//         border-radius: 10px;
+//         margin-bottom: 10px;
+
+//         #student-name {
+//             margin-left: 5px;
+//         }
+
+//         #delete-student {
+//             background-color: rgba(0, 0, 0, 0);
+//             color: darkred;
+//             font-weight: bolder;
+//             width: auto;
+//         }
+//     }
+// }
+
+.btn-action{
+    background-color: #ffffff;
+    color: #8f8f8f;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    top: 0;
+    width: 70px;
+    padding: 7px;
+}
+
+.hide {
+    display: none;
+}
