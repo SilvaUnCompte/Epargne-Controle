@@ -1,8 +1,8 @@
 <?php
 
 $DB_HOST = "db";
-$DB_USERNAME = "hcapbdpl2iqmlomomdkl";
-$DB_PASSWORD = "pscale_pw_Y7qEQGy3bOkyx9toB5mLiSHFKEkH5PpyHGf0DuHII32";
+$DB_USERNAME = "user";
+$DB_PASSWORD = "pass";
 $DB_NAME = "epargne-controle";
 
 // Use env variables to connect to the database
