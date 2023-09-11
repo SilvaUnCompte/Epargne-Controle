@@ -8,13 +8,13 @@
     "orientation": "portrait-primary",
     "icons": [
         {
-            "src": "/assets/images/book.png",
+            "src": "/assets/images/icon.png",
             "type": "image/png",
             "sizes": "256x256",
             "purpose": "any maskable"
         },
         {
-            "src": "/assets/images/book512.png",
+            "src": "/assets/images/icon512.png",
             "type": "image/png",
             "sizes": "512x512"
         }

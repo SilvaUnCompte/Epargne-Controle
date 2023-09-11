@@ -53,29 +53,6 @@ body {
     }
 }
 
-#home {
-    position: absolute;
-    top: 30px;
-    left: 40px;
-    color: #fff;
-    font-size: 1.9em;
-    cursor: pointer;
-
-    #home-full {
-        display: none;
-    }
-}
-
-#home:hover {
-    #home-full {
-        display: block;
-    }
-
-    #home-outline {
-        display: none;
-    }
-}
-
 h2 {
     font-size: 2em;
     color: #fff;

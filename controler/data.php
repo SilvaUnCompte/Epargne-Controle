@@ -1,5 +1,7 @@
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . '/database/connexion.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/database/connexion.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/database/tables/user.php');
+
 class Data
 {
     public static function createPassword($rawPassword)
@@ -8,33 +10,40 @@ class Data
         $hash = hash_pbkdf2("sha512", $rawPassword, $salt, 1000, 64);
         return array("salt" => $salt, "hash" => $hash);
     }
+
+
     public static function checkPassword($rawPassword, $salt, $hash)
     {
         $checkHash = hash_pbkdf2("sha512", $rawPassword, $salt, 1000, 64);
         return $checkHash == $hash;
     }
-    public static function verifyEmailExist($email)
-    {
-        global $account;
-        if ($account->findOne(['email' => $email]) == null) {
-            return -1;
-        } else {
-            return $account->findOne(["email" => $email], ['projection' => []])['_id'];
-        }
-    }
+
+
     public static function checkLogin($email, $password)
     {
-        global $account;
-        $accountId = Data::verifyEmailExist($email);
-        if ($accountId != -1) {
-            $passwordTab = $account->findOne(["_id" => $accountId], ['projection' => ["_id" => 0, "password" => 1]]);
-            if (Data::checkPassword($password, $passwordTab["password"]["salt"], $passwordTab["password"]['hash'])) {
-                return 0;
-            } else {
-                return -2;
-            }
-        } else {
-            return -1;
+        global $db;
+
+        $query = $db->prepare('SELECT * FROM user WHERE email = :email');
+        $query->execute(['email' => $email]);
+        $result = $query->fetch();
+
+        if (!$result) { // If account doesn't exist
+            return 0;
         }
+
+        $salt = $result['salt'];
+        $hash = $result['password'];
+
+        if (is_null($hash)) { // If account has no password, set it
+            $user = new User($email);
+
+            $new_password = Data::createPassword($password);
+            $user->setPassword($new_password['hash']);
+            $user->setSalt($new_password['salt']);
+            $user->update();
+            return 1;
+        }
+
+        return self::checkPassword($password, $salt, $hash);
     }
 }

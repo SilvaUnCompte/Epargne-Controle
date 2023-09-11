@@ -5,12 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/assets/images/book.png" />
-
-    <link href="/assets/vendors/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/vendors/fontawesome/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/public/styles/generics/header/header.css">
-    <link rel="stylesheet" href="/public/styles/generics/footer/footer.css">
+    <link rel="icon" href="/assets/images/icon.png" />
     <title>{$title}</title>
 </head>
 
@@ -20,7 +15,7 @@
 <section id="section-core">
     <div class="form-box">
         <div class="form-value">
-            <form action="/controler/login.php" method="post">
+            <form action="/controler/login.php" method="get">
                 <h2>Login</h2>
                 <div class="input-box">
                     <ion-icon name="mail-outline"></ion-icon>
@@ -35,16 +30,14 @@
                 <div class="forget">
                     <a href="#good-luck-bro">Forget Password?</a>
                 </div>
+                <p class="error">
+                    {if $error == (1)}
+                        Email or password incorrect
+                    {/if}
+                </p>
                 <input type="submit" value="Login">
                 <div class="register">
                     <p>Don't have an account? <a href="#">Call me</a></p>
-                    <p class="error">
-                        {if $state == (1)}
-                        Ce mail n'existe pas
-                        {elseif $state == (2)}
-                        Mot de passe incorrect
-                        {/if}
-                    </p>
                 </div>
             </form>
         </div>
