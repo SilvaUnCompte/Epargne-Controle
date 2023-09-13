@@ -1,6 +1,5 @@
 <?php
 
-require($_SERVER['DOCUMENT_ROOT'] . '/controler/data.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/database/tables/user.php');
 
 if (isset($_GET['input_email']) && isset($_GET['input_password'])) {
@@ -16,7 +15,7 @@ if (isset($_GET['input_email']) && isset($_GET['input_password'])) {
 		$_SESSION['email'] = $email;
 		$_SESSION['username'] = $user->getUsername();
 
-		header("Location: pages/index.php");
+		header("Location: /controler/pages/index.php");
 	} else {
 		require($_SERVER['DOCUMENT_ROOT'] . "/assets/vendors/smarty/libs/Smarty.class.php");
 		$smarty = new Smarty();
