@@ -1,0 +1,19 @@
+* {
+    border: 1px solid rgba(255, 0, 0, 0.404);
+}
+
+#dashboard {
+    display: flex;
+    justify-content: space-around
+}
+
+#right-pannel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flex-inline {
+    display: flex;
+    flex-direction: row;
+}

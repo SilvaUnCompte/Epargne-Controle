@@ -33,10 +33,10 @@
       </ul>
 
       <div id="account">
-        <a id="login_button" href="/controler/logout.php">
+        <a id="login_button">
           {$smarty.session.username}
         </a>
-        <a href="/controler/logout.php">
+        <a href="/controler/login/logout.php">
           <img id="exit_icon" src="/assets/images/exit.png" alt="exit" width="50" height="50" loading="lazy">
         </a>
       </div>

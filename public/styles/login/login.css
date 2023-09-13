@@ -128,12 +128,20 @@ input[type=submit] {
   text-decoration: underline;
 }
 
-.error {
-  color: red;
+.error,
+.success {
   font-size: 1em;
   margin: 0 0 10px 0;
   text-align: center;
   font-weight: 600;
+}
+
+.error {
+  color: red;
+}
+
+.success {
+  color: rgb(6, 185, 6);
 }
 
 .forget {

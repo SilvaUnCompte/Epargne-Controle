@@ -8,7 +8,8 @@ if (isset($_GET['input_email']) && isset($_GET['input_password'])) {
 	$email = $_GET['input_email'];
 	$password = $_GET['input_password'];
 
-	if (Data::checkLogin($email, $password)) {
+	if (User::checkLogin($email, $password)) {
+
 		if (session_status() !== PHP_SESSION_ACTIVE) session_start();
 
 		$user = new User($email);

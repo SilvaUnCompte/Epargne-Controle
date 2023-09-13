@@ -10,15 +10,68 @@ const data = [
 ];
 
 new Chart(
-    document.getElementById('acquisitions'),
+    document.getElementById('overview_checking_account'),
     {
         type: 'bar',
         options: {
-            // aspectRatio: 1,
-            // animation: {
-            //     animateRotate: true,
-            //     animateScale: true
-            // },
+            animation: true,
+            plugins: {
+                legend: {
+                    display: true
+                },
+                tooltip: {
+                    enabled: true
+                }
+            }
+        },
+        data: {
+            labels: data.map(row => row.year),
+            datasets: [
+                {
+                    label: 'Acquisitions by year',
+                    data: data.map(row => row.count),
+                    hoverOffset: 4
+                }
+            ]
+        }
+    }
+);
+new Chart(
+    document.getElementById('overview_savings_account'),
+    {
+        type: 'bar',
+        options: {
+            animation: true,
+            plugins: {
+                legend: {
+                    display: true
+                },
+                tooltip: {
+                    enabled: true
+                }
+            }
+        },
+        data: {
+            labels: data.map(row => row.year),
+            datasets: [
+                {
+                    label: 'Acquisitions by year',
+                    data: data.map(row => row.count),
+                    hoverOffset: 4
+                }
+            ]
+        }
+    }
+);
+new Chart(
+    document.getElementById('overview_monthly_budget'),
+    {
+        type: 'doughnut',
+        options: {
+            animation: {
+                animateRotate: true,
+                animateScale: true
+            },
             plugins: {
                 legend: {
                     display: true

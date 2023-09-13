@@ -15,7 +15,7 @@
 <section id="section-core">
     <div class="form-box">
         <div class="form-value">
-            <form action="/controler/login.php" method="get">
+            <form action="/controler/login/login.php" method="get">
                 <h2>Login</h2>
                 <div class="input-box">
                     <ion-icon name="mail-outline"></ion-icon>
@@ -30,11 +30,17 @@
                 <div class="forget">
                     <a href="#good-luck-bro">Forget Password?</a>
                 </div>
-                <p class="error">
-                    {if $error == (1)}
+
+                {if $error == (1)}
+                    <p class="error">
                         Email or password incorrect
-                    {/if}
-                </p>
+                    </p>
+                {elseif $error == (2)}
+                    <p class="success">
+                        Password saved successfully
+                    </p>
+                {/if}
+
                 <input type="submit" value="Login">
                 <div class="register">
                     <p>Don't have an account? <a href="#">Call me</a></p>
