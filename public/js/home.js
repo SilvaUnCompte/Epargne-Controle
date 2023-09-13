@@ -1,8 +1,45 @@
+const email = document.getElementById("email").value;
+const datasheet = document.getElementById("datasheet");
+let accounts = [];
+
+onload = () => {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/database/api/get_accounts_by_user.php?email=" + email, true);
+    xhr.onload = () => {
+        if (xhr.status == 200) {
+            accounts = xhr.responseText;
+            // function createChart()
+
+            var xhr2 = new XMLHttpRequest();
+            xhr2.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + accounts + "&limit=14", true);
+            xhr2.onload = () => {
+                if (xhr2.status == 200) {
+                    operations = JSON.parse(xhr2.responseText);
+
+                    for (let i = 0; i < 14; i++) {
+                        datasheet.children[i].children[0].innerHTML = operations[i].date;
+                        datasheet.children[i].children[1].innerHTML = operations[i].label;
+                        datasheet.children[i].children[2].innerHTML = operations[i].amount;
+                        datasheet.children[i].children[3].innerHTML = operations[i].category == 0 ? "Groceries" : operations[i].category == 1 ? "Leisure" : operations[i].category == 2 ? "Rent" : operations[i].category == 3 ? "Health" : operations[i].category == 4 ? "Shopping" : "Other";
+                    }
+                }
+                else {
+                    alert("Error getting operations");
+                }
+            }
+            xhr2.send();
+        }
+        else {
+            alert("Error getting accounts");
+        }
+    };
+    xhr.send();
+}
 
 const data = [
     { year: 2010, count: 10 },
     { year: 2011, count: 20 },
-    { year: 2012, count: 15 },
+    { year: 2012, count: -10 },
     { year: 2013, count: 25 },
     { year: 2014, count: 22 },
     { year: 2015, count: 30 },
@@ -10,7 +47,7 @@ const data = [
 ];
 
 new Chart(
-    document.getElementById('overview_checking_account'),
+    document.getElementById('overview-checking-account'),
     {
         type: 'bar',
         options: {
@@ -37,7 +74,7 @@ new Chart(
     }
 );
 new Chart(
-    document.getElementById('overview_savings_account'),
+    document.getElementById('overview-savings-account'),
     {
         type: 'bar',
         options: {
@@ -64,7 +101,7 @@ new Chart(
     }
 );
 new Chart(
-    document.getElementById('overview_monthly_budget'),
+    document.getElementById('overview-monthly-budget'),
     {
         type: 'doughnut',
         options: {

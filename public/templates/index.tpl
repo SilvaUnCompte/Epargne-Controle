@@ -1,50 +1,47 @@
 {include file='helpers/header.tpl'}
 
-
-<div id="dashboard">
-
-    <section id="left-pannel">
-        <table>
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Label</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                {for $i = 0; $i < 15; $i++}
-                    <tr>
-                        <td>{$i}</td>
-                        <td>{$i*20}</td>
-                        <td>{$i**5}</td>
-                    </tr>
+<section class="dashboard">
+    <section class="container">
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">Date</div>
+                <div class="col col-2">Label</div>
+                <div class="col col-3">Amount</div>
+                <div class="col col-4">Category</div>
+            </li>
+            <div id="datasheet">
+                {for $i = 0; $i < 14; $i++}
+                    <li class="table-row">
+                        <div class="col col-1" data-label="Date"> --- </div>
+                        <div class="col col-2" data-label="Label"> --- </div>
+                        <div class="col col-3" data-label="Amount"> --- </div>
+                        <div class="col col-4" data-label="Category"> --- </div>
+                    </li>
                 {/for}
-            </tbody>
-        </table>
-
-        {* col gauche avec liste mouvement bancaire récent X dernier à partir de date ajd *}
+            </div>
+        </ul>
     </section>
 
-    <section id="right-pannel">
+    {* col gauche avec liste mouvement bancaire récent X dernier à partir de date ajd *}
+
+    <section class="container">
         <section class="flex-inline">
             <section>
                 {* mini zone compte courant *}
-                <div style="width: 400px;"><canvas id="overview_checking_account"></canvas></div>
+                <div style="width: 400px;"><canvas id="overview-checking-account"></canvas></div>
             </section>
             <section>
                 {* mini zone compte épargne *}
-                <div style="width: 400px;"><canvas id="overview_savings_account"></canvas></div>
+                <div style="width: 400px;"><canvas id="overview-savings-account"></canvas></div>
             </section>
         </section>
 
         <section>
             {* camembert budget du mois *}
-            <div style="width: 400px;"><canvas id="overview_monthly_budget"></canvas></div>
+            <div style="width: 400px;"><canvas id="overview-monthly-budget"></canvas></div>
         </section>
     </section>
-
-</div>
+</section>
 
 
 

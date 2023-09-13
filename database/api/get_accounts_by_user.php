@@ -1,0 +1,19 @@
+<?php
+header('Content-Type: application/json');
+
+require($_SERVER['DOCUMENT_ROOT'] . '/database/connexion.php');
+
+
+// Security
+if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+
+if (!isset($_SESSION['email'])) {
+    echo json_encode(['error' => 'Not logged']);
+    exit;
+}
+
+$query = $db->prepare('SELECT id_account, label, type FROM bank_account WHERE user_email = :email');
+$query->execute(['email' => $_SESSION['email']]);
+$result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+echo json_encode($result);

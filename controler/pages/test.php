@@ -1,9 +1,9 @@
 <?php
-require($_SERVER['DOCUMENT_ROOT'] . '/database/connexion.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/database/tables/user.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/database/tables/account.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/database/tables/operation.php');
-require($_SERVER['DOCUMENT_ROOT'] . '/database/tables/regular_event.php');
+// require($_SERVER['DOCUMENT_ROOT'] . '/database/connexion.php');
+// require($_SERVER['DOCUMENT_ROOT'] . '/database/tables/user.php');
+// require($_SERVER['DOCUMENT_ROOT'] . '/database/tables/account.php');
+// require($_SERVER['DOCUMENT_ROOT'] . '/database/tables/operation.php');
+// require($_SERVER['DOCUMENT_ROOT'] . '/database/tables/regular_event.php');
 
 // $user = new User("selyan.quesnot@gmail.com");
 
@@ -38,6 +38,6 @@ require($_SERVER['DOCUMENT_ROOT'] . '/database/tables/regular_event.php');
 
 // RegularEvent::createRegularEvent("test", "2021-01-01", "2021-01-15", 100, 0, 0, 1);
 
-$reg = new RegularEvent(26);
-$reg->setAmount(5);
-$reg->update();
+// $reg = new RegularEvent(26);
+// $reg->setAmount(5);
+// $reg->update();

@@ -154,15 +154,13 @@ class RegularEvent
 
     public static function updateOperationsFromRegularEvent($id_regular_event, $label, $start, $end, $amount, $frequency_type, $category, $id_account)
     {
-        echo "0";
         RegularEvent::deleteOperationsFromRegularEvent($id_regular_event);
-        echo "1";
+
         $date_index = $start;
         while ($date_index <= $end) {
             Operation::createOperation($label, $date_index, $amount, $category, $id_regular_event, $id_account);
             $date_index = date('Y-m-d', strtotime($date_index . (($frequency_type == 0) ? ' + 1 day' : (($frequency_type == 1) ? ' + 1 week' : (($frequency_type == 2) ? ' + 1 month' : ' + 1 year')))));
         }
-        echo "3";
     }
 
     public static function deleteOperationsFromRegularEvent($id_regular_event)
