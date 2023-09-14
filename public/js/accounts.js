@@ -8,33 +8,10 @@ onload = () => {
     xhr.onload = () => {
         if (xhr.status == 200) {
             accounts = xhr.responseText;
-            // function createChart()
-
-            var xhr2 = new XMLHttpRequest();
-            xhr2.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + accounts + "&limit=14", true);
-            xhr2.onload = () => {
-                if (xhr2.status == 200) {
-                    operations = JSON.parse(xhr2.responseText);
-
-                    for (let i = 0; i < 14; i++) {
-                        if (operations[i].regularity > 0) {
-                            datasheet.children[i].style.color = "grey";
-                            datasheet.children[i].style.fontStyle = "italic";
-                        }
-                        else if (operations[i].amount > 0) {
-                            datasheet.children[i].children[2].style.color = "green";
-                        }
-                        datasheet.children[i].children[0].innerHTML = operations[i].date;
-                        datasheet.children[i].children[1].innerHTML = operations[i].label;
-                        datasheet.children[i].children[2].innerHTML = (operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2) + " €";
-                        datasheet.children[i].children[3].innerHTML = operations[i].category == 0 ? "Groceries" : operations[i].category == 1 ? "Leisure" : operations[i].category == 2 ? "Rent" : operations[i].category == 3 ? "Health" : operations[i].category == 4 ? "Shopping" : "Other";
-                    }
-                }
-                else {
-                    alert("Error getting operations");
-                }
-            }
-            xhr2.send();
+            
+            array.forEach(accounts => {
+                // Create a new row
+            });
         }
         else {
             alert("Error getting accounts");

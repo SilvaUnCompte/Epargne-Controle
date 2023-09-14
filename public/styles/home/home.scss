@@ -1,7 +1,11 @@
+$margin-left: 175px;
+$phone-width: 767px;
+
 .dashboard {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    width: calc(100% - #{$margin-left});
 }
 
 .flex-inline {
