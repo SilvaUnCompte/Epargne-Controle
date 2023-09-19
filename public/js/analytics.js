@@ -1,0 +1,33 @@
+const email = document.getElementById("email").value;
+const datasheet = document.getElementById("datasheet");
+let accounts = [];
+
+
+onload = () => {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/database/api/get_accounts_by_user.php?email=" + email, true);
+    xhr.onload = () => {
+        if (xhr.status == 200) {
+            accounts = JSON.parse(xhr.responseText);
+
+            accounts.forEach(account => {
+                
+            });
+        }
+        else {
+            alert("Error getting accounts");
+        }
+    };
+    xhr.send();
+}
+
+function select(id) {
+    let card = document.getElementById("card-" + id);
+    card.style.backgroundColor = "#2ecc71";
+    card.style.color = "white";
+    card.style.fontWeight = "bold";
+    card.style.fontSize = "20px";
+    card.style.borderRadius = "10px";
+    card.style.padding = "10px";
+    card.style.margin = "10px";
+}

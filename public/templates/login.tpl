@@ -9,7 +9,7 @@
     <title>{$title}</title>
 </head>
 
-<link rel="stylesheet" href="/public/styles/login/login.css">
+<link rel="stylesheet" href="/public/styles/pages/login/login.css">
 
 
 <section id="section-core">

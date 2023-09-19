@@ -1,0 +1,33 @@
+.responsive-table {
+  background-color: #f5f5f5;
+  list-style-type: none;
+  padding: 0;
+}
+.responsive-table li {
+  align-items: center;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  height: 20px;
+}
+.responsive-table .table-header {
+  background-color: #95A5A6;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.responsive-table .table-row {
+  transition: transform 0.3s ease, width 0.3s ease 0.1s;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+}
+.responsive-table .table-row:hover {
+  background-color: #f5f5f5;
+}
+@media all and (max-width: 767px) {
+  .responsive-table li {
+    height: 5px;
+  }
+}/*# sourceMappingURL=table.css.map */
