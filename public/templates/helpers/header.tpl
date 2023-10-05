@@ -45,5 +45,6 @@
 		<li><a href="/controler/pages/index.php">Overview</a></li>
 		<li><a href="/controler/pages/accounts.php">Accounts</a></li>
 		<li><a href="#">Analytics</a></li>
-		<li><a href="#">Operations</a></li>
+		<li><a href="/controler/pages/operations.php">Operations</a></li>
+		<li><a href="/controler/pages/events.php">Events</a></li>
 </ul>

@@ -40,9 +40,6 @@
                 <input type="submit" value="Transfer">
             </fieldset>
         </form>
-
-
-
     </section>
 </section>
 
