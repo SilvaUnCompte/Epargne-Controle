@@ -8,10 +8,9 @@
                 <div class="col col-1">Label</div>
                 <div class="col col-2">Sold</div>
                 <div class="col col-3">Type</div>
-                <div class="col col-4">{*Actions*}</div>
+                <div class="col col-4">Actions</div>
             </li>
             <div id="datasheet">
-
             </div>
         </ul>
     </section>

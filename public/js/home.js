@@ -1,7 +1,6 @@
 const email = document.getElementById("email").value;
 const datasheet = document.getElementById("datasheet");
 let accounts = [];
-const nb_operations = 14;
 
 onload = () => {
     var xhr = new XMLHttpRequest();
@@ -12,23 +11,24 @@ onload = () => {
             // function createChart()
 
             var xhr2 = new XMLHttpRequest();
-            xhr2.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + accounts + "&limit=" + nb_operations, true);
+            xhr2.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + accounts + "&limit=" + 14, true);
             xhr2.onload = () => {
                 if (xhr2.status == 200) {
                     operations = JSON.parse(xhr2.responseText);
+                    nb_operations = operations.length;
 
                     for (let i = 0; i < nb_operations; i++) {
                         if (operations[i].regularity > 0) {
-                            datasheet.children[nb_operations-i-1].style.color = "grey";
-                            datasheet.children[nb_operations-i-1].style.fontStyle = "italic";
+                            datasheet.children[nb_operations - i - 1].style.color = "grey";
+                            datasheet.children[nb_operations - i - 1].style.fontStyle = "italic";
                         }
                         else if (operations[i].amount > 0) {
-                            datasheet.children[nb_operations-i-1].children[2].style.color = "green";
+                            datasheet.children[nb_operations - i - 1].children[2].style.color = "green";
                         }
-                        datasheet.children[nb_operations-i-1].children[0].innerHTML = operations[i].date;
-                        datasheet.children[nb_operations-i-1].children[1].innerHTML = operations[i].label;
-                        datasheet.children[nb_operations-i-1].children[2].innerHTML = (operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2) + " €";
-                        datasheet.children[nb_operations-i-1].children[3].innerHTML = operations[i].category == 0 ? "Groceries" : operations[i].category == 1 ? "Leisure" : operations[i].category == 2 ? "Rent" : operations[i].category == 3 ? "Health" : operations[i].category == 4 ? "Shopping" : "Other";
+                        datasheet.children[nb_operations - i - 1].children[0].innerHTML = operations[i].date;
+                        datasheet.children[nb_operations - i - 1].children[1].innerHTML = operations[i].label;
+                        datasheet.children[nb_operations - i - 1].children[2].innerHTML = (operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2) + " €";
+                        datasheet.children[nb_operations - i - 1].children[3].innerHTML = operations[i].category == 0 ? "Groceries" : operations[i].category == 1 ? "Leisure" : operations[i].category == 2 ? "Rent" : operations[i].category == 3 ? "Health" : operations[i].category == 4 ? "Shopping" : "Other";
                     }
                 }
                 else {

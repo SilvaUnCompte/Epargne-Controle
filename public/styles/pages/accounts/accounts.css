@@ -32,18 +32,6 @@
   color: #b1b1b1;
 }
 
-.card-action-buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-top: 1vw;
-}
-.card-action-buttons img {
-  height: 25px;
-  width: 25px;
-  display: flex;
-}
-
 .responsive-table .col-1 {
   flex-basis: 20%;
 }
@@ -54,6 +42,8 @@
   flex-basis: 20%;
 }
 .responsive-table .col-4 {
+  display: flex;
+  justify-content: center;
   flex-basis: 30%;
 }
 

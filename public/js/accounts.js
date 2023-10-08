@@ -15,13 +15,15 @@ onload = () => {
                         <div class="col col-2" data-label="Sold"> --- </div>
                         <div class="col col-3" data-label="Type"> --- </div>
                   
-                        <div class="col col-4 card-action-buttons">
-                            <a href="/controler/pages/manage/account.php?id=${account.id_account}&label=${account.label}&type=${account.type}"><img src="/assets/images/exit.png"></a>
-                            <a href="/controler/pages/analytics.php?id=${account.id_account}"><img src="/assets/images/exit.png"></a>
-                            <a onclick="delete_account(${account.id_account})"> <img src="/assets/images/exit.png"/></a>
+                        <div class="col col-4">
+                        <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element()">
+                        <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element()">
                         </div>
                     </tr>
                 `;
+                //  <a href="/controler/pages/manage/account.php?id=${account.id_account}&label=${account.label}&type=${account.type}"><img src="/assets/images/exit.png"></a>
+                //             <a href="/controler/pages/analytics.php?id=${account.id_account}"><img src="/assets/images/exit.png"></a>
+                //             <a onclick="delete_account(${account.id_account})"> <img src="/assets/images/exit.png"/></a>
             });
         }
         else {

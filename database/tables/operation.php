@@ -95,7 +95,6 @@ class Operation
     {
         return $this->id_account;
     }
-
     public function setLabel($label)
     {
         $this->label = $label;

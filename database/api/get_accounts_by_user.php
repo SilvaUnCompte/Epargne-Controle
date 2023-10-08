@@ -13,7 +13,7 @@ if (!isset($_SESSION['email'])) {
     exit;
 }
 
-$query = $db->prepare('SELECT id_account, label, type FROM bank_account WHERE user_email = :email');
+$query = $db->prepare('SELECT id_account, label, type FROM bank_account WHERE user_email = :email ORDER BY type ASC');
 $query->execute(['email' => $_SESSION['email']]);
 $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
