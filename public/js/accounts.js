@@ -11,19 +11,15 @@ onload = () => {
             accounts.forEach(account => {
                 datasheet.innerHTML += `
                     <li id="card-${account.id_account}" onclick="transfer(${account.id_account})" class="table-row">
-                        <div class="col col-1" data-label="Label"> --- </div>
-                        <div class="col col-2" data-label="Sold"> --- </div>
-                        <div class="col col-3" data-label="Type"> --- </div>
+                        <div class="col col-1" data-label="Label"> ${account.label} </div>
+                        <div class="col col-2" data-label="Sold"> ${account.sold.toFixed(2)} € </div>
+                        <div class="col col-3" data-label="Type"> ${account.type ? "Savings account" : "Checking account"} </div>
                   
                         <div class="col col-4">
-                        <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element()">
-                        <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element()">
+                            <img src="/assets/images/edit.png" alt="edit" class="card-button" onclick="edit_element(${account.id_account})">
+                            <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element(${account.id_account})">
                         </div>
-                    </tr>
-                `;
-                //  <a href="/controler/pages/manage/account.php?id=${account.id_account}&label=${account.label}&type=${account.type}"><img src="/assets/images/exit.png"></a>
-                //             <a href="/controler/pages/analytics.php?id=${account.id_account}"><img src="/assets/images/exit.png"></a>
-                //             <a onclick="delete_account(${account.id_account})"> <img src="/assets/images/exit.png"/></a>
+                    </tr>`;
             });
         }
         else {

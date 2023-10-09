@@ -34,18 +34,19 @@
 }
 
 .responsive-table .col-1 {
-  flex-basis: 20%;
+  flex-basis: 25%;
 }
 .responsive-table .col-2 {
   flex-basis: 30%;
 }
 .responsive-table .col-3 {
-  flex-basis: 20%;
+  flex-basis: 25%;
 }
 .responsive-table .col-4 {
   display: flex;
-  justify-content: center;
-  flex-basis: 30%;
+  justify-content: end;
+  flex-basis: 20%;
+  padding-right: 10px;
 }
 
 #transfer-field {
