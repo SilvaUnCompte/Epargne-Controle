@@ -1,4 +1,4 @@
-const email = document.getElementById("email").value;
+const email = '<%=Session["email"]%>'
 const datasheet = document.getElementById("datasheet");
 const date_to_search = document.getElementById("date-to-search");
 const operation_date = document.getElementById("operation_date");
@@ -10,9 +10,6 @@ onload = () => {
     fill_account_list();
     date_to_search.valueAsDate = new Date();
     operation_date.valueAsDate = new Date();
-    setTimeout(() => {
-        update_datasheet()
-    }, 100);
 }
 
 // Datasheet
@@ -49,63 +46,51 @@ function update_datasheet() {
     date = date_to_search.value;
     datasheet_clear();
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/database/api/get_accounts_by_user.php?email=" + email, true);
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + accounts + "&limit=14&date=" + date + "&regularity=0", true);
     xhr.onload = () => {
         if (xhr.status == 200) {
-            accounts = xhr.responseText;
+            operations = JSON.parse(xhr.responseText);
+            nb_operations = operations.length;
 
-            var xhr2 = new XMLHttpRequest();
-            xhr2.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + accounts + "&limit=14&date=" + date + "&regularity=0", true);
-            xhr2.onload = () => {
-                if (xhr2.status == 200) {
-                    operations = JSON.parse(xhr2.responseText);
-                    nb_operations = operations.length;
-
-                    for (let i = 0; i < nb_operations; i++) {
-                        if (operations[i].amount > 0) {
-                            datasheet.children[nb_operations - i - 1].children[2].style.color = "green";
-                        }
-                        else {
-                            datasheet.children[nb_operations - i - 1].children[2].style.color = "black";
-                        }
-                        datasheet.children[nb_operations - i - 1].children[0].innerHTML = operations[i].date;
-                        datasheet.children[nb_operations - i - 1].children[1].innerHTML = operations[i].label;
-                        datasheet.children[nb_operations - i - 1].children[2].innerHTML = (operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2) + " €";
-                        datasheet.children[nb_operations - i - 1].children[3].innerHTML = operations[i].category == 0 ? "Groceries" : operations[i].category == 1 ? "Leisure" : operations[i].category == 2 ? "Rent & utilities" : operations[i].category == 3 ? "Health" : operations[i].category == 4 ? "Shopping" : "Other";
-                        datasheet.children[nb_operations - i - 1].id = operations[i].id_operation;
-
-                        datasheet.children[nb_operations - i - 1].children[4].innerHTML = '<img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element(' + operations[i].id_operation + ')">';
-                    }
+            for (let i = 0; i < nb_operations; i++) {
+                if (operations[i].amount > 0) {
+                    datasheet.children[nb_operations - i - 1].children[2].style.color = "green";
                 }
                 else {
-                    alert("Error getting operations code #1");
+                    datasheet.children[nb_operations - i - 1].children[2].style.color = "black";
                 }
+                datasheet.children[nb_operations - i - 1].children[0].innerHTML = operations[i].date;
+                datasheet.children[nb_operations - i - 1].children[1].innerHTML = operations[i].label;
+                datasheet.children[nb_operations - i - 1].children[2].innerHTML = (operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2) + " €";
+                datasheet.children[nb_operations - i - 1].children[3].innerHTML = operations[i].category == 0 ? "Groceries" : operations[i].category == 1 ? "Leisure" : operations[i].category == 2 ? "Rent & utilities" : operations[i].category == 3 ? "Health" : operations[i].category == 4 ? "Shopping" : "Other";
+
+                datasheet.children[nb_operations - i - 1].children[4].innerHTML = '<img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element(' + operations[i].id_operation + ')">';
             }
-            xhr2.send();
         }
         else {
-            alert("Error getting operations code #2");
+            alert("Error getting operations code #1");
         }
-    };
+    }
     xhr.send();
 }
-
-// Operation creation
 
 function fill_account_list() {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/database/api/get_accounts_by_user.php?email=" + email, true);
     xhr.onload = () => {
         if (xhr.status == 200) {
-            let accounts = JSON.parse(xhr.responseText);
-            if (accounts.length == 0) {
+            accounts = xhr.responseText;
+            let accounts_list = JSON.parse(accounts);
+            if (accounts_list.length == 0) {
                 document.getElementById("add-field").disabled = true;
             }
 
-            accounts.forEach(account => {
+            accounts_list.forEach(account => {
                 account_list.innerHTML += `<option value="${account.id_account}">${account.label}</option>`;
             });
+
+            update_datasheet();
         }
         else {
             alert("Error getting accounts");
@@ -127,6 +112,9 @@ function creating_operation_pannel() {
 
 function create_operation() {
     label = document.getElementById("label").value;
+    if (label.length > 50) {
+        label = label.substring(0, 47) + "...";
+    }
     amount = document.getElementById("amount").value;
     category = document.getElementById("category").value;
 

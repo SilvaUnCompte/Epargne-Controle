@@ -42,6 +42,7 @@ header #page-name {
   font-size: 1.5em;
   font-weight: bold;
   margin: 0 10px;
+  white-space: nowrap;
 }
 header #navicon {
   display: none;

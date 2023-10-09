@@ -1,4 +1,4 @@
-const email = document.getElementById("email").value;
+const email = '<%=Session["email"]%>'
 const datasheet = document.getElementById("datasheet");
 
 onload = () => {

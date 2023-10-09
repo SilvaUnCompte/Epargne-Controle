@@ -35,7 +35,7 @@ input[type="date"] {
     width: 151px;
 }
 
-input[type="date"]:disabled {
+select:disabled, input:disabled {
     background-color: rgb(221, 221, 221);
 }
 

@@ -32,7 +32,6 @@
 				<a id="username">
 					{$smarty.session.username}
 				</a>
-				<input type="hidden" id="email" value="{$smarty.session.email}" />
 				<a href="/controler/login/logout.php">
 					<img id="exit_icon" src="/assets/images/exit.png" alt="exit" width="50" height="50" loading="lazy">
 				</a>
