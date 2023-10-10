@@ -47,16 +47,6 @@
   margin: 25px;
   background-color: #f7f4f4;
 }
-#add-pannel #add-form #add-field #create-operation {
-  margin: auto;
-  padding: 5px 20px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-}
-#add-pannel #add-form #add-field #create-operation:hover {
-  background-color: #ececec;
-}
 #add-pannel #add-form #add-field div {
   display: flex;
   flex-direction: column;

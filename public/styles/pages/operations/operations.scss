@@ -48,18 +48,6 @@
             margin: 25px;
             background-color: #f7f4f4;
 
-            #create-operation {
-                margin: auto;
-                padding: 5px 20px;
-                border-radius: 5px;
-                box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5);
-                cursor: pointer;
-
-                &:hover {
-                    background-color: #ececec;
-                }
-            }
-
             div {
                 display: flex;
                 flex-direction: column;

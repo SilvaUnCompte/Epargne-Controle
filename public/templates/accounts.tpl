@@ -29,16 +29,15 @@
             <p>Select an account to transfer to</p>
         </div>
 
-        <form action="/accounts/transfer" method="POST">
-            <fieldset id="transfer-field" disabled>
-                <input type="number" name="amount" placeholder="100€"
-                    required="We need to know how much you want to transfer">
-                <input type="hidden" name="from" id="from">
-                <input type="hidden" name="to" id="to">
-                <input type="text" name="label" id="label" placeholder="Label">
-                <input type="submit" value="Transfer">
-            </fieldset>
-        </form>
+        <fieldset id="transfer-field" disabled>
+            <input type="number" name="amount" id="amount" placeholder="100€"
+                required="We need to know how much you want to transfer">
+            <input type="hidden" name="from" id="from">
+            <input type="hidden" name="to" id="to">
+            <input type="text" name="label" id="label" placeholder="Label">
+            <input type="date" name="date" id="date" required>
+            <a id="create-transfer" class="valide_button" onclick="process_transfer()">Transfer</a>
+        </fieldset>
     </section>
 </section>
 

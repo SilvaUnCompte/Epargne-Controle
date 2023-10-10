@@ -37,16 +37,6 @@
 #event-board #event-form .row-field .column-field input {
   width: 100%;
 }
-#event-board #event-form #create-event {
-  margin: 15px 3vw 0px auto;
-  padding: 5px 20px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-}
-#event-board #event-form #create-event:hover {
-  background-color: #ececec;
-}
 #event-board #event-list {
   margin-top: 15px;
   width: 95%;

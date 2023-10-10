@@ -1,7 +1,11 @@
 const email = '<%=Session["email"]%>'
 const datasheet = document.getElementById("datasheet");
+const date = document.getElementById("date");
+const amount = document.getElementById("amount");
+let transfer_data = [null, null];
 
 onload = () => {
+    date.valueAsDate = new Date();
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/database/api/get_accounts_by_user.php?email=" + email, true);
     xhr.onload = () => {
@@ -10,7 +14,7 @@ onload = () => {
 
             accounts.forEach(account => {
                 datasheet.innerHTML += `
-                    <li id="card-${account.id_account}" onclick="transfer(${account.id_account})" class="table-row">
+                    <li id="card-${account.id_account}" onclick="manage_account_transfer(${account.id_account})" class="table-row">
                         <div class="col col-1" data-label="Label"> ${account.label} </div>
                         <div class="col col-2" data-label="Sold"> ${account.sold.toFixed(2)} € </div>
                         <div class="col col-3" data-label="Type"> ${account.type ? "Savings account" : "Checking account"} </div>
@@ -29,9 +33,7 @@ onload = () => {
     xhr.send();
 }
 
-let transfer_data = [null, null];
-
-function transfer(id) {
+function manage_account_transfer(id) {
     if ((transfer_data[0] == id) || (transfer_data[1] == id)) {
         document.getElementById("card-" + id).style = "";
 
@@ -69,6 +71,27 @@ function transfer_animation_on(id, postion) {
 
     // Adapte size
     card.style.width = "90%";
+}
+
+function process_transfer() {
+    if (transfer_data[0] == null || transfer_data[1] == null || date.value == "" || amount.value == null) {
+        alert("Please fill all fields");
+    }
+    else {
+        label = `Transfer-from-${transfer_data[0]}-to-${transfer_data[1]}`;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", `/controler/creating_elements/transaction.php?from=${transfer_data[0]}&to=${transfer_data[1]}&label=${label}&date=${date.value}&amount=${amount.value}`, true);
+        xhr.onload = () => {
+            if (xhr.status == 200) {
+                update_datasheet();
+            }
+            else {
+                alert("Error process transaction");
+            }
+            xhr.send();
+        }
+    }
 }
 
 window.addEventListener('resize', () => {

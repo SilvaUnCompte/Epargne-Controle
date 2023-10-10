@@ -65,8 +65,8 @@
                     <label for="label">Label</label>
                     <input type="text" name="label" id="label" placeholder="Label" required>
                 </div>
-                
-                <a id="create-operation" onclick="create_operation()">Create</a>
+
+                <a id="create-operation" class="valide_button" onclick="create_operation()">Create</a>
 
             </fieldset>
         </form>

@@ -55,6 +55,17 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.valide_button {
+  margin: 15px 3vw 0px auto;
+  padding: 5px 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+.valide_button:hover {
+  background-color: #ececec;
+}
+
 @media all and (max-width: 767px) {
   * {
     font-size: small;
