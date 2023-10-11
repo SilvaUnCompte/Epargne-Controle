@@ -2,6 +2,7 @@ const email = '<%=Session["email"]%>'
 const datasheet = document.getElementById("datasheet");
 const date = document.getElementById("date");
 const amount = document.getElementById("amount");
+const label = document.getElementById("label");
 let transfer_data = [null, null];
 
 onload = () => {
@@ -78,23 +79,24 @@ function process_transfer() {
         alert("Please fill all fields");
     }
     else {
-        label = `Transfer-from-${transfer_data[0]}-to-${transfer_data[1]}`;
+
+        label_val = label.value == "" ? "Transfer" : label.value;
 
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", `/controler/creating_elements/transaction.php?from=${transfer_data[0]}&to=${transfer_data[1]}&label=${label}&date=${date.value}&amount=${amount.value}`, true);
+        xhr.open("GET", `/controler/creating_elements/transaction.php?from=${transfer_data[0]}&to=${transfer_data[1]}&label=${label_val}&date=${date.value}&amount=${amount.value}`, true);
         xhr.onload = () => {
             if (xhr.status == 200) {
-                update_datasheet();
+                undo_transfer();
             }
             else {
                 alert("Error process transaction");
             }
-            xhr.send();
         }
+        xhr.send();
     }
 }
 
-window.addEventListener('resize', () => {
+function undo_transfer() {
     if (transfer_data[0] != null) {
         document.getElementById("card-" + transfer_data[0]).style = "";
     }
@@ -103,4 +105,8 @@ window.addEventListener('resize', () => {
     }
     transfer_data = [null, null];
     document.getElementById("transfer-field").disabled = true;
-});
+    label.value = "";
+    amount.value = "";
+}
+
+window.addEventListener('resize', undo_transfer());

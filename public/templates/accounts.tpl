@@ -13,6 +13,7 @@
             <div id="datasheet">
             </div>
         </ul>
+        <a id="create-account" class="valide_button" onclick="create_account()">Create account</a>
     </section>
 
 
@@ -23,19 +24,19 @@
             <p>Select an account to transfer from</p>
         </div>
 
-        <img src="/public/images/arrow.png" alt="arrow" class="arrow">
+        <img src="/assets/images/arrow.png" alt="arrow" class="arrow" width="70px">
 
         <div id="selected-account-1" class="back-table-row">
             <p>Select an account to transfer to</p>
         </div>
 
         <fieldset id="transfer-field" disabled>
-            <input type="number" name="amount" id="amount" placeholder="100€"
-                required="We need to know how much you want to transfer">
-            <input type="hidden" name="from" id="from">
-            <input type="hidden" name="to" id="to">
             <input type="text" name="label" id="label" placeholder="Label">
-            <input type="date" name="date" id="date" required>
+            <div>
+                <input type="number" name="amount" id="amount" placeholder="100€"
+                    required="We need to know how much you want to transfer">
+                <input type="date" name="date" id="date" required>
+            </div>
             <a id="create-transfer" class="valide_button" onclick="process_transfer()">Transfer</a>
         </fieldset>
     </section>
