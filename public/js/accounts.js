@@ -3,9 +3,14 @@ const datasheet = document.getElementById("datasheet");
 const date = document.getElementById("date");
 const amount = document.getElementById("amount");
 const label = document.getElementById("label");
+const create_account_field = document.getElementById("create-account-field");
 let transfer_data = [null, null];
 
+window.addEventListener('resize', undo_transfer());
+function f_onload() { onload(); }
+
 onload = () => {
+    datasheet.innerHTML = "";
     date.valueAsDate = new Date();
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/database/api/get_accounts_by_user.php?email=" + email, true);
@@ -28,12 +33,12 @@ onload = () => {
             accounts.forEach(account => {
                 datasheet.innerHTML += `
                     <li id="card-${account.id_account}" onclick="manage_account_transfer(${account.id_account})" class="table-row">
-                        <div class="col col-1" data-label="Label"> ${account.label} </div>
-                        <div class="col col-2" data-label="Sold"> ${account.sold.toFixed(2)} € </div>
-                        <div class="col col-3" data-label="Type"> ${account.type ? "Savings account" : "Checking account"} </div>
+                        <div class="col col-1" data-label="Label">${account.label}</div>
+                        <div class="col col-2" data-label="Sold">${account.sold.toFixed(2)} € </div>
+                        <div class="col col-3" data-label="Type">${account.type ? "Savings account" : "Checking account"}</div>
 
                         <div class="col col-4" data-label="Actions">
-                            <img src="/assets/images/edit.png" alt="edit" class="card-button" onclick="edit_element(${account.id_account})">
+                            <img src="/assets/images/edit.png" alt="edit" class="card-button" onclick="edit_element(${account.id_account},this)">
                             <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element(${account.id_account})">
                         </div>
                     </tr>`;
@@ -121,4 +126,104 @@ function undo_transfer() {
     amount.value = "";
 }
 
-window.addEventListener('resize', undo_transfer());
+function create_account() {
+    if (create_account_field.style.display != "block") {
+        create_account_field.style.display = "block";
+    }
+    else {
+        const acc_label = document.getElementById("create-account-label");
+        const acc_type = document.getElementById("create-account-type");
+        const acc_sold = document.getElementById("create-account-sold");
+
+        if (acc_label.value == "" || acc_type.value == "") {
+            new_popup("Please fill all fields", "warn");
+        }
+        else {
+            if (acc_sold.value == "") {
+                acc_sold.value = 0;
+            }
+
+            var xhr = new XMLHttpRequest();
+            console.log(`/controler/creating_elements/account.php?label=${acc_label.value}&type=${acc_type.value}&sold=${acc_sold.value}`);
+            xhr.open("GET", `/controler/creating_elements/account.php?label=${acc_label.value}&type=${acc_type.value}&sold=${acc_sold.value}`, true);
+            xhr.onload = () => {
+                if (xhr.status == 200) {
+                    new_popup("Account created", "success");
+                    acc_label.value = "";
+                    acc_sold.value = "";
+                    onload();
+                    create_account_field.style.display = "none";
+                }
+                else {
+                    new_popup("Error creating account", "error")
+                }
+            }
+            xhr.send();
+        }
+    }
+}
+
+function edit_element(id, element) {
+    card = element.parentNode.parentNode;
+
+    card.onclick = "";
+    card.innerHTML = `
+        <input class="col col-1" data-label="Label" value="${card.children[0].innerHTML}" />
+        <select class="col col-2" data-label="Type">
+            <option value="0">Checking account</option>
+            <option value="1" ${card.children[2].innerHTML == "Savings account" ? "selected" : ""}>Savings account</option>
+        </select>
+        <div class="col col-3" data-label="Actions">
+            <img src="/assets/images/confirm.png" alt="confirm" class="card-button" onclick='confirm_edit_element(this.parentNode.parentNode.children[0].value, this.parentNode.parentNode.children[1].value, ${id})'>
+            <img src="/assets/images/cancel.png" alt="cancel" class="card-button" onclick="f_onload()">
+        </div>`;
+
+    setTimeout(() => {
+        undo_transfer();
+    }, 1);
+}
+
+function confirm_edit_element(label, type, id) {
+    console.log(label, type, id);
+
+    if (label == "" || type == "") {
+        new_popup("Please fill all fields", "warn");
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", `/controler/updating_elements/account.php?id=${id}&label=${label}&type=${type}`, true);
+        xhr.onload = () => {
+            if (xhr.status == 200) {
+                new_popup("Account updated", "success");
+                onload();
+            }
+            else {
+                new_popup("Error updating account", "error")
+            }
+        }
+        xhr.send();
+    }
+}
+
+function delete_element(id) {
+    if (confirm("Are you sure you want to delete this account?")) {
+        if (confirm("Are you REALLY sure? It will delete all transactions linked to this account. I mean, are you REALLY REALLY sure? I can't do anything if you regret it after.")) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", `/controler/deleting_elements/account.php?id=${id}`, true);
+            xhr.onload = () => {
+                if (xhr.status == 200) {
+                    new_popup("Account deleted", "success");
+                    onload();
+                }
+                else {
+                    new_popup("Error deleting account", "error")
+                }
+            }
+            xhr.send();
+        }
+    }
+
+    setTimeout(() => {
+        undo_transfer();
+    }, 1);
+}

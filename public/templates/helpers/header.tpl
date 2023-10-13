@@ -17,7 +17,7 @@
 	<title>{$title}</title>
 </head>
 
-<body id="test">
+<body>
 
 	<div id="dark"></div>
 

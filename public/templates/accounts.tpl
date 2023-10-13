@@ -13,6 +13,21 @@
             <div id="datasheet">
             </div>
         </ul>
+
+        <section id="create-account-field">
+            <h1>Create account</h1>
+            <input type="text" name="label" id="create-account-label" placeholder="Label" required>
+            <input type="number" name="sold" id="create-account-sold" placeholder="100€" required>
+            <select name="type" id="create-account-type" required>
+                <option value="0">Checking</option>
+                <option value="1">Saving</option>
+            </select>
+            <div id="cancel-account">
+            <a class="valide_button noselect"
+                onclick='create_account_field.style.display = "none"'>Cancel</a>
+            </div>
+        </section>
+
         <a id="create-account" class="valide_button noselect" onclick="create_account()">Create account</a>
     </section>
 

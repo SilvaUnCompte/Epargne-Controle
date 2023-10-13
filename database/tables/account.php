@@ -36,7 +36,7 @@ class Account
     {
         global $db;
 
-        $query = $db->prepare('UPDATE user SET username = :username, password = :password, salt = :salt WHERE id_account = :id_account');
+        $query = $db->prepare('UPDATE bank_account SET label = :label, type = :type, user_email = :user_email WHERE id_account = :id_account');
 
         $query->execute([
             'id_account' => $this->id_account,
@@ -86,6 +86,8 @@ class Account
             'type' => $type,
             'user_email' => $user_email
         ]);
+
+        return $db->lastInsertId();
     }
 
     public static function deleteAccount($id_account)
