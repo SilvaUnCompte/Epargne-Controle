@@ -20,7 +20,7 @@
                 {/for}
             </div>
         </ul>
-        <a id="create-transfer" class="valide_button" href="/controler/pages/operations.php">Add Operation</a>
+        <a id="create-transfer" class="valide_button noselect" href="/controler/pages/operations.php">Add Operation</a>
     </section>
 
     {* col gauche avec liste mouvement bancaire récent X dernier à partir de date ajd *}

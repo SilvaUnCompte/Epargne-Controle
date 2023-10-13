@@ -10,12 +10,17 @@ onload = () => {
         if (xhr.status == 200) {
             accounts = JSON.parse(xhr.responseText);
 
-            accounts.forEach(account => {
+            if (accounts.length == 0) {
+                new_popup("There is no account yet", "info");
+                return;
+            }
+
+            // accounts.forEach(account => {
                 
-            });
+            // });
         }
         else {
-            alert("Error getting accounts");
+            new_popup("Error getting accounts", "error");
         }
     };
     xhr.send();

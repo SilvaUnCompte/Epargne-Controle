@@ -13,7 +13,7 @@
             <div id="datasheet">
             </div>
         </ul>
-        <a id="create-account" class="valide_button" onclick="create_account()">Create account</a>
+        <a id="create-account" class="valide_button noselect" onclick="create_account()">Create account</a>
     </section>
 
 
@@ -37,7 +37,7 @@
                     required="We need to know how much you want to transfer">
                 <input type="date" name="date" id="date" required>
             </div>
-            <a id="create-transfer" class="valide_button" onclick="process_transfer()">Transfer</a>
+            <a id="create-transfer" class="valide_button noselect" onclick="process_transfer()">Transfer</a>
         </fieldset>
     </section>
 </section>

@@ -10,6 +10,11 @@ onload = () => {
             accounts = xhr.responseText;
             // function createChart()
 
+            if (JSON.parse(accounts).length == 0) {
+                new_popup("There is no account yet", "info");
+                return;
+            }
+
             var xhr2 = new XMLHttpRequest();
             xhr2.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + accounts + "&limit=" + 14, true);
             xhr2.onload = () => {
@@ -32,13 +37,13 @@ onload = () => {
                     }
                 }
                 else {
-                    alert("Error getting operations");
+                    new_popup("Error getting operations", "error");
                 }
             }
             xhr2.send();
         }
         else {
-            alert("Error getting accounts");
+            new_popup("Error getting accounts", "error");
         }
     };
     xhr.send();

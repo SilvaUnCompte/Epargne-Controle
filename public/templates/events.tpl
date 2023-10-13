@@ -55,7 +55,7 @@
                 </select>
             </div>
         </div>
-        <a id="create-event" class="valide_button" onclick="create_event()">Create</a>
+        <a id="create-event" class="valide_button noselect" onclick="create_event()">Create</a>
     </fieldset>
 
     <section id="event-list">

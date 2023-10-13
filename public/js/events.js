@@ -16,9 +16,10 @@ function delete_element(event_id) {
         xhr.onload = () => {
             if (xhr.status == 200) {
                 update_datasheet();
+                new_popup("Event deleted", "success");
             }
             else {
-                alert("Error deleting operation");
+                new_popup("Error deleting operation", "error");
             }
         }
         xhr.send();
@@ -35,6 +36,11 @@ function update_datasheet() {
         if (xhr.status == 200) {
             events = JSON.parse(xhr.responseText);
             nb_events = events.length;
+
+            if (nb_events == 0) {
+                new_popup("There is no event at this date", "info");
+                return;
+            }
 
             if (nb_events == 0) {
                 datasheet.innerHTML += `<li class="table-row">
@@ -71,7 +77,7 @@ function update_datasheet() {
             }
         }
         else {
-            alert("Error getting events code #1");
+            new_popup("Error getting events code #1", "error");
         }
     }
     xhr.send();
@@ -86,7 +92,9 @@ function fill_account_list() {
             accounts_list = JSON.parse(xhr.responseText);
 
             if (accounts_list.length == 0) {
+                new_popup("There is no account yet", "info");
                 document.getElementById("event-form").disabled = true;
+                return;
             }
 
             accounts_list.forEach(account => {
@@ -96,7 +104,7 @@ function fill_account_list() {
             update_datasheet();
         }
         else {
-            alert("Error getting accounts");
+            new_popup("Error getting accounts", "error");
         }
     };
     xhr.send();
@@ -115,7 +123,7 @@ function create_event() {
     }
 
     if (label == "" || amount == "" || category == "" || start == "" || end == "" || frequency == "" || account == 0) {
-        alert("Please fill all the fields");
+        new_popup("Please fill all the fields", "warn");
     }
     else {
         var xhr = new XMLHttpRequest();
@@ -134,9 +142,10 @@ function create_event() {
                 document.getElementById("event_start").value = "";
                 document.getElementById("event_end").value = "";
                 document.getElementById("category").value = 0;
+                new_popup("Event created", "success");
             }
             else {
-                alert("Unknow error creating event");
+                new_popup("Unknow error creating event", "error");
             }
         };
         xhr.send();

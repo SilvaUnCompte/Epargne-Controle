@@ -10,8 +10,10 @@
 	<meta name="theme-color" content="#424549" />
 
 	<script src="/public/js/navbar.js" type="text/javascript"></script>
+	<script src="/public/js/popup.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="/public/styles/header/header.css">
 	<link rel="stylesheet" href="/public/styles/generics/generics.css">
+	<link rel="stylesheet" href="/public/styles/popup/popup.css">
 	<title>{$title}</title>
 </head>
 

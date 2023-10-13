@@ -20,10 +20,11 @@ function delete_element(element_id) {
         xhr.open("GET", "/controler/deleting_elements/operation.php?id=" + element_id, true);
         xhr.onload = () => {
             if (xhr.status == 200) {
+                new_popup("Operation deleted", "success");
                 update_datasheet();
             }
             else {
-                alert("Error deleting operation");
+                new_popup("Error deleting operation", "error")
             }
         }
         xhr.send();
@@ -53,6 +54,11 @@ function update_datasheet() {
             operations = JSON.parse(xhr.responseText);
             nb_operations = operations.length;
 
+            if (nb_operations == 0) {
+                new_popup("There is no operation at this date", "info");
+                return;
+            }
+
             for (let i = 0; i < nb_operations; i++) {
                 if (operations[i].amount > 0) {
                     datasheet.children[nb_operations - i - 1].children[2].style.color = "green";
@@ -69,7 +75,7 @@ function update_datasheet() {
             }
         }
         else {
-            alert("Error getting operations code #1");
+            new_popup("Error getting operations code #1", "error")
         }
     }
     xhr.send();
@@ -83,7 +89,9 @@ function fill_account_list() {
             accounts = xhr.responseText;
             let accounts_list = JSON.parse(accounts);
             if (accounts_list.length == 0) {
+                new_popup("There is no account yet", "info");
                 document.getElementById("add-field").disabled = true;
+                return;
             }
 
             accounts_list.forEach(account => {
@@ -93,7 +101,7 @@ function fill_account_list() {
             update_datasheet();
         }
         else {
-            alert("Error getting accounts");
+            new_popup("Error getting accounts code #2", "error")
         }
     };
     xhr.send();
@@ -119,7 +127,7 @@ function create_operation() {
     category = document.getElementById("category").value;
 
     if (amount == "" || label == "" || operation_date.value == "") {
-        alert("Please fill all the fields");
+        new_popup("Please fill all the fields", "warn")
     }
     else {
         var xhr = new XMLHttpRequest();
@@ -134,9 +142,10 @@ function create_operation() {
                 document.getElementById("label").value = "";
                 document.getElementById("amount").value = "";
                 document.getElementById("category").value = 0;
+                new_popup("Operation created", "success");
             }
             else {
-                alert("Unknow error creating operations");
+                new_popup("Unknow error creating operations", "error");
             }
         };
         xhr.send();

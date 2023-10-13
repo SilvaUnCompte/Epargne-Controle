@@ -13,14 +13,26 @@ onload = () => {
         if (xhr.status == 200) {
             let accounts = JSON.parse(xhr.responseText);
 
+            if (accounts.length == 0) {
+                datasheet.innerHTML = `<li class="table-row">
+                        <div class="col col-1" data-label="Label"> --- </div>
+                        <div class="col col-2" data-label="Sold"> --- </div>
+                        <div class="col col-3" data-label="Type"> --- </div>
+
+                        <div class="col col-4" data-label="Actions"> </div>
+                    </tr>`;
+                new_popup("There is no account yet", "info");
+                return;
+            }
+
             accounts.forEach(account => {
                 datasheet.innerHTML += `
                     <li id="card-${account.id_account}" onclick="manage_account_transfer(${account.id_account})" class="table-row">
                         <div class="col col-1" data-label="Label"> ${account.label} </div>
                         <div class="col col-2" data-label="Sold"> ${account.sold.toFixed(2)} € </div>
                         <div class="col col-3" data-label="Type"> ${account.type ? "Savings account" : "Checking account"} </div>
-                  
-                        <div class="col col-4">
+
+                        <div class="col col-4" data-label="Actions">
                             <img src="/assets/images/edit.png" alt="edit" class="card-button" onclick="edit_element(${account.id_account})">
                             <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element(${account.id_account})">
                         </div>
@@ -28,7 +40,7 @@ onload = () => {
             });
         }
         else {
-            alert("Error getting accounts");
+            new_popup("Error getting accounts", "error")
         }
     };
     xhr.send();
@@ -75,21 +87,21 @@ function transfer_animation_on(id, postion) {
 }
 
 function process_transfer() {
-    if (transfer_data[0] == null || transfer_data[1] == null || date.value == "" || amount.value == null) {
-        alert("Please fill all fields");
+    if (transfer_data[0] == null || transfer_data[1] == null || date.value == "" || amount.value == "") {
+        new_popup("Please fill all fields", "warn");
     }
     else {
-
         label_val = label.value == "" ? "Transfer" : label.value;
 
         var xhr = new XMLHttpRequest();
         xhr.open("GET", `/controler/creating_elements/transaction.php?from=${transfer_data[0]}&to=${transfer_data[1]}&label=${label_val}&date=${date.value}&amount=${amount.value}`, true);
         xhr.onload = () => {
             if (xhr.status == 200) {
+                new_popup("Transaction process", "success");
                 undo_transfer();
             }
             else {
-                alert("Error process transaction");
+                new_popup("Error process transaction", "error")
             }
         }
         xhr.send();
