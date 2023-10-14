@@ -44,8 +44,6 @@
     </section>
 </section>
 
-
-
 <link rel="stylesheet" href="/public/styles/pages/home/home.css">
 <link rel="stylesheet" href="/public/styles/table/table.css">
 <link rel="stylesheet" href="/public/styles/generics/generics.css">

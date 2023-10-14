@@ -1,70 +1,69 @@
-* {
-  margin: 0;
-  padding: 0;
-  font-family: "poppins", sans-serif;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #ffffff;
+  -webkit-transition: background-color 5000s ease-in-out 0s;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px rgba(35, 35, 35, 0);
 }
 
-section {
+#section-core {
+  position: absolute;
+  z-index: 150;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100%;
+  width: 100vw;
+  -webkit-backdrop-filter: blur(5px) saturate(15%) brightness(35%);
+          backdrop-filter: blur(5px) saturate(15%) brightness(35%);
 }
-
-body {
-  background: url("/assets/images/intern_bg.webp") no-repeat center;
-  background-size: cover;
-}
-
-.form-box {
+#section-core .form-box {
   position: relative;
   width: 400px;
   height: 450px;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 20px;
-  -webkit-backdrop-filter: blur(15px);
-          backdrop-filter: blur(15px);
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-.register-box {
+#section-core .register-box {
   height: 570px;
 }
-
-.input-check {
+#section-core .input-check {
   display: flex;
   width: 100%;
   justify-content: center;
   align-items: center;
   margin: 20px 0;
 }
-.input-check label {
+#section-core .input-check label {
   padding-left: 10px;
   color: #fff;
   font-size: 1em;
 }
-.input-check input {
+#section-core .input-check input {
   width: 20px;
   height: 20px;
 }
-
-h2 {
+#section-core h2 {
   font-size: 2em;
   color: #fff;
   text-align: center;
 }
-
-.input-box {
+#section-core .input-box {
   position: relative;
   margin: 30px 0;
   width: 310px;
   border-bottom: 2px solid #fff;
 }
-.input-box label {
+#section-core .input-box label {
   position: absolute;
   top: 50%;
   left: 5px;
@@ -74,7 +73,7 @@ h2 {
   pointer-events: none;
   transition: 0.3s;
 }
-.input-box input {
+#section-core .input-box input {
   width: 100%;
   height: 50px;
   background: transparent;
@@ -84,24 +83,23 @@ h2 {
   padding: 0 35px 0 5px;
   color: #fff;
 }
-.input-box input:not(:-moz-placeholder-shown) ~ label {
+#section-core .input-box input:not(:-moz-placeholder-shown) ~ label {
   top: 0px;
   font-size: 0.9em;
 }
-.input-box input:focus ~ label,
-.input-box input:not(:placeholder-shown) ~ label {
+#section-core .input-box input:focus ~ label,
+#section-core .input-box input:not(:placeholder-shown) ~ label {
   top: 0px;
   font-size: 0.9em;
 }
-.input-box ion-icon {
+#section-core .input-box ion-icon {
   position: absolute;
   right: 8px;
   color: #fff;
   font-size: 1.2em;
   top: 20px;
 }
-
-input[type=submit] {
+#section-core input[type=submit] {
   width: 100%;
   height: 40px;
   border-radius: 40px;
@@ -112,49 +110,44 @@ input[type=submit] {
   font-size: 1em;
   font-weight: 600;
 }
-
-.register {
+#section-core .register {
   font-size: 0.9em;
   color: #fff;
   text-align: center;
   margin: 20px 0 10px;
 }
-.register p a {
+#section-core .register p a {
   text-decoration: none;
   color: #fff;
   font-weight: 600;
 }
-.register p a:hover {
+#section-core .register p a:hover {
   text-decoration: underline;
 }
-
-.error,
-.success {
+#section-core .error,
+#section-core .success {
   font-size: 1em;
   margin: 0 0 10px 0;
   text-align: center;
   font-weight: 600;
 }
-
-.error {
+#section-core .error {
   color: red;
 }
-
-.success {
+#section-core .success {
   color: rgb(6, 185, 6);
 }
-
-.forget {
+#section-core .forget {
   margin: -15px 0 15px;
   font-size: 0.9em;
   color: #fff;
   display: flex;
   justify-content: center;
 }
-.forget a {
+#section-core .forget a {
   color: #fff;
   text-decoration: none;
 }
-.forget a:hover {
+#section-core .forget a:hover {
   text-decoration: underline;
 }/*# sourceMappingURL=login.css.map */
