@@ -23,8 +23,9 @@
                 <option value="1">Saving</option>
             </select>
             <div id="cancel-account">
+            <a id="create-account-2" class="valide_button noselect" onclick="create_account()">Create account</a>
             <a class="valide_button noselect"
-                onclick='create_account_field.style.display = "none"'>Cancel</a>
+                onclick='cancel_create_account()'>Cancel</a>
             </div>
         </section>
 
@@ -57,8 +58,6 @@
     </section>
 </section>
 
-
-<link rel="stylesheet" href="/public/styles/generics/generics.css">
 <link rel="stylesheet" href="/public/styles/table/table.css">
 <link rel="stylesheet" href="/public/styles/pages/accounts/accounts.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

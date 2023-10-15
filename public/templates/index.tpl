@@ -46,7 +46,6 @@
 
 <link rel="stylesheet" href="/public/styles/pages/home/home.css">
 <link rel="stylesheet" href="/public/styles/table/table.css">
-<link rel="stylesheet" href="/public/styles/generics/generics.css">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/public/js/home.js" type="text/javascript"></script>

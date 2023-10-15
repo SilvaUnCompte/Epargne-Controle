@@ -77,7 +77,6 @@
 
 <link rel="stylesheet" href="/public/styles/pages/operations/operations.css">
 <link rel="stylesheet" href="/public/styles/table/table.css">
-<link rel="stylesheet" href="/public/styles/generics/generics.css">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/public/js/operations.js" type="text/javascript"></script>

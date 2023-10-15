@@ -23,10 +23,6 @@
 
 	<header id="header">
 		<nav class="first-header">
-			{if session_status() !== PHP_SESSION_ACTIVE}
-				{session_start()}
-			{/if}
-
 			<img id="navicon" src="/assets/images/navicon.webp" alt="navicon" loading="lazy" onclick="show_navbar()">
 			<a id="page-name">{$page_name}</a>
 
@@ -41,11 +37,12 @@
 		</nav>
 	</header>
 
+	<div class="corner-back"></div>
 	<ul id="side-menu">
 		<div class="corner"></div>
 		<li><a href="/controler/pages/index.php">Overview</a></li>
 		<li><a href="/controler/pages/accounts.php">Accounts</a></li>
-		<li><a href="#">Analytics</a></li>
+		<li><a href="/controler/pages/analytics.php">Analytics</a></li>
 		<li><a href="/controler/pages/operations.php">Operations</a></li>
 		<li><a href="/controler/pages/events.php">Events</a></li>
 </ul>
