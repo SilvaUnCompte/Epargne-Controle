@@ -59,12 +59,14 @@ header {
     }
 }
 
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    padding: 5px 10px;
-    background-color: #d4d4d4;
+.corner-back {
+    background-color: #c5c5c5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: $margin-left;
+    height: $header-height;
 }
 
 #side-menu {
@@ -99,6 +101,14 @@ footer {
         list-style: none;
     }
     
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 5px 10px;
+    background-color: #d4d4d4;
 }
 
 @media all and (max-width: $phone-width) {

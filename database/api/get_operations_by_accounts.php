@@ -13,7 +13,6 @@ if (!isset($_SESSION['email'])) {
 }
 
 $arg = json_decode($_GET["accounts"]);
-$limit = json_decode($_GET["limit"]);
 
 if (isset($_GET["date"])) {
     $date = $_GET["date"];
@@ -21,17 +20,21 @@ if (isset($_GET["date"])) {
     $date = date("Y-m-d");
 }
 
+$limit = "";
+if (isset($_GET["limit"])) {
+    $limit = ' LIMIT ' . $_GET["limit"];
+}
+
 $regularity = "";
 if (isset($_GET["regularity"])) {
     $regularity = "AND regularity = " . $_GET["regularity"];
 }
 
-// Get all id accounts
 foreach ($arg as $key => $value) {
     $accounts[] = $value->id_account;
 }
 
-$query = $db->prepare('SELECT * FROM operation WHERE id_account IN (' . implode(',', $accounts) . ') ' . $regularity . ' AND date <= \'' . $date . '\' ORDER BY date DESC LIMIT ' . $limit);
+$query = $db->prepare('SELECT * FROM operation WHERE id_account IN (' . implode(',', $accounts) . ') ' . $regularity . ' AND date <= \'' . $date . '\' ORDER BY date DESC' . $limit);
 $query->execute();
 $result = $query->fetchAll(PDO::FETCH_ASSOC);
 

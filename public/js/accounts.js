@@ -4,6 +4,7 @@ const date = document.getElementById("date");
 const amount = document.getElementById("amount");
 const label = document.getElementById("label");
 const create_account_field = document.getElementById("create-account-field");
+const create_account_button = document.getElementById("create-account");
 let transfer_data = [null, null];
 
 window.addEventListener('resize', undo_transfer());
@@ -129,6 +130,7 @@ function undo_transfer() {
 function create_account() {
     if (create_account_field.style.display != "block") {
         create_account_field.style.display = "block";
+        create_account_button.style.display = "none";
     }
     else {
         const acc_label = document.getElementById("create-account-label");
@@ -144,7 +146,6 @@ function create_account() {
             }
 
             var xhr = new XMLHttpRequest();
-            console.log(`/controler/creating_elements/account.php?label=${acc_label.value}&type=${acc_type.value}&sold=${acc_sold.value}`);
             xhr.open("GET", `/controler/creating_elements/account.php?label=${acc_label.value}&type=${acc_type.value}&sold=${acc_sold.value}`, true);
             xhr.onload = () => {
                 if (xhr.status == 200) {
@@ -153,6 +154,7 @@ function create_account() {
                     acc_sold.value = "";
                     onload();
                     create_account_field.style.display = "none";
+                    create_account_button.style.display = "";
                 }
                 else {
                     new_popup("Error creating account", "error")
@@ -161,6 +163,11 @@ function create_account() {
             xhr.send();
         }
     }
+}
+
+function cancel_create_account() {
+    create_account_field.style.display = "none";
+    create_account_button.style.display = "";
 }
 
 function edit_element(id, element) {
