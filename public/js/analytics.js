@@ -2,17 +2,17 @@ const email = '<%=Session["email"]%>'
 const account_list = document.getElementById("selected-account");
 const analytics_start = document.getElementById("analytics-start");
 const analytics_end = document.getElementById("analytics-end");
-const budget_chart_container = document.getElementById('budget-account-chart');
+const categories_chart_container = document.getElementById('categories-account-chart');
 let selected_account;
 let operations = [];
 let accounts = [];
-let budget_chart;
+let categories_chart;
 let log_chart;
 
 window.addEventListener('resize', () => {
     console.log("resize");
     log_chart.resize();
-    budget_chart.resize();
+    categories_chart.resize();
 });
 
 onload = () => {
@@ -69,19 +69,28 @@ onload = () => {
             }
         });
 
-    budget_chart = new Chart(
-        budget_chart_container,
+    categories_chart = new Chart(
+        categories_chart_container,
         {
             type: 'pie',
             options: {
                 animation: true,
                 plugins: {
                     legend: {
-                        display: true
+                        display: true,
+                        position: 'bottom',
                     },
                     tooltip: {
-                        enabled: true
-                    }
+                        callbacks: {
+                            label: function (value) {
+                                return " " + value.parsed + " €";
+                            }
+                        },
+                    },
+                    title: {
+                        display: true,
+                        text: 'Expenses by category'
+                    },
                 }
             },
         }
@@ -124,7 +133,7 @@ function selected_account_change() {
 
         selected_account = accounts_list.find(account => account.id_account == account_list.value);
         today = new Date();
-        
+
         analytics_start.valueAsDate = new Date(today.getFullYear() - 3, today.getMonth(), today.getDate());
         if (selected_account.type == 0) {
             analytics_end.valueAsDate = today;
@@ -140,8 +149,8 @@ function selected_account_change() {
         analytics_end.disabled = true;
         log_chart.data = {};
         log_chart.update();
-        budget_chart.data = {};
-        budget_chart.update();
+        categories_chart.data = {};
+        categories_chart.update();
     }
 }
 
@@ -168,26 +177,30 @@ function get_operations() {
 
 function update_checking_chart() {
     update_saving_chart()
-    budget_chart_container.parentNode.style.display = "block";
+    categories_chart_container.parentNode.style.display = "block";
+
+    let sum_per_categories = [];
+    for (let i = 0; i < 6; i++) {
+        sum_per_categories[i] = { ["type"]: i, ["amount"]: operations.reduce((acc, operation) => (operation.category == i && operation.amount < 0) ? acc + operation.amount : acc, 0) };
+    }
 
     let data = {
-        labels: operations.map(operation => operation.date),
+        labels: ["Groceries", "Leisure", "House", "Health", "Clothing & Needed", "Other"],
         datasets: [
             {
-                label: 'TEXT A METTRE',
-                data: operations.map(operation => operation.amount),
+                data: sum_per_categories.map(categorie => categorie.amount),
                 hoverOffset: 4
             }
         ]
     };
 
-    budget_chart.data = data;
-    budget_chart.update();
-    budget_chart.resize();
+    categories_chart.data = data;
+    categories_chart.update();
+    categories_chart.resize();
 }
 
 function update_saving_chart() {
-    budget_chart_container.parentNode.style.display = "none";
+    categories_chart_container.parentNode.style.display = "none";
 
     let data = {
         labels: operations.map(operation => operation.date),

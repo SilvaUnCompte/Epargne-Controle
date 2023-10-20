@@ -42,6 +42,7 @@
 		<div class="corner"></div>
 		<li><a href="/controler/pages/index.php">Overview</a></li>
 		<li><a href="/controler/pages/accounts.php">Accounts</a></li>
+		<li><a href="/controler/pages/budget.php">Budget</a></li>
 		<li><a href="/controler/pages/analytics.php">Analytics</a></li>
 		<li><a href="/controler/pages/operations.php">Operations</a></li>
 		<li><a href="/controler/pages/events.php">Events</a></li>
