@@ -5,7 +5,7 @@
     flex-direction: column;
     height: 100%;
 
-    #analytics-form {
+    .analytics-form {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -32,14 +32,14 @@
         }
     }
 
-    #analytics-charts { // Class à modifier demain !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    .analytics-charts { // Class à modifier demain !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
         width: 100%;
         height: 100%;
-        margin-top: 10px;
+        margin: 10px 0 30px 0;
         padding: 10px;
         border-radius: 5px;
         box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5);

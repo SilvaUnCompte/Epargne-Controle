@@ -1,7 +1,7 @@
 {include file='helpers/header.tpl'}
 
 <section id="analytics-board">
-    <fieldset id="analytics-form">
+    <fieldset class="analytics-form" id="analytics-form">
         <div class="row-field">
             <select name="selected-account" id="selected-account">
                 <option value="0"> Select an account </option>
@@ -11,7 +11,7 @@
         </div>
     </fieldset>
 
-    <section id="analytics-charts">
+    <section class="analytics-charts">
         <div id="log-account-div"><canvas id="log-account-chart">Your browser does not support the canvas element.</canvas></div>
         <div id="categories-account-div"><canvas id="categories-account-chart">Your browser does not support the canvas element.</canvas></div>
     </section>
