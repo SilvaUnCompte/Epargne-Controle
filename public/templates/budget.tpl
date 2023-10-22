@@ -10,7 +10,7 @@
         </div>
     </fieldset>
 
-    <section class="analytics-charts">
+    <section class="analytics-charts" id="checking-analytics-charts">
         <div id="checking-account-pannel">
             <fieldset id="checking-account-fieldset">
                 <legend>Account info</legend>
@@ -28,31 +28,38 @@
                 </div>
                 <div class="row-field">
                     <label for="account-expected-savings">Expected savings</label>
-                    <span>
+                    <div>
                         <input type="number" name="account-expected-savings" id="account-expected-savings" disabled>€
-                    </span>
+                    </div>
                 </div>
             </fieldset>
             <fieldset id="additional-expenditure-fieldset" disabled>
                 <legend>Additional expenditure</legend>
-                <div class="row-field">
-                    <input type="checkbox" name="additional-expenditure-checkbox" id="additional-expenditure-checkbox">
-                    <input type="text" name="additional-expenditure" id="additional-expenditure">
-                    <span>
-                        <input type="number" name="account-additional-expenditure" id="account-additional-expenditure">€
-                    </span>
-                    <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element()">
-                </div>
-                <div class="row-field">
-                    <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element()">
-                    Total expected expenditure : XXX€
+                <section id="additional-expenditure-section">
+                    <div class="row-field">
+                        <div>
+                            <input type="text" name="label-additional-expenditure" class="label-additional-expenditure"
+                                placeholder="Label">
+                            <input type="number" name="account-additional-expenditure"
+                                class="account-additional-expenditure" placeholder="Amount"
+                                onchange="update_checking_account_chart()">€
+                        </div>
+                        <img src="/assets/images/trash.png" class="button" alt="delete" class="card-button"
+                            onclick="remove_expenditure(this)">
+                    </div>
+                </section>
+                <div class="row-field bottom-info">
+                    <img src="/assets/images/plus.webp" class="button add-button" alt="add" class="card-button"
+                        onclick="add_expenditure()">
+                    <p>Total expected expenditure : <span id="total-add-expenditure">0</span> €</p>
                 </div>
             </fieldset>
             <div id="checking-account-info">
             </div>
         </div>
         <div id="budget-account-div">
-            <canvas id="budget-account-chart">Your browser does not support the canvas element.</canvas>
+            <canvas id="budget-account-chart" style="height: 460px; width: 460px;">Your browser does not support the
+                canvas element.</canvas>
         </div>
     </section>
 

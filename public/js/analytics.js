@@ -189,6 +189,7 @@ function update_checking_chart() {
         datasets: [
             {
                 data: sum_per_categories.map(categorie => categorie.amount),
+                backgroundColor: ['#ff9f40', '#ffcd56', '#4bc0c0', '#B552D7', '#c9cbcf', '#9966ff'],
                 hoverOffset: 4
             }
         ]

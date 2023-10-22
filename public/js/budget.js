@@ -8,7 +8,7 @@ const budget_account_chart = document.getElementById('budget-account-chart');
 const checking_account_info = document.getElementById("checking-account-info");
 
 const account_expected_savings = document.getElementById("account-expected-savings");
-const account_additional_expenditure = document.getElementById("account-additional-expenditure");
+const account_additional_expenditure = document.getElementsByClassName("account-additional-expenditure");
 const additional_expenditure_fieldset = document.getElementById("additional-expenditure-fieldset");
 
 let selected_account;
@@ -48,24 +48,41 @@ onload = () => {
         });
 
     budget_chart = new Chart(
-        document.getElementById('budget-account-chart'),
+        budget_account_chart,
         {
             type: 'pie',
             options: {
-                // animation: {
-                //     animateRotate: true,
-                // },
-                animation: false,
+                animation: {
+                    // animation: {
+                    //     animateRotate: true,
+                    // },
+                    animation: false,
+                },
                 plugins: {
                     legend: {
                         display: true,
                         position: 'right',
                     },
                     tooltip: {
-                        enabled: true
-                    }
+                        callbacks: {
+                            label: function (value) {
+                                return " " + value.parsed + " €";
+                            }
+                        },
+                    },
                 }
             },
+            data: {
+                labels: ["Remains", "Savings", "Groceries", "Leisure", "Rente", "Health", "Clothing & Needed", "Other"],
+                datasets: [
+                    {
+                        label: 'Acquisitions by year',
+                        data: [20, 20, 13, 7, 0, 0, 0, 0],
+                        backgroundColor: ['#36a2eb', '#ff6384', '#ff9f40', '#ffcd56', '#4bc0c0', '#B552D7', '#c9cbcf', '#9966ff'],
+                        hoverOffset: 4
+                    }
+                ]
+            }
         }
     );
 
@@ -73,7 +90,6 @@ onload = () => {
     checking_account_list.addEventListener("change", update_checking_account_chart);
     selected_mounth.addEventListener("change", update_checking_account_chart);
     account_expected_savings.addEventListener("change", update_checking_account_chart);
-    account_additional_expenditure.addEventListener("change", update_checking_account_chart);
 
     savings_account_list.addEventListener("change", update_savings_account_chart);
     account_expected_savings.addEventListener("change", update_savings_account_chart);
@@ -141,9 +157,14 @@ function update_checking_account_chart() {
                 }
 
                 let expected_savings = parseInt(account_expected_savings.value == "" ? 0 : account_expected_savings.value)
-                let additional_expenditure = parseInt(account_additional_expenditure.value == "" ? 0 : account_additional_expenditure.value);
 
-                operations.push({ ["amount"]: -additional_expenditure, ["category"]: 5 });
+
+                // add additional expenditure
+                let additional_expenditure = document.getElementsByClassName("account-additional-expenditure");
+                let additional_expenditure_acc = 0;
+                for (let i = 0; i < additional_expenditure.length; i++) { additional_expenditure_acc += parseInt(additional_expenditure[i].value == "" ? 0 : additional_expenditure[i].value); }
+                document.getElementById("total-add-expenditure").innerHTML = -additional_expenditure_acc;
+                operations.push({ ["amount"]: -additional_expenditure_acc, ["category"]: 5 });
 
                 // sum of all operations this mounth
                 let income = operations.reduce((acc, operation) => (operation.amount > 0) ? acc + operation.amount : acc, 0);
@@ -165,10 +186,11 @@ function update_checking_account_chart() {
 
                 // Update chart data
                 let data = {
-                    labels: ["Remains", "Savings", "Groceries", "Leisure", "House", "Health", "Clothing & Needed", "Other"],
+                    labels: ["Remains", "Savings", "Groceries", "Leisure", "Rente", "Health", "Clothing & Needed", "Other"],
                     datasets: [
                         {
                             data: sum_per_categories.map(categorie => categorie.amount),
+                            backgroundColor: ['#36a2eb', '#ff6384', '#ff9f40', '#ffcd56', '#4bc0c0', '#B552D7', '#c9cbcf', '#9966ff'],
                             hoverOffset: 4
                         }
                     ]
@@ -176,7 +198,6 @@ function update_checking_account_chart() {
 
                 budget_chart.data = data;
                 budget_chart.update();
-                budget_chart.resize();
             }
             else {
                 new_popup("Error getting operations", "error");
@@ -185,7 +206,7 @@ function update_checking_account_chart() {
         xhr.send();
     }
     else {
-        document.getElementById("budget-account-div").style.filter = "saturate(15%)";
+        document.getElementById("budget-account-div").style.filter = "";
         selected_mounth.disabled = true;
         account_expected_savings.disabled = true;
         additional_expenditure_fieldset.disabled = true;
@@ -193,6 +214,30 @@ function update_checking_account_chart() {
 }
 
 function update_savings_account_chart() { }
+
+function add_expenditure() {
+
+    let new_expenditure = document.createElement("div");
+    new_expenditure.classList.add("additional-expenditure");
+    new_expenditure.innerHTML = `
+        <div class="row-field">
+            <div>
+                <input type="text" name="label-additional-expenditure" class="label-additional-expenditure"
+                    placeholder="Label">
+                <input type="number" name="account-additional-expenditure" class="account-additional-expenditure" onchange="update_checking_account_chart()" placeholder="Amount">€
+            </div>
+            <img src="/assets/images/trash.png" class="button" alt="delete" class="card-button"
+                onclick="remove_expenditure(this)">
+        </div>
+    `;
+
+    document.getElementById("additional-expenditure-section").appendChild(new_expenditure);
+}
+
+function remove_expenditure(self) {
+    self.parentNode.remove();
+    update_checking_account_chart();
+}
 
 // function get_operations(id_account, start, end) {
 //     let xhr = new XMLHttpRequest();

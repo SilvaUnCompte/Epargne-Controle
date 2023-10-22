@@ -1,3 +1,12 @@
+p {
+  margin: 0;
+}
+
+#checking-analytics-charts {
+  justify-content: space-around !important;
+  flex-wrap: wrap;
+}
+
 #checking-account-fieldset div {
   display: flex;
   justify-content: space-between;
@@ -5,16 +14,42 @@
 #checking-account-fieldset div * {
   margin: 0 5px;
 }
-#checking-account-fieldset div input {
-  text-align: right;
+
+#budget-account-div {
+  filter: saturate(15%);
 }
 
 #additional-expenditure-fieldset {
   margin-top: 10px;
 }
 
+.row-field {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+span input:disabled {
+  text-align: right;
+  background-color: transparent;
+}
+
+.button {
+  margin-left: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.bottom-info {
+  padding-top: 10px;
+}
+
+#total-add-expenditure {
+  font-weight: bold;
+}
+
 @media all and (max-width: 767px) {
-  .row-field {
+  #checking-account-fieldset .row-field {
     width: 100%;
     flex-direction: column;
   }
