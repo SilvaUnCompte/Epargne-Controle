@@ -33,7 +33,7 @@ onload = () => {
                         datasheet.children[nb_operations - i - 1].children[0].innerHTML = operations[i].date;
                         datasheet.children[nb_operations - i - 1].children[1].innerHTML = operations[i].label;
                         datasheet.children[nb_operations - i - 1].children[2].innerHTML = (operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2) + " €";
-                        datasheet.children[nb_operations - i - 1].children[3].innerHTML = operations[i].category == 0 ? "Groceries" : operations[i].category == 1 ? "Leisure" : operations[i].category == 2 ? "Rent" : operations[i].category == 3 ? "Health" : operations[i].category == 4 ? "Shopping" : "Other";
+                        datasheet.children[nb_operations - i - 1].children[3].innerHTML = operations[i].category == 0 ? "Groceries" : operations[i].category == 1 ? "Leisure" : operations[i].category == 2 ? "Rent" : operations[i].category == 3 ? "Health" : operations[i].category == 4 ? "Clothing & Needed" : "Other";
                     }
                 }
                 else {

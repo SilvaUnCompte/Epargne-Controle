@@ -61,7 +61,7 @@ function update_datasheet() {
                         <div class="col col-3" data-label="Start"> ${events[i].start} </div>
                         <div class="col col-4" data-label="End"> ${events[i].end} </div>
                         <div class="col col-5" data-label="Frequency"> ${events[i].frequency_type == 0 ? "Every Day" : events[i].frequency_type == 1 ? "Every Week" : events[i].frequency_type == 2 ? "Every Month" : "Every Year"} </div>
-                        <div class="col col-6" data-label="Category"> ${events[i].category == 0 ? "Groceries" : events[i].category == 1 ? "Leisure" : events[i].category == 2 ? "Rent & utilities" : events[i].category == 3 ? "Health" : events[i].category == 4 ? "Shopping" : "Other"} </div>
+                        <div class="col col-6" data-label="Category"> ${events[i].category == 0 ? "Groceries" : events[i].category == 1 ? "Leisure" : events[i].category == 2 ? "Rent & utilities" : events[i].category == 3 ? "Health" : events[i].category == 4 ? "Clothing & Needed" : "Other"} </div>
                         <div class="col col-7" data-label="Actions"> --- </div>
                     </li>`;
 

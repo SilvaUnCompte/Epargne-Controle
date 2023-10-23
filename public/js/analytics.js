@@ -32,7 +32,7 @@ onload = () => {
                         type: 'time',
                         ticks: {
                             color: function (context) {
-                                return context.tick.value > Date.now() ? 'blue' : 'darl';
+                                return context.tick.value > Date.now() ? 'darkgrey' : 'dark';
                             },
                             callback: function (value) {
                                 return new Date(value).toLocaleDateString("fr-FR");
@@ -160,13 +160,21 @@ function get_operations() {
     xhr.onload = () => {
         if (xhr.status == 200) {
             operations = JSON.parse(xhr.responseText);
-            if (operations.length == 0) {
-                new_popup("There is no operation yet", "info");
-                return;
-            }
-            else {
-                selected_account.type ? update_saving_chart() : update_checking_chart();
-            }
+
+            // Security if there is no operation at the start of the chart
+            let xhr2 = new XMLHttpRequest();
+            xhr2.open("GET", `/database/api/get_amount_at_date.php?id_account=${account_list.value}&date=${analytics_start.value}]`, false);
+            xhr2.onload = () => {
+                if (xhr2.status == 200) {
+                    operations.unshift({ ["date"]: analytics_start.value, ["new_sold"]: parseInt(xhr2.responseText) });
+                }
+                else {
+                    new_popup("Error getting operations", "error");
+                }
+            };
+            xhr2.send();
+
+            selected_account.type ? update_saving_chart() : update_checking_chart();
         }
         else {
             new_popup("Error getting operations", "error");

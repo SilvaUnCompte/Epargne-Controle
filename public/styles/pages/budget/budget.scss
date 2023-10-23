@@ -1,7 +1,3 @@
-p {
-    margin: 0;
-}
-
 #checking-analytics-charts {
     justify-content: space-around !important;
     flex-wrap: wrap;
@@ -28,6 +24,10 @@ p {
     width: 100%;
     display: flex;
     justify-content: space-between;
+}
+
+#selected-duration {
+    width: 15px !important;
 }
 
 span {

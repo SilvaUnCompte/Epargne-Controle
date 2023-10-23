@@ -11,7 +11,7 @@ class RegularEvent
     private $end;
     private $amount;
     private $frequency_type; // 0 = every day, 1 = every week, 2 = every month, 3 = every year
-    private $category; // 0 = Groceries, 1 = leisure, 2 = rent & utilities, 3 = health, 4 = clothing & needed, 5 = other
+    private $category; // 0 = Groceries, 1 = leisure, 2 = rent & utilities, 3 = health, 4 = Clothing & Needed, 5 = other
     private $id_account;
 
     public function __construct($id_regular_event)

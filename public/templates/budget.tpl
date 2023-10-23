@@ -51,7 +51,7 @@
                 <div class="row-field bottom-info">
                     <img src="/assets/images/plus.webp" class="button add-button" alt="add" class="card-button"
                         onclick="add_expenditure()">
-                    <p>Total expected expenditure : <span id="total-add-expenditure">0</span> €</p>
+                    <span>Total expected expenditure : <span id="total-add-expenditure">0</span> €</span>
                 </div>
             </fieldset>
             <div id="checking-account-info">
@@ -64,14 +64,18 @@
     </section>
 
     <fieldset class="analytics-form">
-        <select name="selected-savings-account" id="selected-savings-account">
-            <option value="0"> Select a savings account </option>
-        </select>
+        <div class="row-field">
+            <select name="selected-savings-account" id="selected-savings-account">
+                <option value="0"> Select a savings account </option>
+            </select>
+            <input type="number" min="1" max="60" name="selected-duration" id="selected-duration" value="5"> years
+        </div>
     </fieldset>
 
     <section class="analytics-charts">
-        <div id="savings-account-div"><canvas id="savings-account-chart">Your browser does not support the canvas
-                element.</canvas></div>
+        <div id="savings-account-div">
+            <canvas id="savings-account-chart" style="height: 500px; width: 100%;">Your browser does not support the canvas element.</canvas>
+        </div>
     </section>
 </section>
 
