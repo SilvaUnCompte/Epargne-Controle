@@ -68,7 +68,7 @@
             <select name="selected-savings-account" id="selected-savings-account">
                 <option value="0"> Select a savings account </option>
             </select>
-            <input type="number" min="1" max="60" name="selected-duration" id="selected-duration" value="5"> years
+            <input type="number" min="1" max="60" name="selected-duration" id="selected-duration" value="3"> years
         </div>
     </fieldset>
 

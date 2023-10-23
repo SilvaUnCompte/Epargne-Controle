@@ -134,11 +134,12 @@ function selected_account_change() {
         selected_account = accounts_list.find(account => account.id_account == account_list.value);
         today = new Date();
 
-        analytics_start.valueAsDate = new Date(today.getFullYear() - 3, today.getMonth(), today.getDate());
         if (selected_account.type == 0) {
+            analytics_start.valueAsDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
             analytics_end.valueAsDate = today;
         }
         else {
+            analytics_start.valueAsDate = new Date(today.getFullYear() - 3, today.getMonth(), today.getDate());
             analytics_end.valueAsDate = new Date(today.getFullYear() + 4, today.getMonth(), today.getDate());
         }
 
@@ -215,6 +216,7 @@ function update_saving_chart() {
         labels: operations.map(operation => operation.date),
         datasets: [
             {
+                stepped: true,
                 label: selected_account.label,
                 data: operations.map(operation => ({ ["x"]: operation.date, ["y"]: operation.new_sold })),
                 borderColor: 'rgb(255, 99, 132)',

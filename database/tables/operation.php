@@ -148,11 +148,12 @@ class Operation
     {
         global $db;
 
-        $query = $db->prepare('UPDATE operation SET new_sold = new_sold + :amount WHERE date >= :date');
+        $query = $db->prepare('UPDATE operation SET new_sold = new_sold + :amount WHERE date >= :date AND id_account = :id_account');
 
         $query->execute([
             'date' => $date,
-            'amount' => $amount
+            'amount' => $amount,
+            'id_account' => $id_account
         ]);
     }
 

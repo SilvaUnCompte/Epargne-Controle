@@ -19,5 +19,5 @@ $id_account = Account::createAccount($_GET['label'], $_GET['type'], $_SESSION['e
 
 
 if ($_GET['sold'] != '0') {
-    Operation::createOperation("Init " . $_GET['label'] . " sold", date('Y-m-d'), $_GET['sold'], 5, 0, $id_account);
+    Operation::createOperation("Init " . $_GET['label'] . " sold", "1999-01-01", $_GET['sold'], 5, 0, $id_account);
 }

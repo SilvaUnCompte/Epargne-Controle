@@ -10,5 +10,5 @@ if (!isset($_SESSION['email'])) {
     exit;
 }
 
-Operation::createOperation($_GET['label'], $_GET['date'], $_GET['amount'], 5, 0, $_GET['from']);
-Operation::createOperation($_GET['label'], $_GET['date'], -$_GET['amount'], 5, 0, $_GET['to']);
+Operation::createOperation($_GET['label'], $_GET['date'], -$_GET['amount'], 5, 0, $_GET['from']);
+Operation::createOperation($_GET['label'], $_GET['date'], $_GET['amount'], 5, 0, $_GET['to']);

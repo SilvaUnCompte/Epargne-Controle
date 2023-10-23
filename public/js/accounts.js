@@ -100,7 +100,7 @@ function process_transfer() {
         label_val = label.value == "" ? "Transfer" : label.value;
 
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", `/controler/creating_elements/transaction.php?from=${transfer_data[0]}&to=${transfer_data[1]}&label=${label_val}&date=${date.value}&amount=${amount.value}`, true);
+        xhr.open("GET", `/controler/creating_elements/transaction.php?from=${transfer_data[0]}&to=${transfer_data[1]}&label=${label_val}&date=${date.value}&amount=${amount.value}`, false);
         xhr.onload = () => {
             if (xhr.status == 200) {
                 new_popup("Transaction process", "success");
@@ -111,6 +111,7 @@ function process_transfer() {
             }
         }
         xhr.send();
+        f_onload();
     }
 }
 

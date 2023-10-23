@@ -34,6 +34,7 @@ onload = () => {
             options: {
                 interaction: {
                     intersect: false,
+                    axis: 'x',
                     mode: 'index',
                 },
                 scales: {
@@ -107,7 +108,6 @@ onload = () => {
                 labels: ["Remains", "Savings", "Groceries", "Leisure", "Rente", "Health", "Clothing & Needed", "Other"],
                 datasets: [
                     {
-                        label: 'Acquisitions by year',
                         data: [20, 20, 13, 7, 0, 0, 0, 0],
                         backgroundColor: ['#36a2eb', '#ff6384', '#ff9f40', '#ffcd56', '#4bc0c0', '#B552D7', '#c9cbcf', '#9966ff'],
                         hoverOffset: 4
@@ -213,6 +213,7 @@ function update_checking_account_chart() {
                 document.getElementById("account-incomes").value = income;
                 document.getElementById("account-expenses").value = expenses;
                 document.getElementById("account-remains").value = remains;
+                document.getElementById("account-remains").style.color = ((parseInt(remains) >= 0) ? "" : "red");
 
                 // Update chart data
                 let data = {
@@ -302,6 +303,7 @@ function update_savings_account_chart() {
                 labels: operations.map(operation => operation.date),
                 datasets: [
                     {
+                        stepped: true,
                         data: operations.map(operation => ({ ["x"]: operation.date, ["y"]: operation.new_sold })),
                         borderColor: 'rgb(132, 99, 255)',
                         backgroundColor: 'rgba(132, 99, 255, 0.2)',
