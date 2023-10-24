@@ -68,7 +68,7 @@ onload = () => {
                     tooltip: {
                         callbacks: {
                             label: function (context) {
-                                return " " + context.parsed.y + " €";
+                                return " " + context.parsed.y.toFixed(2) + " €";
                             },
                             title: function (context) {
                                 return new Date(context[0].parsed.x).toLocaleDateString("fr-FR");
@@ -85,9 +85,6 @@ onload = () => {
             type: 'pie',
             options: {
                 animation: {
-                    // animation: {
-                    //     animateRotate: true,
-                    // },
                     animation: false,
                 },
                 plugins: {
@@ -98,7 +95,7 @@ onload = () => {
                     tooltip: {
                         callbacks: {
                             label: function (value) {
-                                return " " + value.parsed + " €";
+                                return " " + value.parsed.toFixed(2) + " €";
                             }
                         },
                     },
@@ -146,7 +143,7 @@ function fill_account_lists() {
                     checking_account_list.innerHTML += `<option value="${account.id_account}">${account.label}</option>`;
                 });
             }
-            
+
             if (savings_accounts_list.length == 0) {
                 new_popup("There is no savings account yet", "info");
                 document.getElementsByClassName("analytics-form")[1].disabled = true;

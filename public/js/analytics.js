@@ -58,7 +58,7 @@ onload = () => {
                     tooltip: {
                         callbacks: {
                             label: function (context) {
-                                return context.dataset.label + ": " + context.parsed.y + " €";
+                                return context.dataset.label + ": " + (context.parsed.y).toFixed(2) + " €";
                             },
                             title: function (context) {
                                 return new Date(context[0].parsed.x).toLocaleDateString("fr-FR");
@@ -83,7 +83,7 @@ onload = () => {
                     tooltip: {
                         callbacks: {
                             label: function (value) {
-                                return " " + value.parsed + " €";
+                                return " " + value.parsed.toFixed(2) + " €";
                             }
                         },
                     },

@@ -1,14 +1,11 @@
 $margin-left: 175px;
 $phone-width: 767px;
 
-.flex-inline {
-    display: flex;
-    flex-direction: row;
-}
-
 .container {
     width: 42%;
     margin: 2vw;
+    height: 50vh;
+    margin-bottom: 50px;
 }
 
 .responsive-table {
@@ -17,15 +14,15 @@ $phone-width: 767px;
     }
 
     .col-2 {
-        flex-basis: 50%;
+        flex-basis: 35%;
     }
 
     .col-3 {
-        flex-basis: 15%;
+        flex-basis: 20%;
     }
 
     .col-4 {
-        flex-basis: 15%;
+        flex-basis: 25%;
     }
 }
 

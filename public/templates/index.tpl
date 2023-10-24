@@ -26,20 +26,14 @@
     {* col gauche avec liste mouvement bancaire récent X dernier à partir de date ajd *}
 
     <section class="container">
-        <section class="flex-inline">
-            <section>
-                {* mini zone compte courant *}
-                <div style="width: 400px;"><canvas id="overview-checking-account"></canvas></div>
-            </section>
-            <section>
-                {* mini zone compte épargne *}
-                <div style="width: 400px;"><canvas id="overview-savings-account"></canvas></div>
-            </section>
+        <section>
+            {* mini zone compte épargne *}
+            <div style="width: 100%;"><canvas id="overview-savings-account"></canvas></div>
         </section>
 
         <section>
             {* camembert budget du mois *}
-            <div style="width: 400px;"><canvas id="overview-monthly-budget"></canvas></div>
+            <div style="width: 70%;"><canvas id="overview-monthly-budget"></canvas></div>
         </section>
     </section>
 </section>
@@ -47,7 +41,9 @@
 <link rel="stylesheet" href="/public/styles/pages/home/home.css">
 <link rel="stylesheet" href="/public/styles/table/table.css">
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@^4"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script>
 <script src="/public/js/home.js" type="text/javascript"></script>
 
 {include file="helpers/footer.tpl"}
