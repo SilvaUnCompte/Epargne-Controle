@@ -5,7 +5,7 @@ let accounts = [];
 const fake_data = [
     { year: "2010-04-01", count: -10 },
     { year: "2011-05-01", count: 0 },
-    { year: "2012-06-01", count: 5 },
+    { year: "2012-06-01", count: 1 },
     { year: "2013-07-01", count: -2 },
     { year: "2014-08-01", count: 3 },
     { year: "2015-09-01", count: 4 },

@@ -50,6 +50,10 @@ header #navicon {
   height: 50px;
 }
 
+#account {
+  font-size: larger;
+}
+
 .corner-back {
   background-color: #c5c5c5;
   position: absolute;

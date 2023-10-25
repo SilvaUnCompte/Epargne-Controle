@@ -72,7 +72,8 @@ function update_datasheet() {
                         datasheet.children[i].children[1].style.color = "red";
                     }
 
-                    datasheet.children[i].children[6].innerHTML = '<img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element(' + events[i].id_regular_event + ')">';
+                    datasheet.children[i].children[6].innerHTML = `<img src="/assets/images/edit.png" alt="edit" class="card-button" onclick="edit_element(${events[i].id_regular_event},this)">
+                    <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element(' + events[i].id_regular_event + ')">`;
                 }
             }
         }
@@ -148,6 +149,74 @@ function create_event() {
                 new_popup("Unknow error creating event", "error");
             }
         };
+        xhr.send();
+    }
+}
+
+function edit_element(id, element) {
+    let card = element.parentNode.parentNode;
+    let start = new Date(card.children[2].innerHTML);
+    let end = new Date(card.children[3].innerHTML);
+    start.setDate(start.getDate() + 1);
+    end.setDate(end.getDate() + 1);
+    let frequency = card.children[4].innerHTML == " Every Day " ? 0 : card.children[4].innerHTML == " Every Week " ? 1 : card.children[4].innerHTML == " Every Month " ? 2 : 3;
+    let category = card.children[5].innerHTML == " Groceries " ? 0 : card.children[5].innerHTML == " Leisure " ? 1 : card.children[5].innerHTML == " Rent &amp; utilities " ? 2 : card.children[5].innerHTML == " Health " ? 3 : card.children[5].innerHTML == " Clothing &amp; Needed " ? 4 : 5;
+
+    card.onclick = "";
+    card.innerHTML = `
+        <input class="col col-1" data-label="Label" value="${card.children[0].innerHTML.slice(1, -1)}" />
+        <input class="col col-2" data-label="Amount" type="number" value="${card.children[1].innerHTML.slice(1, -3)}" />
+        <input class="col col-3" data-label="Start" type="date" />
+        <input class="col col-4" data-label="End" type="date" />
+
+        <select class="col col-5" data-label="Frequency">
+            <option value="3">Every year</option>
+            <option value="2">Every month</option>
+            <option value="1">Every week</option>
+            <option value="0">Every day</option>
+        </select>
+
+        <select class="col col-6" data-label="Category">
+            <option value="0">Groceries</option>
+            <option value="1">Leisure</option>
+            <option value="2">Rent & Utilities</option>
+            <option value="3">Health</option>
+            <option value="4">Clothing & Needed</option>
+            <option value="5">Other</option>
+        </select>
+
+        <div class="col col-7" data-label="Actions">
+            <img src="/assets/images/confirm.png" alt="confirm" class="card-button" onclick='confirm_edit_element(this.parentNode.parentNode.children[0].value, this.parentNode.parentNode.children[1].value, this.parentNode.parentNode.children[2].value, this.parentNode.parentNode.children[3].value, this.parentNode.parentNode.children[4].value, this.parentNode.parentNode.children[5].value, ${id},this)'>
+            <img src="/assets/images/cancel.png" alt="cancel" class="card-button" onclick="update_datasheet()">
+        </div>`;
+    card.children[2].valueAsDate = start;
+    card.children[3].valueAsDate = end;
+    card.children[4].value = frequency;
+    card.children[5].value = category;
+}
+
+function confirm_edit_element(label, amount, start, end, frequency, category, id, element) {
+    element.parentNode.innerHTML = `<img src="/assets/images/load.gif" alt="load" class="card-button">`;
+
+    if (label.length > 50) {
+        label = label.substring(0, 47) + "...";
+    }
+
+    if (label == "" || amount == "" || start == "" || end == "" || frequency == "" || category == "") {
+        new_popup("Please fill all the fields", "warn");
+    }
+    else {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", `/controler/updating_elements/event.php?label=${label}&amount=${amount}&start=${start}&end=${end}&frequency=${frequency}&category=${category}&id=${id}`, true);
+        xhr.onload = () => {
+            if (xhr.status == 200) {
+                new_popup("Event updated", "success");
+                onload();
+            }
+            else {
+                new_popup("Error updating event", "error")
+            }
+        }
         xhr.send();
     }
 }

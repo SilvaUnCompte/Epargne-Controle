@@ -131,6 +131,7 @@ function fill_account_lists() {
             accounts = xhr.responseText;
             accounts_list = JSON.parse(xhr.responseText);
 
+            console.log(accounts_list);
             checking_accounts_list = accounts_list.filter(account => account.type == 0);
             savings_accounts_list = accounts_list.filter(account => account.type == 1);
 

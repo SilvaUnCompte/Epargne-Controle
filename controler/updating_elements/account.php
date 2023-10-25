@@ -10,7 +10,7 @@ if (!isset($_SESSION['email'])) {
     exit;
 }
 
-if (!isset($_GET['label']) || !isset($_GET['type']) || !isset($_GET['id'])) {
+if (!isset($_GET['label']) || !isset($_GET['type']) || !isset($_GET['id']) || !isset($_GET['sold'])) {
     echo json_encode(['error' => 'Missing parameters']);
     exit;
 }
@@ -18,4 +18,9 @@ if (!isset($_GET['label']) || !isset($_GET['type']) || !isset($_GET['id'])) {
 $account = new Account($_GET['id']);
 $account->setLabel($_GET['label']);
 $account->setType($_GET['type']);
+
+$prev_sold = Operation::getLastOperationSoldByAccount($_GET['id'], Date('Y-m-d'));
+
+Operation::createOperation("Balance update", Date('Y-m-d'), $_GET['sold'] - $prev_sold, 5, 0, $_GET['id']);
+
 $account->update();

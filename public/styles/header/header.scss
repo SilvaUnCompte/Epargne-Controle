@@ -2,6 +2,12 @@ $margin-left: 175px;
 $header-height: 80px;
 $phone-width: 767px;
 
+$primary-color: #c5c5c5; // c5c5c5
+$secondary-color: #464646; // 464646
+
+$side-primary-color: #33334c; // 33334c
+$side-secondary-color: #212147; // 212147
+
 #dark {
     position: fixed;
     top: 0;
@@ -14,7 +20,7 @@ $phone-width: 767px;
 }
 
 header {
-    background-color: #c5c5c5;
+    background-color: $primary-color;
     height: $header-height;
     top: 0;
     right: 0;
@@ -40,12 +46,12 @@ header {
     #username {
         margin: 0 10px;
         text-decoration: none;
-        color: #464646;
+        color: $secondary-color;
         font-weight: bold;
     }
 
     #page-name {
-        color: #464646;
+        color: $secondary-color;
         font-size: 1.5em;
         font-weight: bold;
         margin: 0 10px;
@@ -59,8 +65,12 @@ header {
     }
 }
 
+#account {
+    font-size: larger;
+}
+
 .corner-back {
-    background-color: #c5c5c5;
+    background-color: $primary-color;
     position: absolute;
     top: 0;
     left: 0;
@@ -71,7 +81,7 @@ header {
 
 #side-menu {
     z-index: 100;
-    background-color: #33334c;
+    background-color: $side-primary-color;
     height: 100vh;
     width: $margin-left;
     position: fixed;
@@ -83,7 +93,7 @@ header {
     transition: all 0.3s ease-in-out;
 
     .corner {
-        background-color: #212147;
+        background-color: $side-secondary-color;
         position: absolute;
         top: 0;
         width: $margin-left;
@@ -100,7 +110,7 @@ header {
     li {
         list-style: none;
     }
-    
+
 }
 
 footer {

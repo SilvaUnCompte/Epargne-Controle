@@ -177,12 +177,13 @@ function edit_element(id, element) {
     card.onclick = "";
     card.innerHTML = `
         <input class="col col-1" data-label="Label" value="${card.children[0].innerHTML}" />
-        <select class="col col-2" data-label="Type">
+        <input class="col col-2" data-label="Sold" type="number" value="${card.children[1].innerHTML.slice(0, -3)}" />
+        <select class="col col-3" data-label="Type">
             <option value="0">Checking account</option>
             <option value="1" ${card.children[2].innerHTML == "Savings account" ? "selected" : ""}>Savings account</option>
         </select>
-        <div class="col col-3" data-label="Actions">
-            <img src="/assets/images/confirm.png" alt="confirm" class="card-button" onclick='confirm_edit_element(this.parentNode.parentNode.children[0].value, this.parentNode.parentNode.children[1].value, ${id})'>
+        <div class="col col-4" data-label="Actions">
+            <img src="/assets/images/confirm.png" alt="confirm" class="card-button" onclick='confirm_edit_element(this.parentNode.parentNode.children[0].value, this.parentNode.parentNode.children[1].value, this.parentNode.parentNode.children[2].value, ${id})'>
             <img src="/assets/images/cancel.png" alt="cancel" class="card-button" onclick="f_onload()">
         </div>`;
 
@@ -191,15 +192,15 @@ function edit_element(id, element) {
     }, 1);
 }
 
-function confirm_edit_element(label, type, id) {
+function confirm_edit_element(label, sold, type, id) {
     console.log(label, type, id);
 
-    if (label == "" || type == "") {
+    if (label == "" || type == "" || sold == "") {
         new_popup("Please fill all fields", "warn");
     }
     else {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", `/controler/updating_elements/account.php?id=${id}&label=${label}&type=${type}`, true);
+        xhr.open("GET", `/controler/updating_elements/account.php?id=${id}&label=${label}&sold=${sold}&type=${type}`, true);
         xhr.onload = () => {
             if (xhr.status == 200) {
                 new_popup("Account updated", "success");
