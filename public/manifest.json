@@ -1,6 +1,6 @@
 {
-    "name": "epargne-controle",
-    "short_name": "epargne-controle",
+    "name": "Epargne Controle",
+    "short_name": "Epargne Controle",
     "start_url": "/controler/pages/index.php",
     "display": "standalone",
     "background_color": "#424549",
