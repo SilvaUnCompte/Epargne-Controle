@@ -49,11 +49,11 @@
 
         .responsive-table {
             .col-1 {
-                flex-basis: 20%;
+                flex-basis: 18%;
             }
 
             .col-2 {
-                flex-basis: 15%;
+                flex-basis: 13%;
             }
 
             .col-3 {
@@ -61,21 +61,21 @@
             }
 
             .col-4 {
-                flex-basis: 15%;
+                flex-basis: 16%;
             }
 
             .col-5 {
-                flex-basis: 15%;
+                flex-basis: 16%;
             }
 
             .col-6 {
-                flex-basis: 10%;
+                flex-basis: 14%;
             }
 
             .col-7 {
                 display: flex;
                 justify-content: center;
-                flex-basis: 15%;
+                flex-basis: 13%;
             }
         }
     }
@@ -87,6 +87,21 @@
 }
 
 @media all and (max-width: 767px) {
+
+    .col-4 {
+        flex-basis: 11% !important;
+    }
+
+    .col-5 {
+        flex-basis: 21% !important;
+    }
+
+    .table-header{
+        * {
+            font-size: 7px;
+            font-weight: bold;
+        }
+    }
 
     .row-field {
         flex-direction: column !important;

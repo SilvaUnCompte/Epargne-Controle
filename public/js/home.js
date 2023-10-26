@@ -251,7 +251,7 @@ function set_pie_chart() {
         if (xhr.status == 200) {
             operations = JSON.parse(xhr.responseText);
             if (operations.length == 0) {
-                operations.push({ ["amount"]: 0, ["category"]: 5 });
+                operations.push({ ["amount"]: 0.01, ["category"]: 5 });
             }
 
             // sum of all operations this mounth

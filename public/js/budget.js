@@ -114,6 +114,11 @@ onload = () => {
         }
     );
 
+    if(window.innerWidth < 767) {
+        budget_chart.options.plugins.legend.display = false;
+        budget_chart.resize(250,250);
+    }
+
     selected_mounth.valueAsDate = new Date();
     checking_account_list.addEventListener("change", update_checking_account_chart);
     selected_mounth.addEventListener("change", update_checking_account_chart);
@@ -131,7 +136,6 @@ function fill_account_lists() {
             accounts = xhr.responseText;
             accounts_list = JSON.parse(xhr.responseText);
 
-            console.log(accounts_list);
             checking_accounts_list = accounts_list.filter(account => account.type == 0);
             savings_accounts_list = accounts_list.filter(account => account.type == 1);
 
@@ -226,8 +230,16 @@ function update_checking_account_chart() {
                 };
 
                 budget_chart.data = data;
-                budget_chart.update();
 
+                if(window.innerWidth < 767) {
+                    budget_chart.options.plugins.legend.display = false;
+                    budget_chart.resize(250,250);
+                }
+                else {
+                    budget_chart.options.plugins.legend.display = true;
+                }
+                
+                budget_chart.update();
                 update_savings_account_chart();
             }
             else {

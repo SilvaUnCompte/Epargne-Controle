@@ -28,22 +28,21 @@
                 </div>
                 <div class="row-field">
                     <label for="account-expected-savings">Expected savings</label>
-                    <div>
-                        <input type="number" name="account-expected-savings" id="account-expected-savings" disabled>€
-                    </div>
+                    <section><input type="number" name="account-expected-savings" id="account-expected-savings"
+                            disabled>€</section>
                 </div>
             </fieldset>
             <fieldset id="additional-expenditure-fieldset" disabled>
                 <legend>Additional expenditure</legend>
                 <section id="additional-expenditure-section">
                     <div class="row-field">
-                        <div>
+                        <section>
                             <input type="text" name="label-additional-expenditure" class="label-additional-expenditure"
                                 placeholder="Label">
                             <input type="number" name="account-additional-expenditure"
                                 class="account-additional-expenditure" placeholder="Amount"
-                                onchange="update_checking_account_chart()">€
-                        </div>
+                                onchange="update_checking_account_chart()"><span> €</span>
+                        </section>
                         <img src="/assets/images/trash.png" class="button" alt="delete" class="card-button"
                             onclick="remove_expenditure(this)">
                     </div>
@@ -74,7 +73,8 @@
 
     <section class="analytics-charts">
         <div id="savings-account-div">
-            <canvas id="savings-account-chart" style="height: 500px; width: 100%;">Your browser does not support the canvas element.</canvas>
+            <canvas id="savings-account-chart" style="height: 500px; width: 100%;">Your browser does not support the
+                canvas element.</canvas>
         </div>
     </section>
 </section>

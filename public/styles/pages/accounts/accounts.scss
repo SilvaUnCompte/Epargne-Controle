@@ -6,11 +6,6 @@ $phone-width: 767px;
     flex-direction: row;
 }
 
-.container {
-    width: 42%;
-    margin: 2vw;
-}
-
 #transfer {
     margin-top: 3vw;
     background-color: #f5f5f5;
@@ -95,10 +90,6 @@ $phone-width: 767px;
 }
 
 @media all and (max-width: 767px) {
-    .container {
-        width: 90%;
-    }
-
     .flex-inline {
         flex-direction: column;
     }
