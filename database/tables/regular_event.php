@@ -148,7 +148,7 @@ class RegularEvent
 
         $query = $db->prepare('DELETE FROM regular_event WHERE id_regular_event = :id_regular_event');
         $query->execute(['id_regular_event' => $id_regular_event]);
-
+        
         RegularEvent::deleteOperationsFromRegularEvent($id_regular_event);
     }
 

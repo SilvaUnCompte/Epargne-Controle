@@ -6,7 +6,7 @@
             <select name="selected-checking-account" id="selected-checking-account">
                 <option value="0"> Select a checking account </option>
             </select>
-            <input type="month" name="selected-mounth" id="selected-mounth" disabled>
+            <input type="month" name="selected-month" id="selected-month" disabled>
         </div>
     </fieldset>
 
@@ -15,15 +15,15 @@
             <fieldset id="checking-account-fieldset">
                 <legend>Account info</legend>
                 <div class="row-field">
-                    <label for="account-incomes">Mounth incomes</label>
+                    <label for="account-incomes">month incomes</label>
                     <span><input type="text" name="account-incomes" id="account-incomes" disabled>€</span>
                 </div>
                 <div class="row-field">
-                    <label for="account-expenses">Mounth expenses</label>
+                    <label for="account-expenses">month expenses</label>
                     <span><input type="text" name="account-expenses" id="account-expenses" disabled>€</span>
                 </div>
                 <div class="row-field">
-                    <label for="account-remains">Mounth remains</label>
+                    <label for="account-remains">month remains</label>
                     <span><input type="text" name="account-remains" id="account-remains" disabled>€</span>
                 </div>
                 <div class="row-field">

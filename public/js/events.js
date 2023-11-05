@@ -10,6 +10,7 @@ onload = () => {
 }
 
 function delete_element(event_id) {
+    console.log(event_id);
     if (confirm("Are you sure you want to delete this operation ?")) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "/controler/deleting_elements/event.php?id=" + event_id, true);
@@ -73,7 +74,7 @@ function update_datasheet() {
                     }
 
                     datasheet.children[i].children[6].innerHTML = `<img src="/assets/images/edit.png" alt="edit" class="card-button" onclick="edit_element(${events[i].id_regular_event},this)">
-                    <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element(' + events[i].id_regular_event + ')">`;
+                    <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element('${events[i].id_regular_event}')">`;
                 }
             }
         }

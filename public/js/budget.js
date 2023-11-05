@@ -3,7 +3,7 @@ const email = '<%=Session["email"]%>'
 const checking_account_list = document.getElementById("selected-checking-account");
 const savings_account_list = document.getElementById("selected-savings-account");
 
-const selected_mounth = document.getElementById("selected-mounth");
+const selected_month = document.getElementById("selected-month");
 const budget_account_chart = document.getElementById('budget-account-chart');
 const checking_account_info = document.getElementById("checking-account-info");
 
@@ -42,7 +42,7 @@ onload = () => {
                         type: 'time',
                         ticks: {
                             color: function (context) {
-                                return context.tick.value > Date.now() ? 'darkgrey' : context.tick.value > selected_mounth.valueAsDate ? 'blue' : 'dark';
+                                return context.tick.value > Date.now() ? 'darkgrey' : context.tick.value > selected_month.valueAsDate ? 'blue' : 'dark';
                             },
                             callback: function (value) {
                                 return new Date(value).toLocaleDateString("fr-FR");
@@ -119,9 +119,9 @@ onload = () => {
         budget_chart.resize(250,250);
     }
 
-    selected_mounth.valueAsDate = new Date();
+    selected_month.valueAsDate = new Date();
     checking_account_list.addEventListener("change", update_checking_account_chart);
-    selected_mounth.addEventListener("change", update_checking_account_chart);
+    selected_month.addEventListener("change", update_checking_account_chart);
     account_expected_savings.addEventListener("change", update_checking_account_chart);
 
     savings_account_list.addEventListener("change", update_savings_account_chart);
@@ -169,11 +169,11 @@ function fill_account_lists() {
 function update_checking_account_chart() {
     if (checking_account_list.value > 0) {
         document.getElementById("budget-account-div").style.filter = "none";
-        selected_mounth.disabled = false;
+        selected_month.disabled = false;
         account_expected_savings.disabled = false;
         additional_expenditure_fieldset.disabled = false;
 
-        let start = selected_mounth.value + "-01";
+        let start = selected_month.value + "-01";
         let end = new Date(start);
         end.setMonth(end.getMonth() + 1);
         end.setDate(end.getDate() - 1);
@@ -185,7 +185,7 @@ function update_checking_account_chart() {
             if (xhr.status == 200) {
                 operations = JSON.parse(xhr.responseText);
                 if (operations.length == 0) {
-                    new_popup("There is no operation this mounth", "info");
+                    new_popup("There is no operation this month", "info");
                 }
 
                 expected_savings = parseInt(account_expected_savings.value == "" ? 0 : account_expected_savings.value)
@@ -198,7 +198,7 @@ function update_checking_account_chart() {
                 document.getElementById("total-add-expenditure").innerHTML = -additional_expenditure_acc;
                 operations.push({ ["amount"]: -additional_expenditure_acc, ["category"]: 5 });
 
-                // sum of all operations this mounth
+                // sum of all operations this month
                 let income = operations.reduce((acc, operation) => (operation.amount > 0) ? acc + operation.amount : acc, 0);
                 let expenses = operations.reduce((acc, operation) => (operation.amount < 0) ? acc + operation.amount : acc, 0);
                 let remains = income + expenses - expected_savings;
@@ -250,7 +250,7 @@ function update_checking_account_chart() {
     }
     else {
         document.getElementById("budget-account-div").style.filter = "";
-        selected_mounth.disabled = true;
+        selected_month.disabled = true;
         account_expected_savings.disabled = true;
         additional_expenditure_fieldset.disabled = true;
     }
@@ -261,8 +261,8 @@ function update_savings_account_chart() {
     years_view = years_view > 60 ? 60 : years_view < 1 ? 1 : parseInt(years_view);
     selected_duration.value = years_view;
 
-    let start = new Date(selected_mounth.value + "-01");
-    let end = new Date(selected_mounth.value + "-01");
+    let start = new Date(selected_month.value + "-01");
+    let end = new Date(selected_month.value + "-01");
 
     start.setFullYear(start.getFullYear() - 1);
     let start_str = start.toISOString().split('T')[0];
@@ -289,7 +289,7 @@ function update_savings_account_chart() {
             };
             xhr2.send();
 
-            let index = new Date(selected_mounth.value + "-01");
+            let index = new Date(selected_month.value + "-01");
             index.setMonth(index.getMonth() + 1);
 
             while (index <= end) {

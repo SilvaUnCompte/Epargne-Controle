@@ -254,7 +254,7 @@ function set_pie_chart() {
                 operations.push({ ["amount"]: 0.01, ["category"]: 5 });
             }
 
-            // sum of all operations this mounth
+            // sum of all operations this month
             let income = operations.reduce((acc, operation) => (operation.amount > 0) ? acc + operation.amount : acc, 0);
             let expenses = operations.reduce((acc, operation) => (operation.amount < 0) ? acc + operation.amount : acc, 0);
             let remains = income + expenses;
