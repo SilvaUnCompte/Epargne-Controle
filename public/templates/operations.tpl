@@ -23,6 +23,10 @@
             </div>
         </ul>
         <input type="date" name="date-to-search" id="date-to-search" onchange="update_datasheet()">
+        <select name="balance-view" id="balance-view" onchange="update_datasheet()">
+            <option value="0"> Select an account </option>
+        </select>
+        <input type="text" name="balance" id="balance" placeholder="Balance" disabled>
     </section>
 
     <section id="add-pannel" class="container">

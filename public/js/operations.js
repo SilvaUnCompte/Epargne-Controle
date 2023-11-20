@@ -3,6 +3,8 @@ const datasheet = document.getElementById("datasheet");
 const date_to_search = document.getElementById("date-to-search");
 const operation_date = document.getElementById("operation_date");
 const account_list = document.getElementById("selected-account");
+const balance_view = document.getElementById("balance-view");
+const balance = document.getElementById("balance");
 const add_field = document.getElementById("add-field");
 let accounts = [];
 
@@ -44,11 +46,21 @@ function datasheet_clear() {
 
 function update_datasheet() {
     add_field.style.display = "flex";
-    date = date_to_search.value;
+    let date = date_to_search.value;
+    let temp_account = accounts;
+
+    if (balance_view.value != 0) {
+        temp_account = "[{\"id_account\":" + [balance_view.value] + "}]";
+        show_balance(balance_view.value);
+    }
+    else {
+        balance.value = "";
+    }
+
     datasheet_clear();
 
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + accounts + "&limit=14&date=" + date + "&regularity=0", true);
+    xhr.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + temp_account + "&limit=14&date=" + date + "&regularity=0", true);
     xhr.onload = () => {
         if (xhr.status == 200) {
             operations = JSON.parse(xhr.responseText);
@@ -96,6 +108,7 @@ function fill_account_list() {
 
             accounts_list.forEach(account => {
                 account_list.innerHTML += `<option value="${account.id_account}">${account.label}</option>`;
+                balance_view.innerHTML += `<option value="${account.id_account}">${account.label}</option>`;
             });
 
             update_datasheet();
@@ -150,4 +163,18 @@ function create_operation() {
         };
         xhr.send();
     }
+}
+
+function show_balance(id_account) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", `/database/api/get_amount_at_date.php?id_account=${id_account}&date=${date_to_search.value}]`, false);
+    xhr.onload = () => {
+        if (xhr.status == 200) {
+            balance.value = JSON.parse(xhr.responseText) + " €";
+        }
+        else {
+            new_popup("Error getting balance", "error");
+        }
+    };
+    xhr.send();
 }

@@ -38,4 +38,9 @@
     </div>
 </section>
 
+<script>
+    let side_bar = document.getElementById('side-menu');
+    side_bar.style.filter = 'saturate(15%) brightness(50%)';
+</script>
+
 <link rel="stylesheet" href="/public/styles/pages/login/login.css">
