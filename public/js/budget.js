@@ -212,9 +212,9 @@ function update_checking_account_chart() {
                     sum_per_categories[i + 2] = { ["type"]: i, ["amount"]: operations.reduce((acc, operation) => (operation.category == i && operation.amount < 0) ? acc - operation.amount : acc, 0) };
                 }
 
-                document.getElementById("account-incomes").value = income;
-                document.getElementById("account-expenses").value = expenses;
-                document.getElementById("account-remains").value = remains;
+                document.getElementById("account-incomes").value = income.toFixed(2);
+                document.getElementById("account-expenses").value = expenses.toFixed(2);
+                document.getElementById("account-remains").value = remains.toFixed(2);
                 document.getElementById("account-remains").style.color = ((parseInt(remains) >= 0) ? "" : "red");
 
                 // Update chart data
