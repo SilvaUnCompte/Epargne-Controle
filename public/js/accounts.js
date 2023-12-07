@@ -46,7 +46,7 @@ onload = () => {
                     </tr>`;
             });
 
-            total_sold.innerHTML = "Total " + accounts.reduce((acc, account) => acc + account.sold, 0).toFixed(2) + " €";
+            total_sold.innerHTML = "Total: " + accounts.reduce((acc, account) => acc + account.sold, 0).toFixed(2) + " €";
         }
         else {
             new_popup("Error getting accounts", "error")

@@ -6,6 +6,11 @@ $phone-width: 767px;
     flex-direction: row;
 }
 
+#total-sold {
+    display: flex;
+    justify-content: flex-end;
+}
+
 #transfer {
     margin-top: 3vw;
     background-color: #f5f5f5;

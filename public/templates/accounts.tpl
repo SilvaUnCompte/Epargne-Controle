@@ -23,14 +23,14 @@
                 <option value="1">Saving</option>
             </select>
             <div id="cancel-account">
-            <a id="create-account-2" class="valide_button noselect" onclick="create_account()">Create account</a>
-            <a class="valide_button noselect"
-                onclick='cancel_create_account()'>Cancel</a>
+                <a id="create-account-2" class="valide_button noselect" onclick="create_account()">Create account</a>
+                <a class="valide_button noselect" onclick='cancel_create_account()'>Cancel</a>
             </div>
         </section>
 
         <a id="create-account" class="valide_button noselect" onclick="create_account()">Create account</a>
-        <a id="total-sold" class="valide_button noselect"></a>
+
+        <b id="total-sold">Total: 0.00 €</b>
     </section>
 
 
