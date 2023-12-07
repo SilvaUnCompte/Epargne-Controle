@@ -30,6 +30,7 @@
         </section>
 
         <a id="create-account" class="valide_button noselect" onclick="create_account()">Create account</a>
+        <a id="total-sold" class="valide_button noselect"></a>
     </section>
 
 

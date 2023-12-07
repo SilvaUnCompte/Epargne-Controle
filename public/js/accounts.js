@@ -5,6 +5,7 @@ const amount = document.getElementById("amount");
 const label = document.getElementById("label");
 const create_account_field = document.getElementById("create-account-field");
 const create_account_button = document.getElementById("create-account");
+const total_sold = document.getElementById("total-sold");
 let transfer_data = [null, null];
 
 window.addEventListener('resize', undo_transfer());
@@ -44,6 +45,8 @@ onload = () => {
                         </div>
                     </tr>`;
             });
+
+            total_sold.innerHTML = "Total " + accounts.reduce((acc, account) => acc + account.sold, 0).toFixed(2) + " €";
         }
         else {
             new_popup("Error getting accounts", "error")
