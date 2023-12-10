@@ -21,6 +21,8 @@ $account->setType($_GET['type']);
 
 $prev_sold = Operation::getLastOperationSoldByAccount($_GET['id'], Date('Y-m-d'));
 
-Operation::createOperation("Balance update", Date('Y-m-d'), $_GET['sold'] - $prev_sold, 5, 0, $_GET['id']);
+if ($_GET['sold'] - $prev_sold != 0) {
+    Operation::createOperation("Balance update", Date('Y-m-d'), $_GET['sold'] - $prev_sold, 5, 0, $_GET['id']);
+}
 
 $account->update();
