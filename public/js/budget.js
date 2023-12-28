@@ -347,7 +347,7 @@ function add_expenditure() {
             <div>
                 <input type="text" name="label-additional-expenditure" class="label-additional-expenditure"
                     placeholder="Label">
-                <input type="number" name="account-additional-expenditure" class="account-additional-expenditure" onchange="update_checking_account_chart()" placeholder="Amount">€
+                <input type="number" name="account-additional-expenditure" class="account-additional-expenditure" onchange="update_checking_account_chart()" placeholder="Amount"> €
             </div>
             <img src="/assets/images/trash.png" class="button" alt="delete" class="card-button"
                 onclick="remove_expenditure(this)">
