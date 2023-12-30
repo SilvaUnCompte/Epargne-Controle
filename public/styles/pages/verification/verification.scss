@@ -1,0 +1,30 @@
+#analytics-board{
+    margin-bottom: 0;
+}
+
+#additional-operation {
+    margin-top: 30px;
+}
+.responsive-table {
+    .col-1 {
+        flex-basis: 18%;
+    }
+
+    .col-2 {
+        flex-basis: 28%;
+    }
+
+    .col-3 {
+        flex-basis: 19%;
+    }
+
+    .col-4 {
+        flex-basis: 20%;
+    }
+
+    .col-5 {
+        display: flex;
+        justify-content: center;
+        flex-basis: 15%;
+    }
+}
