@@ -205,10 +205,9 @@ function edit_element(id, element) {
     end.setDate(end.getDate() + 1);
     let frequency = card.children[4].innerHTML == " Every Day " ? 0 : card.children[4].innerHTML == " Every Week " ? 1 : card.children[4].innerHTML == " Every Month " ? 2 : 3;
 
-    // Tester si card.children[5].innerHTML est égal au titre d'une catégorie
     let category = 0;
     operation_type_list.forEach(operation_type => {
-        if (" " + operation_type.title + " " == card.children[5].innerHTML) {
+        if (" " + operation_type.title + " " == card.children[5].innerHTML.replace(/&amp;/g, "&")) {
             category = operation_type.id;
         }
     });
