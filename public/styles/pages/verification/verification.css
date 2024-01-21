@@ -22,4 +22,12 @@
   display: flex;
   justify-content: center;
   flex-basis: 15%;
+}
+
+.selected {
+  background-color: #aae78e !important;
+}
+
+.to-delete {
+  background-color: #ff9b9b !important;
 }/*# sourceMappingURL=verification.css.map */

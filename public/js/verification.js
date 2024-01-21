@@ -3,7 +3,6 @@ const email = '<%=Session["email"]%>'
 const account_list = document.getElementById("selected-checking-account");
 const selected_month = document.getElementById("selected-month");
 const datasheet = document.getElementById("datasheet");
-const additional_operation = document.getElementById("additional-operation");
 
 let selected_account;
 let operation_type_list = [];
@@ -77,7 +76,6 @@ function update_datasheet() {
     }
     else {
         selected_month.disabled = false;
-        additional_operation.disabled = false;
         selected_account = account_list.value;
 
         let start_str = selected_month.value + "-01";
@@ -102,6 +100,7 @@ function update_datasheet() {
 
                 for (let i = 0; i < nb_operations; i++) {
 
+
                     datasheet.innerHTML += `
                     <li class="table-row">
                         <div class="col col-1" data-label="Date"> ${operations[i].date} </div>
@@ -109,7 +108,7 @@ function update_datasheet() {
                         <div class="col col-3" data-label="Amount"> ${(operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2)} € </div>
                         <div class="col col-4" data-label="Category"> ${operation_type_list[operations[i].category].title} </div>
                         <div class="col col-5" data-label="Actions">
-                            <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element(${operations[i].id_operation})">
+                            <img src="/assets/images/trash.png" alt="delete" class="card-button"">
                         </div>
                     </li>`;
 
@@ -120,6 +119,17 @@ function update_datasheet() {
                         datasheet.children[i].children[2].style.color = "black";
                     }
                 }
+
+                // Events
+                Array.from(datasheet.children).forEach(element => {
+                    element.addEventListener("click", (e) => {
+                        validate_operation(element);
+                    });
+                    element.children[4].addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        delete_list(element);
+                    });
+                }, this);
             }
             else {
                 new_popup("Error getting operations code #1", "error")
@@ -129,25 +139,43 @@ function update_datasheet() {
     }
 }
 
-function add_new_operation() {
-    let new_operation = document.createElement("div");
-    new_operation.classList.add("additional-operation");
-    new_operation.innerHTML = `
-        <div class="row-field">
-            <div>
-                <input type="text" name="label-additional-operation" class="label-additional-operation"
-                    placeholder="Label">
-                <input type="number" name="account-additional-operation" class="account-additional-operation" placeholder="Amount"> €
-            </div>
-            <img src="/assets/images/trash.png" class="button" alt="delete" class="card-button"
-                onclick="remove_new_operation(this)">
-        </div>
-    `;
-
-    document.getElementById("additional-operation-section").appendChild(new_operation);
+function validate_operation(self) {
+    if (self.classList.contains("selected") || self.classList.contains("to-delete")) {
+        self.classList.remove("selected");
+        self.classList.remove("to-delete");
+    }
+    else {
+        self.classList.add("selected");
+    }
 }
 
-function remove_new_operation(self) {
-    self.parentNode.remove();
-    update_checking_account_chart();
+function delete_list(self) {
+    if (self.classList.contains("to-delete")) {
+        self.classList.remove("to-delete");
+    }
+    else {
+        self.classList.add("to-delete");
+    }
+}
+
+function confirm_delete(){
+    let selected = Array.from(datasheet.getElementsByClassName("to-delete"));
+    if(selected.length == 0){
+        new_popup("No operation selected", "warn");
+        return;
+    }
+
+    selected.forEach(element => {
+        // let xhr = new XMLHttpRequest();
+        // xhr.open("GET", `/database/api/delete_operation.php?id_operation=${}`, true);
+        // xhr.onload = () => {
+        //     if (xhr.status == 200) {
+        //         element.remove();
+        //     }
+        //     else {
+        //         new_popup("Error deleting operation", "error");
+        //     }
+        // }
+        // xhr.send();
+    });
 }

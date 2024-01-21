@@ -33,38 +33,16 @@
                 {/for}
             </div>
         </ul>
+
+        {* bouton creer une nouvelle opération et bouton confirmer delete *}
+        <div class="row-field">
+            <a id="add-operation" class="valide_button noselect" onclick="window.open('/controler/pages/operations.php');">Add missing operation</a>
+            <a id="confirm-delete" class="valide_button noselect" onclick="confirm_delete()">Confirm delete</a>
+        </div>
     </section>
 
     <section id="add-pannel" class="container">
-        <fieldset id="additional-operation" disabled>
-            <legend>Additional operation</legend>
-            <section id="additional-operation-section">
-                <div class="row-field">
-                    <section>
-                        <input type="text" name="label-additional-operation" class="label-additional-operation"
-                            placeholder="Label">
-                        <input type="number" name="account-additional-operation" class="account-additional-operation"
-                            placeholder="Amount" onchange="update_checking_account_chart()">
-                    </section>
-                    <img src="/assets/images/trash.png" class="button" alt="delete" class="card-button"
-                        onclick="remove_new_operation(this)">
-                </div>
-                <div class="row-field">
-                    <section>
-                        <input type="text" name="label-additional-operation" class="label-additional-operation"
-                            placeholder="Label">
-                        <input type="number" name="account-additional-operation" class="account-additional-operation"
-                            placeholder="Amount" onchange="update_checking_account_chart()">
-                    </section>
-                    <img src="/assets/images/trash.png" class="button" alt="delete" class="card-button"
-                        onclick="remove_new_operation(this)">
-                </div>
-            </section>
-            <div class="row-field bottom-info">
-                <img src="/assets/images/plus.webp" class="button add-button" alt="add" class="card-button"
-                    onclick="add_new_operation()">
-            </div>
-        </fieldset>
+        {* // TODO: add a textual note which follow scroll*}
     </section>
 </section>
 
