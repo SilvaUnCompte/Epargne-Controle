@@ -204,7 +204,14 @@ function edit_element(id, element) {
     start.setDate(start.getDate() + 1);
     end.setDate(end.getDate() + 1);
     let frequency = card.children[4].innerHTML == " Every Day " ? 0 : card.children[4].innerHTML == " Every Week " ? 1 : card.children[4].innerHTML == " Every Month " ? 2 : 3;
-    let category = card.children[5].innerHTML == " Groceries " ? 0 : card.children[5].innerHTML == " Leisure " ? 1 : card.children[5].innerHTML == " Rent &amp; utilities " ? 2 : card.children[5].innerHTML == " Health " ? 3 : card.children[5].innerHTML == " Clothing &amp; Needed " ? 4 : 5;
+
+    // Tester si card.children[5].innerHTML est égal au titre d'une catégorie
+    let category = 0;
+    operation_type_list.forEach(operation_type => {
+        if (" " + operation_type.title + " " == card.children[5].innerHTML) {
+            category = operation_type.id;
+        }
+    });
 
     card.onclick = "";
     card.innerHTML = `
@@ -220,23 +227,27 @@ function edit_element(id, element) {
             <option value="0">Every day</option>
         </select>
 
-        <select class="col col-6" data-label="Category">
-            <option value="0">Groceries</option>
-            <option value="1">Leisure</option>
-            <option value="2">Rent & Utilities</option>
-            <option value="3">Health</option>
-            <option value="4">Clothing & Needed</option>
-            <option value="5">Other</option>
+        <select class="col col-6" data-label="Category" id="category_edit">
+            ${set_select_category_for_edit()}
         </select>
 
         <div class="col col-7" data-label="Actions">
             <img src="/assets/images/confirm.png" alt="confirm" class="card-button" onclick='confirm_edit_element(this.parentNode.parentNode.children[0].value, this.parentNode.parentNode.children[1].value, this.parentNode.parentNode.children[2].value, this.parentNode.parentNode.children[3].value, this.parentNode.parentNode.children[4].value, this.parentNode.parentNode.children[5].value, ${id},this)'>
             <img src="/assets/images/cancel.png" alt="cancel" class="card-button" onclick="update_datasheet()">
         </div>`;
+
     card.children[2].valueAsDate = start;
     card.children[3].valueAsDate = end;
     card.children[4].value = frequency;
     card.children[5].value = category;
+}
+
+function set_select_category_for_edit() {
+    let temp;
+    operation_type_list.forEach(operation_type => {
+        temp += `<option value="${operation_type.id}">${operation_type.title}</option>`;
+    })
+    return temp;
 }
 
 function confirm_edit_element(label, amount, start, end, frequency, category, id, element) {

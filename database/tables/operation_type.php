@@ -2,7 +2,7 @@
 
 require_once($_SERVER['DOCUMENT_ROOT'] . '/database/connexion.php');
 
-class OperationType // TODO: Change in table / Change in select bar / Change pie chart
+class OperationType
 {
     public static function getAll()
     {
