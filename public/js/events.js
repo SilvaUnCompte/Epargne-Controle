@@ -2,11 +2,52 @@ const email = '<%=Session["email"]%>'
 const datasheet = document.getElementById("datasheet");
 const date_to_search = document.getElementById("date-to-search");
 const account_list = document.getElementById("selected-account");
+const select_category = document.getElementById("category");
 let accounts = [];
+let operation_type_list = [];
 
 onload = () => {
     fill_account_list();
+    set_operation_type_list();
     date_to_search.valueAsDate = new Date();
+}
+
+// Operation type list
+
+function set_operation_type_list() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/database/api/get_operation_type_list.php", false);
+    xhr.onload = () => {
+        if (xhr.status == 200) {
+            operation_type_list = JSON.parse(xhr.responseText);
+        }
+        else {
+            new_popup("Error getting operation type list", "error");
+        }
+    };
+    xhr.send();
+}
+
+function set_select_category() {
+    // Get the selected account type by using let accounts
+    let accounts_list = JSON.parse(accounts);
+    select_category.innerHTML = "";
+
+    accounts_list.forEach(account => {
+        if (account.id_account == account_list.value) {
+            operation_type_list.forEach(operation_type => {
+                if (operation_type.account_type == account.type) {
+                    select_category.innerHTML += `<option value="${operation_type.id}">${operation_type.title}</option>`;
+                }
+            });
+        }
+    });
+
+    operation_type_list.forEach(operation_type => {
+        if (operation_type.account_type == -1) {
+            select_category.innerHTML += `<option value="${operation_type.id}">${operation_type.title}</option>`;
+        }
+    });
 }
 
 function delete_element(event_id) {
@@ -62,7 +103,7 @@ function update_datasheet() {
                         <div class="col col-3" data-label="Start"> ${events[i].start} </div>
                         <div class="col col-4" data-label="End"> ${events[i].end} </div>
                         <div class="col col-5" data-label="Frequency"> ${events[i].frequency_type == 0 ? "Every Day" : events[i].frequency_type == 1 ? "Every Week" : events[i].frequency_type == 2 ? "Every Month" : "Every Year"} </div>
-                        <div class="col col-6" data-label="Category"> ${events[i].category == 0 ? "Groceries" : events[i].category == 1 ? "Leisure" : events[i].category == 2 ? "Rent & utilities" : events[i].category == 3 ? "Health" : events[i].category == 4 ? "Clothing & Needed" : "Other"} </div>
+                        <div class="col col-6" data-label="Category"> ${operation_type_list[events[i].category].title} </div>
                         <div class="col col-7" data-label="Actions"> --- </div>
                     </li>`;
 
@@ -152,6 +193,8 @@ function create_event() {
         };
         xhr.send();
     }
+
+    set_select_category();
 }
 
 function edit_element(id, element) {

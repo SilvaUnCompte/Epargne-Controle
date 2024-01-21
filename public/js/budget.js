@@ -12,12 +12,14 @@ const account_additional_expenditure = document.getElementsByClassName("account-
 const additional_expenditure_fieldset = document.getElementById("additional-expenditure-fieldset");
 const selected_duration = document.getElementById("selected-duration");
 
+let pie_labels = [];
 let selected_account;
 let budget_chart;
 let savings_chart;
 let additional_expenditure_acc;
 let expected_savings;
 let accounts = [];
+let operation_type_list = [];
 
 window.addEventListener('resize', () => {
     budget_chart.resize();
@@ -26,6 +28,7 @@ window.addEventListener('resize', () => {
 
 onload = () => {
     fill_account_lists();
+    set_operation_type_list();
 
     savings_chart = new Chart(
         document.getElementById('savings-account-chart'),
@@ -102,11 +105,11 @@ onload = () => {
                 }
             },
             data: {
-                labels: ["Remains", "Savings", "Groceries", "Leisure", "Rente", "Health", "Clothing & Needed", "Other"],
+                labels: pie_labels,
                 datasets: [
                     {
-                        data: [20, 20, 13, 7, 0, 0, 0, 0],
-                        backgroundColor: ['#36a2eb', '#ff6384', '#ff9f40', '#ffcd56', '#4bc0c0', '#B552D7', '#c9cbcf', '#9966ff'],
+                        data: [20, 0, 13, 10, 0, 0, 0, 10, 0, 0],
+                        backgroundColor: ['#36a2eb', '#ff6384', '#ff9f40', '#ffcd56', '#4bc0c0', '#B552D7', '#9966ff', '#c9cbcf', "#5AD752", "#178A10"],
                         hoverOffset: 4
                     }
                 ]
@@ -114,9 +117,9 @@ onload = () => {
         }
     );
 
-    if(window.innerWidth < 767) {
+    if (window.innerWidth < 767) {
         budget_chart.options.plugins.legend.display = false;
-        budget_chart.resize(250,250);
+        budget_chart.resize(250, 250);
     }
 
     selected_month.valueAsDate = new Date();
@@ -126,6 +129,25 @@ onload = () => {
 
     savings_account_list.addEventListener("change", update_savings_account_chart);
     selected_duration.addEventListener("change", update_savings_account_chart);
+}
+
+function set_operation_type_list() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/database/api/get_operation_type_list.php", false);
+    xhr.onload = () => {
+        if (xhr.status == 200) {
+            operation_type_list = JSON.parse(xhr.responseText);
+
+            pie_labels = ["Remains"];
+            for (let i = 0; i < 9; i++) {
+                pie_labels[i + 1] = operation_type_list[i].title;
+            }
+        }
+        else {
+            new_popup("Error getting operation type list", "error");
+        }
+    };
+    xhr.send();
 }
 
 function fill_account_lists() {
@@ -190,26 +212,25 @@ function update_checking_account_chart() {
 
                 expected_savings = parseInt(account_expected_savings.value == "" ? 0 : account_expected_savings.value)
 
-
                 // add additional expenditure
                 let additional_expenditure = document.getElementsByClassName("account-additional-expenditure");
                 additional_expenditure_acc = 0;
                 for (let i = 0; i < additional_expenditure.length; i++) { additional_expenditure_acc += parseInt(additional_expenditure[i].value == "" ? 0 : additional_expenditure[i].value); }
                 document.getElementById("total-add-expenditure").innerHTML = -additional_expenditure_acc;
-                operations.push({ ["amount"]: -additional_expenditure_acc, ["category"]: 5 });
+                operations.push({ ["amount"]: -additional_expenditure_acc, ["category"]: 6 });
 
                 // sum of all operations this month
                 let income = operations.reduce((acc, operation) => (operation.amount > 0) ? acc + operation.amount : acc, 0);
                 let expenses = operations.reduce((acc, operation) => (operation.amount < 0) ? acc + operation.amount : acc, 0);
                 let remains = income + expenses - expected_savings;
 
-                operations.push({ ["amount"]: -expected_savings, ["category"]: -1 });
+                operations.push({ ["amount"]: -expected_savings, ["category"]: 0 });
 
                 // sum of all operations by category in array of object
                 let sum_per_categories = [];
-                sum_per_categories[0] = { ["type"]: -2, ["amount"]: (remains > 0) ? remains : 0 };
-                for (let i = -1; i < 6; i++) {
-                    sum_per_categories[i + 2] = { ["type"]: i, ["amount"]: operations.reduce((acc, operation) => (operation.category == i && operation.amount < 0) ? acc - operation.amount : acc, 0) };
+                sum_per_categories[0] = { ["type"]: -1, ["amount"]: (remains > 0) ? remains : 0 };
+                for (let i = 0; i < 9; i++) {
+                    sum_per_categories[i + 1] = { ["type"]: i, ["amount"]: operations.reduce((acc, operation) => (operation.category == i && operation.amount < 0) ? acc - operation.amount : acc, 0) };
                 }
 
                 document.getElementById("account-incomes").value = income.toFixed(2);
@@ -217,28 +238,17 @@ function update_checking_account_chart() {
                 document.getElementById("account-remains").value = remains.toFixed(2);
                 document.getElementById("account-remains").style.color = ((parseInt(remains) >= 0) ? "" : "red");
 
-                // Update chart data
-                let data = {
-                    labels: ["Remains", "Savings", "Groceries", "Leisure", "Rente", "Health", "Clothing & Needed", "Other"],
-                    datasets: [
-                        {
-                            data: sum_per_categories.map(categorie => categorie.amount),
-                            backgroundColor: ['#36a2eb', '#ff6384', '#ff9f40', '#ffcd56', '#4bc0c0', '#B552D7', '#c9cbcf', '#9966ff'],
-                            hoverOffset: 4
-                        }
-                    ]
-                };
+       
+                budget_chart.data.datasets[0].data = sum_per_categories.map(categorie => categorie.amount);
 
-                budget_chart.data = data;
-
-                if(window.innerWidth < 767) {
+                if (window.innerWidth < 767) {
                     budget_chart.options.plugins.legend.display = false;
-                    budget_chart.resize(250,250);
+                    budget_chart.resize(250, 250);
                 }
                 else {
                     budget_chart.options.plugins.legend.display = true;
                 }
-                
+
                 budget_chart.update();
                 update_savings_account_chart();
             }

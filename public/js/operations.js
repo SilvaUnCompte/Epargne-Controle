@@ -6,12 +6,52 @@ const account_list = document.getElementById("selected-account");
 const balance_view = document.getElementById("balance-view");
 const balance = document.getElementById("balance");
 const add_field = document.getElementById("add-field");
+const select_category = document.getElementById("category");
 let accounts = [];
+let operation_type_list = [];
 
 onload = () => {
+    set_operation_type_list();
     fill_account_list();
+
     date_to_search.valueAsDate = new Date();
     operation_date.valueAsDate = new Date();
+}
+
+function set_operation_type_list() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/database/api/get_operation_type_list.php", false);
+    xhr.onload = () => {
+        if (xhr.status == 200) {
+            operation_type_list = JSON.parse(xhr.responseText);
+        }
+        else {
+            new_popup("Error getting operation type list", "error");
+        }
+    };
+    xhr.send();
+}
+
+function set_select_category() {
+    // Get the selected account type by using let accounts
+    let accounts_list = JSON.parse(accounts);
+    select_category.innerHTML = "";
+
+    accounts_list.forEach(account => {
+        if (account.id_account == account_list.value) {
+            operation_type_list.forEach(operation_type => {
+                if (operation_type.account_type == account.type) {
+                    select_category.innerHTML += `<option value="${operation_type.id}">${operation_type.title}</option>`;
+                }
+            });
+        }
+    });
+
+    operation_type_list.forEach(operation_type => {
+        if (operation_type.account_type == -1) {
+            select_category.innerHTML += `<option value="${operation_type.id}">${operation_type.title}</option>`;
+        }
+    });
 }
 
 // Datasheet
@@ -81,7 +121,7 @@ function update_datasheet() {
                 datasheet.children[nb_operations - i - 1].children[0].innerHTML = operations[i].date;
                 datasheet.children[nb_operations - i - 1].children[1].innerHTML = operations[i].label;
                 datasheet.children[nb_operations - i - 1].children[2].innerHTML = (operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2) + " €";
-                datasheet.children[nb_operations - i - 1].children[3].innerHTML = operations[i].category == 0 ? "Groceries" : operations[i].category == 1 ? "Leisure" : operations[i].category == 2 ? "Rent & utilities" : operations[i].category == 3 ? "Health" : operations[i].category == 4 ? "Clothing & Needed" : "Other";
+                datasheet.children[nb_operations - i - 1].children[3].innerHTML = operation_type_list[operations[i].category].title;
 
                 datasheet.children[nb_operations - i - 1].children[4].innerHTML = '<img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element(' + operations[i].id_operation + ')">';
             }
@@ -121,6 +161,8 @@ function fill_account_list() {
 }
 
 function creating_operation_pannel() {
+    set_select_category();
+
     if (account_list.value > 0) {
         add_field.style.transform = "translate(0, 0)";
         add_field.style.opacity = "1";
@@ -138,6 +180,7 @@ function create_operation() {
     }
     amount = document.getElementById("amount").value;
     category = document.getElementById("category").value;
+    console.log(category);
 
     if (amount == "" || label == "" || operation_date.value == "") {
         new_popup("Please fill all the fields", "warn")

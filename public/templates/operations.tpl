@@ -56,12 +56,6 @@
                     <div>
                         <label for="category">Category</label>
                         <select name="category" id="category">
-                            <option value="0">Groceries</option>
-                            <option value="1">Leisure</option>
-                            <option value="2">Rent & Utilities</option>
-                            <option value="3">Health</option>
-                            <option value="4">Clothing & Needed</option>
-                            <option value="5">Other</option>
                         </select>
                     </div>
                 </div>

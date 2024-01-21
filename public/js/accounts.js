@@ -103,6 +103,7 @@ function process_transfer() {
         label_val = label.value == "" ? "Transfer" : label.value;
 
         var xhr = new XMLHttpRequest();
+        console.log(`/controler/creating_elements/transaction.php?from=${transfer_data[0]}&to=${transfer_data[1]}&label=${label_val}&date=${date.value}&amount=${amount.value}`);
         xhr.open("GET", `/controler/creating_elements/transaction.php?from=${transfer_data[0]}&to=${transfer_data[1]}&label=${label_val}&date=${date.value}&amount=${amount.value}`, false);
         xhr.onload = () => {
             if (xhr.status == 200) {

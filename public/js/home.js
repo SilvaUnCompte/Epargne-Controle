@@ -1,6 +1,8 @@
 const email = '<%=Session["email"]%>'
 const datasheet = document.getElementById("datasheet");
 let accounts = [];
+let operation_type_list = [];
+let pie_labels = [];
 
 const fake_data = [
     { year: "2010-04-01", count: -10 },
@@ -128,7 +130,26 @@ onload = () => {
     };
     xhr.send();
 
+    set_operation_type_list();
+}
 
+function set_operation_type_list() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/database/api/get_operation_type_list.php", false);
+    xhr.onload = () => {
+        if (xhr.status == 200) {
+            operation_type_list = JSON.parse(xhr.responseText);
+
+            pie_labels = ["Remains"];
+            for (let i = 0; i < 9; i++) {
+                pie_labels[i + 1] = operation_type_list[i].title;
+            }
+        }
+        else {
+            new_popup("Error getting operation type list", "error");
+        }
+    };
+    xhr.send();
 }
 
 function fill_dataset() {
@@ -150,7 +171,7 @@ function fill_dataset() {
                 datasheet.children[nb_operations - i - 1].children[0].innerHTML = operations[i].date;
                 datasheet.children[nb_operations - i - 1].children[1].innerHTML = operations[i].label;
                 datasheet.children[nb_operations - i - 1].children[2].innerHTML = (operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2) + " €";
-                datasheet.children[nb_operations - i - 1].children[3].innerHTML = operations[i].category == 0 ? "Groceries" : operations[i].category == 1 ? "Leisure" : operations[i].category == 2 ? "Rent" : operations[i].category == 3 ? "Health" : operations[i].category == 4 ? "Clothing & Needed" : "Other";
+                datasheet.children[nb_operations - i - 1].children[3].innerHTML = operation_type_list[operations[i].category].title;
             }
         }
         else {
@@ -261,18 +282,18 @@ function set_pie_chart() {
 
             // sum of all operations by category in array of object
             let sum_per_categories = [];
-            sum_per_categories[0] = { ["type"]: -2, ["amount"]: (remains > 0) ? remains : 0 };
-            for (let i = 0; i < 6; i++) {
+            sum_per_categories[0] = { ["type"]: -1, ["amount"]: (remains > 0) ? remains : 0 };
+            for (let i = 0; i < 9; i++) {
                 sum_per_categories[i + 1] = { ["type"]: i, ["amount"]: operations.reduce((acc, operation) => (operation.category == i && operation.amount < 0) ? acc - operation.amount : acc, 0) };
             }
 
             // Update chart data
             let data = {
-                labels: ["Remains", "Groceries", "Leisure", "Rente", "Health", "Clothing & Needed", "Other"],
+                labels: pie_labels,
                 datasets: [
                     {
                         data: sum_per_categories.map(categorie => categorie.amount),
-                        backgroundColor: ['#36a2eb', '#ff9f40', '#ffcd56', '#4bc0c0', '#B552D7', '#c9cbcf', '#9966ff'],
+                        backgroundColor: ['#36a2eb', '#ff6384', '#ff9f40', '#ffcd56', '#4bc0c0', '#B552D7', '#9966ff', '#c9cbcf', "#5AD752", "#178A10"],
                         hoverOffset: 4
                     }
                 ]

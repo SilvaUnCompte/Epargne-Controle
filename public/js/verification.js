@@ -6,11 +6,12 @@ const datasheet = document.getElementById("datasheet");
 const additional_operation = document.getElementById("additional-operation");
 
 let selected_account;
+let operation_type_list = [];
 let accounts = [];
 
 onload = () => {
     fill_account_lists();
-
+    set_operation_type_list();
     selected_month.valueAsDate = new Date();
     account_list.addEventListener("change", update_datasheet);
     selected_month.addEventListener("change", update_datasheet);
@@ -35,6 +36,20 @@ function fill_account_lists() {
         }
         else {
             new_popup("Error getting accounts", "error");
+        }
+    };
+    xhr.send();
+}
+
+function set_operation_type_list() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/database/api/get_operation_type_list.php?type=0", false);
+    xhr.onload = () => {
+        if (xhr.status == 200) {
+            operation_type_list = JSON.parse(xhr.responseText);
+        }
+        else {
+            new_popup("Error getting operation type list", "error");
         }
     };
     xhr.send();
@@ -92,7 +107,7 @@ function update_datasheet() {
                         <div class="col col-1" data-label="Date"> ${operations[i].date} </div>
                         <div class="col col-2" data-label="Label"> ${operations[i].label} </div>
                         <div class="col col-3" data-label="Amount"> ${(operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2)} € </div>
-                        <div class="col col-4" data-label="Category"> ${operations[i].category == 0 ? "Groceries" : operations[i].category == 1 ? "Leisure" : operations[i].category == 2 ? "Rent & utilities" : operations[i].category == 3 ? "Health" : operations[i].category == 4 ? "Clothing & Needed" : "Other"} </div>
+                        <div class="col col-4" data-label="Category"> ${operation_type_list[operations[i].category].title} </div>
                         <div class="col col-5" data-label="Actions">
                             <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element(${operations[i].id_operation})">
                         </div>

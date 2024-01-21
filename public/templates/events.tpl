@@ -7,7 +7,7 @@
         <div class="row-field">
             <div class="column-field">
                 <label for="selected-account">Account</label>
-                <select name="selected-account" id="selected-account">
+                <select name="selected-account" id="selected-account" onchange="set_select_category()">
                     <option value="0"> Select an account </option>
                 </select>
             </div>
@@ -46,12 +46,7 @@
             <div class="column-field">
                 <label for="category">Category</label>
                 <select name="category" id="category">
-                    <option value="0">Groceries</option>
-                    <option value="1">Leisure</option>
-                    <option value="2">Rent & Utilities</option>
-                    <option value="3">Health</option>
-                    <option value="4">Clothing & Needed</option>
-                    <option value="5">Other</option>
+                    <option value="0"> Other </option>
                 </select>
             </div>
         </div>

@@ -6,6 +6,7 @@ const categories_chart_container = document.getElementById('categories-account-c
 let selected_account;
 let operations = [];
 let accounts = [];
+let pie_labels = [];
 let categories_chart;
 let log_chart;
 
@@ -15,8 +16,27 @@ window.addEventListener('resize', () => {
     categories_chart.resize();
 });
 
+function set_operation_type_list() {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "/database/api/get_operation_type_list.php", false);
+    xhr.onload = () => {
+        if (xhr.status == 200) {
+            operation_type_list = JSON.parse(xhr.responseText);
+
+            for (let i = 0; i < 9; i++) {
+                pie_labels[i] = operation_type_list[i].title;
+            }
+        }
+        else {
+            new_popup("Error getting operation type list", "error");
+        }
+    };
+    xhr.send();
+}
+
 onload = () => {
     fill_account_list();
+    set_operation_type_list();
 
     log_chart = new Chart(
         document.getElementById('log-account-chart'),
@@ -189,16 +209,16 @@ function update_checking_chart() {
     categories_chart_container.parentNode.style.display = "block";
 
     let sum_per_categories = [];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 9; i++) {
         sum_per_categories[i] = { ["type"]: i, ["amount"]: operations.reduce((acc, operation) => (operation.category == i && operation.amount < 0) ? acc + operation.amount : acc, 0) };
     }
 
     let data = {
-        labels: ["Groceries", "Leisure", "House", "Health", "Clothing & Needed", "Other"],
+        labels: pie_labels,
         datasets: [
             {
                 data: sum_per_categories.map(categorie => categorie.amount),
-                backgroundColor: ['#ff9f40', '#ffcd56', '#4bc0c0', '#B552D7', '#c9cbcf', '#9966ff'],
+                backgroundColor: ['#ff6384', '#ff9f40', '#ffcd56', '#4bc0c0', '#B552D7', '#9966ff', '#c9cbcf', "#5AD752", "#178A10"],
                 hoverOffset: 4
             }
         ]
