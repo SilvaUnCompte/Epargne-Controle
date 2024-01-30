@@ -72,7 +72,29 @@
   flex-basis: 15%;
 }
 
+#note-box {
+  position: absolute;
+  z-index: 1000;
+  top: 25%;
+  left: 10%;
+  width: 35%;
+  height: 25%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.7607843137);
+  box-shadow: 0 0 5px #ccc;
+  cursor: grab;
+}
+
+#note-box:hover {
+  background-color: rgba(255, 255, 255, 0.8980392157);
+  transform: scale(1.01);
+}
+
 @media all and (max-width: 767px) {
+  #note-box {
+    display: none;
+  }
   .flex-inline {
     flex-direction: column;
   }

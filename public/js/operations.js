@@ -13,9 +13,48 @@ let operation_type_list = [];
 onload = () => {
     set_operation_type_list();
     fill_account_list();
+    add_notes();
 
     date_to_search.valueAsDate = new Date();
     operation_date.valueAsDate = new Date();
+}
+
+function add_notes() {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+
+    if (urlParams.has('note')) {
+        console.log(urlParams.get('note'));
+        const note_txt = urlParams.get('note');
+
+        let note_box = document.createElement("textarea");
+        note_box.id = "note-box";
+        note_box.innerHTML = note_txt;
+
+        let noteX;
+        let noteY;
+
+        document.addEventListener("mouseup", () => {
+            note_box.style.cursor = "grab";
+        });
+        note_box.addEventListener("mousedown", () => {
+            note_box.style.cursor = "grabbing";
+
+            noteX = event.clientX - note_box.offsetLeft;
+            noteY = event.clientY - note_box.offsetTop;
+
+            console.log(noteX + " " + noteY);
+        });
+
+        document.addEventListener("mousemove", () => {
+            if (note_box.style.cursor == "grabbing") {
+                note_box.style.top = (event.clientY - noteY) + "px";
+                note_box.style.left = (event.clientX - noteX) + "px";
+            }
+        });
+
+        document.body.appendChild(note_box);
+    }
 }
 
 function set_operation_type_list() {
