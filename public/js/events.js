@@ -184,7 +184,7 @@ function create_event() {
                 document.getElementById("amount").value = "";
                 document.getElementById("event_start").value = "";
                 document.getElementById("event_end").value = "";
-                document.getElementById("category").value = 0;
+                document.getElementById("category").value = 1;
                 new_popup("Event created", "success");
             }
             else {

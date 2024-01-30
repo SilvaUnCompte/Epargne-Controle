@@ -197,7 +197,7 @@ function create_operation() {
                 update_datasheet();
                 document.getElementById("label").value = "";
                 document.getElementById("amount").value = "";
-                document.getElementById("category").value = 0;
+                document.getElementById("category").value = 1;
                 new_popup("Operation created", "success");
             }
             else {
