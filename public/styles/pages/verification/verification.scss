@@ -1,10 +1,7 @@
-#analytics-board{
+#analytics-board {
     margin-bottom: 0;
 }
 
-#additional-operation {
-    margin-top: 30px;
-}
 .responsive-table {
     .col-1 {
         flex-basis: 18%;
@@ -29,10 +26,30 @@
     }
 }
 
-.selected{
+.selected {
     background-color: #aae78e !important;
 }
 
-.to-delete{
+.to-delete {
     background-color: #ff9b9b !important;
+}
+
+#notes-pannel {
+    display: flex;
+    justify-content: center;
+    transition: all 0.15s ease-out;
+
+    #notes {
+        width: 100%;
+        margin: 25px 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 0 5px #ccc;
+    }
+}
+
+.valide_button {
+    margin-bottom: 45px;
 }

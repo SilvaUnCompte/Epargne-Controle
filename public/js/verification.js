@@ -14,6 +14,12 @@ onload = () => {
     selected_month.valueAsDate = new Date();
     account_list.addEventListener("change", update_datasheet);
     selected_month.addEventListener("change", update_datasheet);
+
+    // When scrolling, notes need to follow
+    window.addEventListener("scroll", () => {
+        console.log(window.scrollY);
+        document.getElementById("notes-pannel").style.transform = `translateY(${window.scrollY}px)`;
+    });
 }
 
 function fill_account_lists() {
@@ -99,10 +105,8 @@ function update_datasheet() {
                 }
 
                 for (let i = 0; i < nb_operations; i++) {
-
-
                     datasheet.innerHTML += `
-                    <li class="table-row">
+                    <li class="table-row" id_operation="${operations[i].id_operation}">
                         <div class="col col-1" data-label="Date"> ${operations[i].date} </div>
                         <div class="col col-2" data-label="Label"> ${operations[i].label} </div>
                         <div class="col col-3" data-label="Amount"> ${(operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2)} € </div>
@@ -151,6 +155,7 @@ function validate_operation(self) {
 
 function delete_list(self) {
     if (self.classList.contains("to-delete")) {
+        self.classList.remove("selected");
         self.classList.remove("to-delete");
     }
     else {
@@ -158,24 +163,33 @@ function delete_list(self) {
     }
 }
 
-function confirm_delete(){
+function confirm_delete() {
     let selected = Array.from(datasheet.getElementsByClassName("to-delete"));
-    if(selected.length == 0){
+    if (selected.length == 0) {
         new_popup("No operation selected", "warn");
         return;
     }
 
-    selected.forEach(element => {
-        // let xhr = new XMLHttpRequest();
-        // xhr.open("GET", `/database/api/delete_operation.php?id_operation=${}`, true);
-        // xhr.onload = () => {
-        //     if (xhr.status == 200) {
-        //         element.remove();
-        //     }
-        //     else {
-        //         new_popup("Error deleting operation", "error");
-        //     }
-        // }
-        // xhr.send();
-    });
+    if (confirm("Are you sure you want to delete these operations?") == true) {
+        selected.forEach(element => {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", `/controler/deleting_elements/operation.php?id=${element.getAttribute("id_operation")}`, true);
+            xhr.onload = () => {
+                if (xhr.status == 200) {
+                    element.remove();
+                    new_popup("Operation deleted", "success");
+                }
+                else {
+                    new_popup("Error deleting operation", "error");
+                }
+            }
+            xhr.send();
+        });
+
+    }
+}
+
+function open_new_operation_tab() {
+    let note = document.getElementById("notes").value;
+    window.open(`/controler/pages/operations.php?note=${note}`);
 }

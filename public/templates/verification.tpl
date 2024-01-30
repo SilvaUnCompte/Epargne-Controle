@@ -36,13 +36,14 @@
 
         {* bouton creer une nouvelle opération et bouton confirmer delete *}
         <div class="row-field">
-            <a id="add-operation" class="valide_button noselect" onclick="window.open('/controler/pages/operations.php');">Add missing operation</a>
+            <a id="add-operation" class="valide_button noselect"
+                onclick="open_new_operation_tab()">Add missing operation</a>
             <a id="confirm-delete" class="valide_button noselect" onclick="confirm_delete()">Confirm delete</a>
         </div>
     </section>
 
-    <section id="add-pannel" class="container">
-        {* // TODO: add a textual note which follow scroll*}
+    <section id="notes-pannel" class="container">
+        <textarea id="notes" name="notes" rows="12" cols="35">Take notes here.</textarea>
     </section>
 </section>
 

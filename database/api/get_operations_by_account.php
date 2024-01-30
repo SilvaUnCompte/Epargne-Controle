@@ -16,7 +16,7 @@ $id_account = $_GET["id_account"];
 $start = $_GET["start"];
 $end = $_GET["end"];
 
-$query = $db->prepare('SELECT label,date,amount,new_sold,category FROM operation WHERE id_account = ' . $id_account . ' AND date >= \'' . $start . '\' AND date <= \'' . $end . '\' ORDER BY date ASC');
+$query = $db->prepare('SELECT id_operation,label,date,amount,new_sold,category FROM operation WHERE id_account = ' . $id_account . ' AND date >= \'' . $start . '\' AND date <= \'' . $end . '\' ORDER BY date ASC');
 $query->execute();
 $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
