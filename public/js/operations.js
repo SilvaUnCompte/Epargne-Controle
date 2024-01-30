@@ -29,7 +29,7 @@ function add_notes() {
 
         let note_box = document.createElement("textarea");
         note_box.id = "note-box";
-        note_box.innerHTML = note_txt;
+        note_box.innerHTML = note_txt.replace(/(\\n)/g, '\r\n');;
 
         let noteX;
         let noteY;
