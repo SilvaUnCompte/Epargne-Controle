@@ -16,13 +16,13 @@ $to = new account($_GET['to']);
 
 $order = null;
 if ($from->getType() == 0 && $to->getType() == 1) {
-    $order = 6;
+    $order = 0;
 }
 else if ($from->getType() == 1 && $to->getType() == 0) {
     $order = 7;
 }
 else {
-    $order = 5;
+    $order = 6;
 }
 
 Operation::createOperation($_GET['label'], $_GET['date'], -$_GET['amount'], $order, 0, $_GET['from']);

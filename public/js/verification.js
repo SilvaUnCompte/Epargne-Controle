@@ -190,8 +190,6 @@ function confirm_delete() {
 
 function open_new_operation_tab() {
     let note = document.getElementById("notes").value;
-    console.log(note);
-    // replace return by \n
     note = note.replace(/(?:\r\n|\r|\n)/g, '\\n');
     console.log(note);
 
