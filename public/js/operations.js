@@ -15,8 +15,15 @@ onload = () => {
     fill_account_list();
     add_notes();
 
+    account_list.addEventListener("change", sync_account_selection);
+
     date_to_search.valueAsDate = new Date();
     operation_date.valueAsDate = new Date();
+}
+
+function sync_account_selection() {
+    balance_view.value = account_list.value;
+    update_datasheet();
 }
 
 function add_notes() {
@@ -139,7 +146,7 @@ function update_datasheet() {
     datasheet_clear();
 
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + temp_account + "&limit=14&date=" + date + "&regularity=0", true);
+    xhr.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + temp_account + "&limit=14&date=" + date, true);
     xhr.onload = () => {
         if (xhr.status == 200) {
             operations = JSON.parse(xhr.responseText);
@@ -162,7 +169,9 @@ function update_datasheet() {
                 datasheet.children[nb_operations - i - 1].children[2].innerHTML = (operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2) + " €";
                 datasheet.children[nb_operations - i - 1].children[3].innerHTML = operation_type_list[operations[i].category].title;
 
-                datasheet.children[nb_operations - i - 1].children[4].innerHTML = '<img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element(' + operations[i].id_operation + ')">';
+                if (operations[i].regularity == 0) {
+                    datasheet.children[nb_operations - i - 1].children[4].innerHTML = '<img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element(' + operations[i].id_operation + ')">';
+                }
             }
         }
         else {
