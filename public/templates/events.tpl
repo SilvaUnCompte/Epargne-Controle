@@ -59,11 +59,12 @@
             <li class="table-header">
                 <div class="col col-1">Label</div>
                 <div class="col col-2">Amount</div>
-                <div class="col col-3">Start</div>
-                <div class="col col-4">End</div>
-                <div class="col col-5">Frequency</div>
-                <div class="col col-6">Category</div>
-                <div class="col col-7">Actions</div>
+                <div class="col col-3">Account</div>
+                <div class="col col-4">Start</div>
+                <div class="col col-5">End</div>
+                <div class="col col-6">Frequency</div>
+                <div class="col col-7">Category</div>
+                <div class="col col-8">Actions</div>
             </li>
             <div id="datasheet"> </div>
         </ul>

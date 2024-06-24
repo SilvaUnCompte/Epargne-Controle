@@ -1,8 +1,17 @@
 const email = '<%=Session["email"]%>'
+
 const datasheet = document.getElementById("datasheet");
 const date_to_search = document.getElementById("date-to-search");
 const account_list = document.getElementById("selected-account");
 const select_category = document.getElementById("category");
+
+const label_field = document.getElementById("label");
+const amount_field = document.getElementById("amount");
+const category_field = document.getElementById("category");
+const start_field = document.getElementById("event_start");
+const end_field = document.getElementById("event_end");
+const frequency_field = document.getElementById("frequency");
+
 let accounts = [];
 let operation_type_list = [];
 
@@ -88,11 +97,12 @@ function update_datasheet() {
                 datasheet.innerHTML += `<li class="table-row">
                     <div class="col col-1" data-label="Label"> No regular event in this time </div>
                     <div class="col col-2" data-label="Amount"> --- </div>
-                    <div class="col col-3" data-label="Start"> --- </div>
-                    <div class="col col-4" data-label="End"> --- </div>
-                    <div class="col col-5" data-label="Frequency"> --- </div>
-                    <div class="col col-6" data-label="Category"> --- </div>
-                    <div class="col col-7" data-label="Actions"> --- </div>
+                    <div class="col col-3" data-label="Account"> --- </div>
+                    <div class="col col-4" data-label="Start"> --- </div>
+                    <div class="col col-5" data-label="End"> --- </div>
+                    <div class="col col-6" data-label="Frequency"> --- </div>
+                    <div class="col col-7" data-label="Category"> --- </div>
+                    <div class="col col-8" data-label="Actions"> --- </div>
                 </li>`;
             }
             else {
@@ -100,11 +110,12 @@ function update_datasheet() {
                     datasheet.innerHTML += `<li class="table-row">
                         <div class="col col-1" data-label="Label"> ${events[i].label} </div>
                         <div class="col col-2" data-label="Amount"> ${events[i].amount.toFixed(2)} € </div>
-                        <div class="col col-3" data-label="Start"> ${events[i].start} </div>
-                        <div class="col col-4" data-label="End"> ${events[i].end} </div>
-                        <div class="col col-5" data-label="Frequency"> ${events[i].frequency_type == 0 ? "Every Day" : events[i].frequency_type == 1 ? "Every Week" : events[i].frequency_type == 2 ? "Every Month" : "Every Year"} </div>
-                        <div class="col col-6" data-label="Category"> ${operation_type_list[events[i].category].title} </div>
-                        <div class="col col-7" data-label="Actions"> --- </div>
+                        <div class="col col-3" data-label="Account"> ${accounts_list.find(account => account.id_account === events[i].id_account).label} </div>
+                        <div class="col col-4" data-label="Start"> ${events[i].start} </div>
+                        <div class="col col-5" data-label="End"> ${events[i].end} </div>
+                        <div class="col col-6" data-label="Frequency"> ${events[i].frequency_type == 0 ? "Every Day" : events[i].frequency_type == 1 ? "Every Week" : events[i].frequency_type == 2 ? "Every Month" : "Every Year"} </div>
+                        <div class="col col-7" data-label="Category"> ${operation_type_list[events[i].category].title} </div>
+                        <div class="col col-8" data-label="Actions"> --- </div>
                     </li>`;
 
                     if (events[i].amount > 0) {
@@ -114,7 +125,7 @@ function update_datasheet() {
                         datasheet.children[i].children[1].style.color = "red";
                     }
 
-                    datasheet.children[i].children[6].innerHTML = `<img src="/assets/images/edit.png" alt="edit" class="card-button" onclick="edit_element(${events[i].id_regular_event},this)">
+                    datasheet.children[i].children[7].innerHTML = `<img src="/assets/images/edit.png" alt="edit" class="card-button" onclick="edit_element(${events[i].id_regular_event},this)">
                     <img src="/assets/images/trash.png" alt="delete" class="card-button" onclick="delete_element('${events[i].id_regular_event}')">`;
                 }
             }
@@ -154,13 +165,14 @@ function fill_account_list() {
 }
 
 function create_event() {
-    label = document.getElementById("label").value;
-    amount = document.getElementById("amount").value;
-    category = document.getElementById("category").value;
-    start = document.getElementById("event_start").value;
-    end = document.getElementById("event_end").value;
-    frequency = document.getElementById("frequency").value;
+    label = label_field.value;
+    amount = amount_field.value;
+    category = category_field.value;
+    start = start_field.value;
+    end = end_field.value;
+    frequency = frequency_field.value;
     account = account_list.value;
+
     if (label.length > 50) {
         label = label.substring(0, 47) + "...";
     }
@@ -180,11 +192,14 @@ function create_event() {
         xhr.onload = () => {
             if (xhr.status == 200) {
                 update_datasheet();
-                document.getElementById("label").value = "";
-                document.getElementById("amount").value = "";
-                document.getElementById("event_start").value = "";
-                document.getElementById("event_end").value = "";
-                document.getElementById("category").value = 1;
+
+                label_field.value = "";
+                amount_field.value = "";
+                category_field.value = 1;
+                start_field.value = "";
+                end_field.value = "";
+                frequency_field.value = 0;
+                
                 new_popup("Event created", "success");
             }
             else {
@@ -193,8 +208,6 @@ function create_event() {
         };
         xhr.send();
     }
-
-    set_select_category();
 }
 
 function edit_element(id, element) {

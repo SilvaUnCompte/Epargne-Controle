@@ -35,7 +35,7 @@
                 label {
                     margin-left: 15px;
                 }
-                
+
                 input {
                     width: 100%;
                 }
@@ -49,33 +49,35 @@
 
         .responsive-table {
             .col-1 {
-                flex-basis: 18%;
+                flex-basis: 16%; // 20
             }
 
             .col-2 {
-                flex-basis: 13%;
+                flex-basis: 10%; // 30
             }
 
             .col-3 {
-                flex-basis: 10%;
+                flex-basis: 20%; // 50
             }
 
             .col-4 {
-                flex-basis: 16%;
+                flex-basis: 10%; // 60
             }
 
             .col-5 {
-                flex-basis: 16%;
+                flex-basis: 14%; // 70
             }
 
             .col-6 {
-                flex-basis: 14%;
+                flex-basis: 12%; // 80
             }
 
             .col-7 {
-                display: flex;
-                justify-content: center;
-                flex-basis: 13%;
+                flex-basis: 13%; // 90
+            }
+
+            .col-8 {
+                flex-basis: 5%; // 100
             }
         }
     }
@@ -86,17 +88,29 @@
     }
 }
 
+.col {
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    width: fit-content;
+    white-space: nowrap;
+}
+.col-8 {
+    overflow:visible;
+}
+
+
 @media all and (max-width: 767px) {
 
-    .col-4 {
+    .col-5 {
         flex-basis: 11% !important;
     }
 
-    .col-5 {
+    .col-6 {
         flex-basis: 21% !important;
     }
 
-    .table-header{
+    .table-header {
         * {
             font-size: 7px;
             font-weight: bold;
