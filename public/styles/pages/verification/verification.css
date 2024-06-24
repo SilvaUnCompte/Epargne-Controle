@@ -45,4 +45,19 @@
 
 .valide_button {
   margin-bottom: 45px;
+}
+
+#month-brief {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+}
+#month-brief #total-outcome {
+  color: #e23333;
+  font-weight: bold;
+}
+#month-brief #total-income {
+  color: #308d05;
+  font-weight: bold;
 }/*# sourceMappingURL=verification.css.map */

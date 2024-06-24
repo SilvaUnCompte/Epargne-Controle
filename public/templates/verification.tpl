@@ -36,14 +36,17 @@
 
         {* bouton creer une nouvelle opération et bouton confirmer delete *}
         <div class="row-field">
-            <a id="add-operation" class="valide_button noselect"
-                onclick="open_new_operation_tab()">Add missing operation</a>
+            <a id="add-operation" class="valide_button noselect" onclick="open_new_operation_tab()">Add missing
+                operation</a>
             <a id="confirm-delete" class="valide_button noselect" onclick="confirm_delete()">Confirm delete</a>
         </div>
     </section>
 
-    <section id="notes-pannel" class="container">
-        <textarea id="notes" name="notes" rows="12" cols="35">Take notes here.</textarea>
+    <section class="container" id="scollable">
+        <div id="notes-pannel">
+            <textarea id="notes" name="notes" rows="12" cols="35">Take notes here.</textarea>
+        </div>
+        <div id="month-brief"><p>Outcome: <span id="total-outcome">0.00€</span></p><p>Income: <span id="total-income">0.00€</span></p><p>Balance sheet: <span id="total-balance">0.00€</span></p></div>
     </section>
 </section>
 

@@ -53,3 +53,19 @@
 .valide_button {
     margin-bottom: 45px;
 }
+
+#month-brief {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+
+    #total-outcome {
+        color: #e23333;
+        font-weight: bold;
+    }
+    #total-income {
+        color: #308d05;
+        font-weight: bold;
+    }
+}

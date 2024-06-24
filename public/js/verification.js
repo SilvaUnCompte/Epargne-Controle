@@ -4,9 +4,14 @@ const account_list = document.getElementById("selected-checking-account");
 const selected_month = document.getElementById("selected-month");
 const datasheet = document.getElementById("datasheet");
 
+const total_outcome = document.getElementById("total-outcome");
+const total_income = document.getElementById("total-income");
+const total_balance = document.getElementById("total-balance");
+
 let selected_account;
 let operation_type_list = [];
 let accounts = [];
+let operations = [];
 
 onload = () => {
     fill_account_lists();
@@ -17,8 +22,28 @@ onload = () => {
 
     // When scrolling, notes need to follow
     window.addEventListener("scroll", () => {
-        document.getElementById("notes-pannel").style.transform = `translateY(${window.scrollY}px)`;
+        document.getElementById("scollable").style.transform = `translateY(${window.scrollY}px)`;
     });
+}
+
+function update_brief() {
+    let sum_positive_operations = operations.reduce((acc, operation) => acc + (operation.amount > 0 ? operation.amount : 0), 0);
+    let sum_negative_operations = operations.reduce((acc, operation) => acc + (operation.amount < 0 ? operation.amount : 0), 0);
+    let sum_operations = sum_positive_operations + sum_negative_operations;
+
+    total_outcome.innerHTML = sum_negative_operations.toFixed(2) + " €";
+    total_income.innerHTML = sum_positive_operations.toFixed(2) + " €";
+    total_balance.innerHTML = sum_operations.toFixed(2) + " €";
+
+    if (sum_operations > 0) {
+        total_balance.style.color = "green";
+    }
+    else if (sum_operations < 0) {
+        total_balance.style.color = "red";
+    }
+    else {
+        total_balance.style.color = "black";
+    }
 }
 
 function fill_account_lists() {
@@ -92,7 +117,7 @@ function update_datasheet() {
         datasheet.innerHTML = "";
 
         let xhr = new XMLHttpRequest();
-        xhr.open("GET", `/database/api/get_operations_by_account.php?id_account=${account_list.value}&start=${start_str}&end=${end_str}]`, true);
+        xhr.open("GET", `/database/api/get_operations_by_account.php?id_account=${account_list.value}&start=${start_str}&end=${end_str}]`, false);
         xhr.onload = () => {
             if (xhr.status == 200) {
                 operations = JSON.parse(xhr.responseText);
@@ -139,6 +164,7 @@ function update_datasheet() {
             }
         }
         xhr.send();
+        update_brief();
     }
 }
 
@@ -176,6 +202,8 @@ function confirm_delete() {
             xhr.onload = () => {
                 if (xhr.status == 200) {
                     element.remove();
+                    operations = operations.filter(operation => operation.id_operation != element.getAttribute("id_operation"));
+                    update_brief();
                     new_popup("Operation deleted", "success");
                 }
                 else {
@@ -184,7 +212,6 @@ function confirm_delete() {
             }
             xhr.send();
         });
-
     }
 }
 
