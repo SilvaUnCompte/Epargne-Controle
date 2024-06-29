@@ -212,15 +212,16 @@ function create_event() {
 
 function edit_element(id, element) {
     let card = element.parentNode.parentNode;
-    let start = new Date(card.children[2].innerHTML);
-    let end = new Date(card.children[3].innerHTML);
+    let start = new Date(card.children[3].innerHTML);
+    let end = new Date(card.children[4].innerHTML);
     start.setDate(start.getDate() + 1);
     end.setDate(end.getDate() + 1);
-    let frequency = card.children[4].innerHTML == " Every Day " ? 0 : card.children[4].innerHTML == " Every Week " ? 1 : card.children[4].innerHTML == " Every Month " ? 2 : 3;
+    
+    let frequency = card.children[5].innerHTML == " Every Day " ? 0 : card.children[5].innerHTML == " Every Week " ? 1 : card.children[5].innerHTML == " Every Month " ? 2 : 3;
 
     let category = 0;
     operation_type_list.forEach(operation_type => {
-        if (" " + operation_type.title + " " == card.children[5].innerHTML.replace(/&amp;/g, "&")) {
+        if (" " + operation_type.title + " " == card.children[6].innerHTML.replace(/&amp;/g, "&")) {
             category = operation_type.id;
         }
     });
@@ -229,29 +230,30 @@ function edit_element(id, element) {
     card.innerHTML = `
         <input class="col col-1" data-label="Label" value="${card.children[0].innerHTML.slice(1, -1)}" />
         <input class="col col-2" data-label="Amount" type="number" value="${card.children[1].innerHTML.slice(1, -3)}" />
-        <input class="col col-3" data-label="Start" type="date" />
-        <input class="col col-4" data-label="End" type="date" />
+        <input class="col col-3" data-label="Account" disabled/ value="${card.children[2].innerHTML}">
+        <input class="col col-4" data-label="Start" type="date" />
+        <input class="col col-5" data-label="End" type="date" />
 
-        <select class="col col-5" data-label="Frequency">
+        <select class="col col-6" data-label="Frequency">
             <option value="3">Every year</option>
             <option value="2">Every month</option>
             <option value="1">Every week</option>
             <option value="0">Every day</option>
         </select>
 
-        <select class="col col-6" data-label="Category" id="category_edit">
+        <select class="col col-7" data-label="Category" id="category_edit">
             ${set_select_category_for_edit()}
         </select>
 
-        <div class="col col-7" data-label="Actions">
-            <img src="/assets/images/confirm.png" alt="confirm" class="card-button" onclick='confirm_edit_element(this.parentNode.parentNode.children[0].value, this.parentNode.parentNode.children[1].value, this.parentNode.parentNode.children[2].value, this.parentNode.parentNode.children[3].value, this.parentNode.parentNode.children[4].value, this.parentNode.parentNode.children[5].value, ${id},this)'>
+        <div class="col col-8" data-label="Actions">
+            <img src="/assets/images/confirm.png" alt="confirm" class="card-button" onclick='confirm_edit_element(this.parentNode.parentNode.children[0].value, this.parentNode.parentNode.children[1].value, this.parentNode.parentNode.children[3].value, this.parentNode.parentNode.children[4].value, this.parentNode.parentNode.children[5].value, this.parentNode.parentNode.children[6].value, ${id},this)'>
             <img src="/assets/images/cancel.png" alt="cancel" class="card-button" onclick="update_datasheet()">
         </div>`;
 
-    card.children[2].valueAsDate = start;
-    card.children[3].valueAsDate = end;
-    card.children[4].value = frequency;
-    card.children[5].value = category;
+    card.children[3].valueAsDate = start;
+    card.children[4].valueAsDate = end;
+    card.children[5].value = frequency;
+    card.children[6].value = category;
 }
 
 function set_select_category_for_edit() {
@@ -270,6 +272,7 @@ function confirm_edit_element(label, amount, start, end, frequency, category, id
     }
 
     if (label == "" || amount == "" || start == "" || end == "" || frequency == "" || category == "") {
+        console.log(label, amount, start, end, frequency, category);
         new_popup("Please fill all the fields", "warn");
     }
     else {

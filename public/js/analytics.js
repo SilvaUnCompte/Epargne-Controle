@@ -159,8 +159,8 @@ function selected_account_change() {
             analytics_end.valueAsDate = today;
         }
         else {
-            analytics_start.valueAsDate = new Date(today.getFullYear() - 3, today.getMonth(), today.getDate());
-            analytics_end.valueAsDate = new Date(today.getFullYear() + 4, today.getMonth(), today.getDate());
+            analytics_start.valueAsDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+            analytics_end.valueAsDate = new Date(today.getFullYear() + 2, today.getMonth(), today.getDate());
         }
 
         get_operations();
