@@ -3,6 +3,7 @@ const datasheet = document.getElementById("datasheet");
 let accounts = [];
 let operation_type_list = [];
 let pie_labels = [];
+let pie_colors = [];
 
 const fake_data = [
     { year: "2010-04-01", count: -10 },
@@ -141,8 +142,10 @@ function set_operation_type_list() {
             operation_type_list = JSON.parse(xhr.responseText);
 
             pie_labels = ["Remains"];
+            pie_colors = ["#36a2eb"];
             for (let i = 0; i < 9; i++) {
                 pie_labels[i + 1] = operation_type_list[i].title;
+                pie_colors[i + 1] = operation_type_list[i].chart_color;
             }
         }
         else {
@@ -189,7 +192,7 @@ function set_log_charts() {
     let start = new Date();
     let end = new Date(start);
 
-    start.setFullYear(start.getFullYear() - 1);
+    start.setFullYear(start.getFullYear() - 2);
     let start_str = start.toISOString().split('T')[0];
 
     end.setFullYear(end.getFullYear() + 1);
@@ -293,7 +296,7 @@ function set_pie_chart() {
                 datasets: [
                     {
                         data: sum_per_categories.map(categorie => categorie.amount),
-                        backgroundColor: ['#36a2eb', '#ff6384', '#ff9f40', '#ffcd56', '#4bc0c0', '#B552D7', '#9966ff', '#c9cbcf', "#5AD752", "#178A10"],
+                        backgroundColor: pie_colors,
                         hoverOffset: 4
                     }
                 ]

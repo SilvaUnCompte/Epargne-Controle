@@ -7,6 +7,7 @@ let selected_account;
 let operations = [];
 let accounts = [];
 let pie_labels = [];
+let pie_colors = [];
 let categories_chart;
 let log_chart;
 
@@ -25,6 +26,7 @@ function set_operation_type_list() {
 
             for (let i = 0; i < 9; i++) {
                 pie_labels[i] = operation_type_list[i].title;
+                pie_colors[i] = operation_type_list[i].chart_color;
             }
         }
         else {
@@ -218,7 +220,7 @@ function update_checking_chart() {
         datasets: [
             {
                 data: sum_per_categories.map(categorie => categorie.amount),
-                backgroundColor: ['#ff6384', '#ff9f40', '#ffcd56', '#4bc0c0', '#B552D7', '#9966ff', '#c9cbcf', "#5AD752", "#178A10"],
+                backgroundColor: pie_colors,
                 hoverOffset: 4
             }
         ]

@@ -13,6 +13,7 @@ const additional_expenditure_fieldset = document.getElementById("additional-expe
 const selected_duration = document.getElementById("selected-duration");
 
 let pie_labels = [];
+let pie_colors = [];
 let selected_account;
 let budget_chart;
 let savings_chart;
@@ -109,7 +110,7 @@ onload = () => {
                 datasets: [
                     {
                         data: [20, 0, 13, 10, 0, 0, 0, 10, 0, 0],
-                        backgroundColor: ['#36a2eb', '#ff6384', '#ff9f40', '#ffcd56', '#4bc0c0', '#B552D7', '#9966ff', '#c9cbcf', "#5AD752", "#178A10"],
+                        backgroundColor: pie_colors,
                         hoverOffset: 4
                     }
                 ]
@@ -139,8 +140,10 @@ function set_operation_type_list() {
             operation_type_list = JSON.parse(xhr.responseText);
 
             pie_labels = ["Remains"];
+            pie_colors = ["#36a2eb"];
             for (let i = 0; i < 9; i++) {
                 pie_labels[i + 1] = operation_type_list[i].title;
+                pie_colors[i + 1] = operation_type_list[i].chart_color;
             }
         }
         else {
