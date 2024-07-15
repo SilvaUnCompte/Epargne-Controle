@@ -8,6 +8,7 @@ const balance = document.getElementById("balance");
 const add_field = document.getElementById("add-field");
 const select_category = document.getElementById("category");
 let accounts = [];
+let selected_account;
 let operation_type_list = [];
 
 onload = () => {
@@ -16,6 +17,7 @@ onload = () => {
     add_notes();
 
     account_list.addEventListener("change", sync_account_selection);
+    account_list.addEventListener("change", creating_operation_pannel);
 
     date_to_search.valueAsDate = new Date();
     operation_date.valueAsDate = new Date();
@@ -23,6 +25,7 @@ onload = () => {
 
 function sync_account_selection() {
     balance_view.value = account_list.value;
+    selected_account = accounts.find(account => account.id_account == account_list.value)
     update_datasheet();
 }
 
@@ -31,7 +34,6 @@ function add_notes() {
     const urlParams = new URLSearchParams(queryString);
 
     if (urlParams.has('note')) {
-        console.log(urlParams.get('note'));
         const note_txt = urlParams.get('note');
 
         let note_box = document.createElement("textarea");
@@ -49,8 +51,6 @@ function add_notes() {
 
             noteX = event.clientX - note_box.offsetLeft;
             noteY = event.clientY - note_box.offsetTop;
-
-            console.log(noteX + " " + noteY);
         });
 
         document.addEventListener("mousemove", () => {
@@ -80,16 +80,11 @@ function set_operation_type_list() {
 
 function set_select_category() {
     // Get the selected account type by using let accounts
-    let accounts_list = JSON.parse(accounts);
     select_category.innerHTML = "";
 
-    accounts_list.forEach(account => {
-        if (account.id_account == account_list.value) {
-            operation_type_list.forEach(operation_type => {
-                if (operation_type.account_type == account.type) {
-                    select_category.innerHTML += `<option value="${operation_type.id}">${operation_type.title}</option>`;
-                }
-            });
+    operation_type_list.forEach(operation_type => {
+        if (operation_type.account_type == selected_account.type) {
+            select_category.innerHTML += `<option value="${operation_type.id}">${operation_type.title}</option>`;
         }
     });
 
@@ -136,7 +131,7 @@ function update_datasheet() {
     let temp_account = accounts;
 
     if (balance_view.value != 0) {
-        temp_account = "[{\"id_account\":" + [balance_view.value] + "}]";
+        temp_account = JSON.parse("[{\"id_account\":" + [balance_view.value] + "}]");
         show_balance(balance_view.value);
     }
     else {
@@ -146,7 +141,7 @@ function update_datasheet() {
     datasheet_clear();
 
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + temp_account + "&limit=14&date=" + date, true);
+    xhr.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + JSON.stringify(temp_account) + "&limit=14&date=" + date, true);
     xhr.onload = () => {
         if (xhr.status == 200) {
             operations = JSON.parse(xhr.responseText);
@@ -186,15 +181,14 @@ function fill_account_list() {
     xhr.open("GET", "/database/api/get_accounts_by_user.php?email=" + email, true);
     xhr.onload = () => {
         if (xhr.status == 200) {
-            accounts = xhr.responseText;
-            let accounts_list = JSON.parse(accounts);
-            if (accounts_list.length == 0) {
+            accounts = JSON.parse(xhr.responseText);
+            if (accounts.length == 0) {
                 new_popup("There is no account yet", "info");
                 document.getElementById("add-field").disabled = true;
                 return;
             }
 
-            accounts_list.forEach(account => {
+            accounts.forEach(account => {
                 account_list.innerHTML += `<option value="${account.id_account}">${account.label}</option>`;
                 balance_view.innerHTML += `<option value="${account.id_account}">${account.label}</option>`;
             });
@@ -228,7 +222,6 @@ function create_operation() {
     }
     amount = document.getElementById("amount").value;
     category = document.getElementById("category").value;
-    console.log(category);
 
     if (amount == "" || label == "" || operation_date.value == "") {
         new_popup("Please fill all the fields", "warn")
@@ -245,7 +238,7 @@ function create_operation() {
                 update_datasheet();
                 document.getElementById("label").value = "";
                 document.getElementById("amount").value = "";
-                document.getElementById("category").value = 1;
+                selected_account.type == 0 ? document.getElementById("category").value = 1 : document.getElementById("category").value = 7;
                 new_popup("Operation created", "success");
             }
             else {

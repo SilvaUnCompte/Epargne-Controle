@@ -34,7 +34,7 @@
 
         <form id="add-form">
 
-            <div id="account_selection" onchange="creating_operation_pannel()">
+            <div id="account_selection">
                 <p>Selects the account on which to add an operation</p>
                 <select name="selected-account" id="selected-account">
                     <option value="0"> Select an account </option>
