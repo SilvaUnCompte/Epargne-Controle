@@ -1,7 +1,13 @@
 const email = '<%=Session["email"]%>'
 const account_list = document.getElementById("selected-account");
+
 const analytics_start = document.getElementById("analytics-start");
 const analytics_end = document.getElementById("analytics-end");
+const analytics_index = document.getElementById("analytics-index");
+
+const forecast_toggle = document.getElementById("forecast-toggle");
+const forecast_ajust = document.getElementById("forecast-ajust");
+
 const categories_chart_container = document.getElementById('categories-account-chart');
 let selected_account;
 let operations = [];
@@ -39,6 +45,7 @@ function set_operation_type_list() {
 onload = () => {
     fill_account_list();
     set_operation_type_list();
+    analytics_index.valueAsDate = new Date();
 
     log_chart = new Chart(
         document.getElementById('log-account-chart'),
@@ -119,8 +126,13 @@ onload = () => {
     );
 
     account_list.addEventListener("change", selected_account_change);
+
     analytics_start.addEventListener("change", get_operations);
     analytics_end.addEventListener("change", get_operations);
+
+    forecast_toggle.addEventListener("change", update_charts);
+    forecast_ajust.addEventListener("change", update_charts);
+    analytics_index.addEventListener("change", update_charts);
 }
 
 function fill_account_list() {
@@ -206,6 +218,10 @@ function get_operations() {
     xhr.send();
 }
 
+function update_charts() {
+    selected_account.type ? update_saving_chart() : update_checking_chart();
+}
+
 function update_checking_chart() {
     update_saving_chart()
     categories_chart_container.parentNode.style.display = "block";
@@ -251,9 +267,74 @@ function update_saving_chart() {
         ]
     };
 
+    if (forecast_toggle.checked) {
+        data = forecast(data);
+    }
+
     log_chart.data = data;
     data.datasets[0].data.push({ ["x"]: analytics_end.value, ["y"]: operations[operations.length - 1].new_sold });
 
     log_chart.update();
     log_chart.resize();
+}
+
+function forecast(data) {
+    let { slope, intercept } = calculateRegressionParameters(operations);
+
+    const lastOperation = operations.slice().reverse().find(operation => new Date(operation.date) <= new Date(analytics_index.value));
+    const lastSold = lastOperation?.new_sold;
+
+    if (forecast_ajust.checked) {
+        slope = (lastSold - intercept) / new Date(lastOperation.date).getTime();
+    }
+
+    const regressionData = calculateRegressionLine(slope, intercept);
+
+    var prev = {
+        stepped: false,
+        label: "Predicted",
+        data: regressionData,
+        borderColor: 'rgb(99, 132, 255)',
+        pointStyle: false,
+    };
+
+    data.datasets.push(prev);
+
+    return data;
+}
+
+function calculateRegressionParameters(points) {
+    const x = points.map((operation) => new Date(operation.date).getTime());
+    const y = points.map((operation) => operation.new_sold);
+
+    const n = x.length;
+    let sumX = 0;
+    let sumY = 0;
+    let sumXY = 0;
+    let sumXX = 0;
+
+    for (let i = 0; i < n; i++) {
+        sumX += x[i];
+        sumY += y[i];
+        sumXY += x[i] * y[i];
+        sumXX += x[i] * x[i];
+    }
+
+    const slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+    const intercept = (sumY - slope * sumX) / n;
+
+    return { slope, intercept };
+}
+
+function calculateRegressionLine(slope, intercept){
+    const start = new Date(analytics_start.value).getTime();
+    const end = new Date(analytics_end.value).getTime();
+    const step = (end - start) / 100;
+
+    let regressionData = [];
+    for (let i = start; i <= end; i += step) {
+        regressionData.push({ x: i, y: slope * i + intercept });
+    }
+
+    return regressionData;
 }

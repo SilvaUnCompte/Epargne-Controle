@@ -12,9 +12,21 @@
     </fieldset>
 
     <section class="analytics-charts">
-        <div id="log-account-div"><canvas id="log-account-chart">Your browser does not support the canvas element.</canvas></div>
-        <div id="categories-account-div"><canvas id="categories-account-chart">Your browser does not support the canvas element.</canvas></div>
+        <div id="log-account-div"><canvas id="log-account-chart">Your browser does not support the canvas
+                element.</canvas></div>
+        <div id="categories-account-div"><canvas id="categories-account-chart">Your browser does not support the canvas
+                element.</canvas></div>
     </section>
+    <div class="forecast-checkbox">
+        <input type="checkbox" id="forecast-toggle" name="forecast-toggle">
+        <label for="forecast-toggle">Enable Forecast</label>
+    </div>
+    <div class="forecast-checkbox">
+        <input type="checkbox" id="forecast-ajust" name="forecast-ajust">
+        <label for="forecast-ajust">Ajust to date</label>
+    </div>
+    <input type="date" name="index" id="analytics-index">
+
 </section>
 
 
