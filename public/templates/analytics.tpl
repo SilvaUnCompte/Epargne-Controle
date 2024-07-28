@@ -19,11 +19,11 @@
     </section>
     <div class="forecast-checkbox">
         <input type="checkbox" id="forecast-toggle" name="forecast-toggle">
-        <label for="forecast-toggle">Enable Forecast</label>
+        <label for="forecast-toggle" class="noselect">Enable Forecast</label>
     </div>
     <div class="forecast-checkbox">
         <input type="checkbox" id="forecast-ajust" name="forecast-ajust">
-        <label for="forecast-ajust">Ajust to date</label>
+        <label for="forecast-ajust" class="noselect">Ajust to date</label>
     </div>
     <input type="date" name="index" id="analytics-index">
 

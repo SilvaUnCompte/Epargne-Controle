@@ -18,7 +18,6 @@ let categories_chart;
 let log_chart;
 
 window.addEventListener('resize', () => {
-    console.log("resize");
     log_chart.resize();
     categories_chart.resize();
 });
@@ -209,7 +208,7 @@ function get_operations() {
             };
             xhr2.send();
 
-            selected_account.type ? update_saving_chart() : update_checking_chart();
+            update_charts();
         }
         else {
             new_popup("Error getting operations", "error");
@@ -250,6 +249,9 @@ function update_checking_chart() {
 function update_saving_chart() {
     categories_chart_container.parentNode.style.display = "none";
 
+    const TodaylastOperation = operations.slice().reverse().find(operation => new Date(operation.date) <= new Date());
+    operations.push({ ["date"]: DateToString(new Date()), ["new_sold"]: TodaylastOperation.new_sold });
+
     let data = {
         labels: operations.map(operation => operation.date),
         datasets: [
@@ -267,12 +269,12 @@ function update_saving_chart() {
         ]
     };
 
+    log_chart.data = data;
+    data.datasets[0].data.push({ ["x"]: analytics_end.value, ["y"]: operations[operations.length - 1].new_sold });
+
     if (forecast_toggle.checked) {
         data = forecast(data);
     }
-
-    log_chart.data = data;
-    data.datasets[0].data.push({ ["x"]: analytics_end.value, ["y"]: operations[operations.length - 1].new_sold });
 
     log_chart.update();
     log_chart.resize();
@@ -281,11 +283,11 @@ function update_saving_chart() {
 function forecast(data) {
     let { slope, intercept } = calculateRegressionParameters(operations);
 
-    const lastOperation = operations.slice().reverse().find(operation => new Date(operation.date) <= new Date(analytics_index.value));
-    const lastSold = lastOperation?.new_sold;
+    const AjustlastOperation = operations.slice().reverse().find(operation => new Date(operation.date) <= new Date(analytics_index.value));
+    const AjustlastSold = AjustlastOperation?.new_sold;
 
     if (forecast_ajust.checked) {
-        slope = (lastSold - intercept) / new Date(lastOperation.date).getTime();
+        slope = (AjustlastSold - intercept) / new Date(AjustlastOperation.date).getTime();
     }
 
     const regressionData = calculateRegressionLine(slope, intercept);
@@ -337,4 +339,8 @@ function calculateRegressionLine(slope, intercept){
     }
 
     return regressionData;
+}
+
+function DateToString(date) {
+    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
 }
