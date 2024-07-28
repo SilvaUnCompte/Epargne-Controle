@@ -287,7 +287,7 @@ function forecast(data) {
     const AjustlastSold = AjustlastOperation?.new_sold;
 
     if (forecast_ajust.checked) {
-        slope = (AjustlastSold - intercept) / new Date(AjustlastOperation.date).getTime();
+        slope = (AjustlastSold - intercept) / new Date(analytics_index.value).getTime();
     }
 
     const regressionData = calculateRegressionLine(slope, intercept);
