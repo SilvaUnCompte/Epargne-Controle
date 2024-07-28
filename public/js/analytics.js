@@ -105,7 +105,7 @@ onload = () => {
                     tooltip: {
                         callbacks: {
                             label: function (value) {
-                                return " " + value.parsed.toFixed(2) + " €";
+                                return ` ${Math.abs(value.parsed.toFixed(2))} € (${(value.parsed / value.chart.data.datasets[0].data.reduce((acc, val) => acc + val, 0) * 100).toFixed(2)}%)`;
                             }
                         },
                     },

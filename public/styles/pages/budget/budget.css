@@ -7,7 +7,7 @@
   margin: 0 5px;
 }
 
-#budget-account-div {
+.budget-account-div {
   filter: saturate(15%);
 }
 

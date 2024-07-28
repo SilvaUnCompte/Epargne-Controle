@@ -56,13 +56,13 @@
             <div id="checking-account-info">
             </div>
         </div>
-        <div id="budget-account-div">
-            <canvas id="budget-account-chart" style="height: 460px; width: 460px;">Your browser does not support the
+        <div class="budget-account-div">
+            <canvas id="pie-chart-canvas" style="height: 460px; width: 460px;">Your browser does not support the
                 canvas element.</canvas>
         </div>
     </section>
 
-    <fieldset class="analytics-form">
+    {* <fieldset class="analytics-form">
         <div class="row-field">
             <select name="selected-savings-account" id="selected-savings-account">
                 <option value="0"> Select a savings account </option>
@@ -70,18 +70,49 @@
             <input type="number" min="1" max="60" name="selected-duration" id="selected-duration" value="3"> years
         </div>
     </fieldset>
-
     <section class="analytics-charts">
         <div id="savings-account-div">
             <canvas id="savings-account-chart" style="height: 500px; width: 100%;">Your browser does not support the
                 canvas element.</canvas>
         </div>
+    </section> *}
+
+    <section class="dashboard">
+        <section class="container">
+            <ul class="responsive-table">
+                <li class="table-header">
+                    <div class="col col-1">Date</div>
+                    <div class="col col-2">Label</div>
+                    <div class="col col-3">Amount</div>
+                    <div class="col col-4">Category</div>
+                </li>
+                <div id="datasheet" class="budget-account-div">
+                    {for $i = 0; $i < 14; $i++}
+                        <li class="table-row">
+                            <div class="col col-1" data-label="Date"> --- </div>
+                            <div class="col col-2" data-label="Label"> --- </div>
+                            <div class="col col-3" data-label="Amount"> --- </div>
+                            <div class="col col-4" data-label="Category"> --- </div>
+                        </li>
+                    {/for}
+                </div>
+            </ul>
+        </section>
+        <section class="container">
+            <div class="budget-account-div">
+                <canvas id="bar-chart-canvas" style="height: 500px; width: 100%;">Your browser does not support the
+                    canvas element.</canvas>
+            </div>
+        </section>
     </section>
+
 </section>
 
 
 <link rel="stylesheet" href="/public/styles/pages/analytics/analytics.css">
 <link rel="stylesheet" href="/public/styles/pages/budget/budget.css">
+<link rel="stylesheet" href="/public/styles/table/table.css">
+<link rel="stylesheet" href="/public/styles/pages/home/home.css">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@^4"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
