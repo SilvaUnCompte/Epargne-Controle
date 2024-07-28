@@ -212,6 +212,8 @@ function create_event() {
 
 function edit_element(id, element) {
     let card = element.parentNode.parentNode;
+    card.classList.add("editing-row");
+    
     let start = new Date(card.children[3].innerHTML);
     let end = new Date(card.children[4].innerHTML);
     start.setDate(start.getDate() + 1);

@@ -177,6 +177,7 @@ function cancel_create_account() {
 
 function edit_element(id, element) {
     card = element.parentNode.parentNode;
+    card.classList.add("editing-row");
 
     card.onclick = "";
     card.innerHTML = `
