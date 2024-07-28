@@ -311,6 +311,7 @@ function forecast(data) {
 
 function calculateRegressionParameters(points) {
     points.pop(); // Remove fake last point created to fill the chart
+    points.push({ ["date"]: DateToString(new Date()), ["new_sold"]: points[points.length - 1].new_sold });
     const x = points.map((operation) => new Date(operation.date).getTime());
     const y = points.map((operation) => operation.new_sold);
 
