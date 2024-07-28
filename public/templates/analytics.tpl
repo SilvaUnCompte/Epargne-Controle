@@ -17,9 +17,11 @@
         <div id="categories-account-div"><canvas id="categories-account-chart">Your browser does not support the canvas
                 element.</canvas></div>
     </section>
+
     <div class="forecast-checkbox">
         <input type="checkbox" id="forecast-toggle" name="forecast-toggle">
         <label for="forecast-toggle" class="noselect">Enable Forecast</label>
+        <span id="forecast-info"></span>
     </div>
     <div class="forecast-checkbox">
         <input type="checkbox" id="forecast-ajust" name="forecast-ajust">
@@ -29,6 +31,8 @@
 
 </section>
 
+<br>
+<br>
 
 <link rel="stylesheet" href="/public/styles/pages/analytics/analytics.css">
 

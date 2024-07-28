@@ -7,6 +7,7 @@ const analytics_index = document.getElementById("analytics-index");
 
 const forecast_toggle = document.getElementById("forecast-toggle");
 const forecast_ajust = document.getElementById("forecast-ajust");
+const forecast_slope_info = document.getElementById("forecast-info")
 
 const categories_chart_container = document.getElementById('categories-account-chart');
 let selected_account;
@@ -195,12 +196,17 @@ function get_operations() {
         if (xhr.status == 200) {
             operations = JSON.parse(xhr.responseText);
 
+            if (operations.length == 0) {
+                new_popup("There is no operation in this period", "info");
+            }
+
             // Security if there is no operation at the start of the chart
             let xhr2 = new XMLHttpRequest();
             xhr2.open("GET", `/database/api/get_amount_at_date.php?id_account=${account_list.value}&date=${analytics_start.value}]`, false);
             xhr2.onload = () => {
                 if (xhr2.status == 200) {
                     operations.unshift({ ["date"]: analytics_start.value, ["new_sold"]: parseInt(xhr2.responseText) });
+                    operations.push({ ["date"]: analytics_end.value, ["new_sold"]: operations[operations.length - 1].new_sold });
                 }
                 else {
                     new_popup("Error getting operations", "error");
@@ -218,6 +224,7 @@ function get_operations() {
 }
 
 function update_charts() {
+    forecast_slope_info.style.display = forecast_toggle.checked ? "inline" : "none";
     selected_account.type ? update_saving_chart() : update_checking_chart();
 }
 
@@ -249,9 +256,6 @@ function update_checking_chart() {
 function update_saving_chart() {
     categories_chart_container.parentNode.style.display = "none";
 
-    const TodaylastOperation = operations.slice().reverse().find(operation => new Date(operation.date) <= new Date());
-    operations.push({ ["date"]: DateToString(new Date()), ["new_sold"]: TodaylastOperation.new_sold });
-
     let data = {
         labels: operations.map(operation => operation.date),
         datasets: [
@@ -270,7 +274,6 @@ function update_saving_chart() {
     };
 
     log_chart.data = data;
-    data.datasets[0].data.push({ ["x"]: analytics_end.value, ["y"]: operations[operations.length - 1].new_sold });
 
     if (forecast_toggle.checked) {
         data = forecast(data);
@@ -281,16 +284,17 @@ function update_saving_chart() {
 }
 
 function forecast(data) {
-    let { slope, intercept } = calculateRegressionParameters(operations);
+    let { slope, intercept } = calculateRegressionParameters(operations.slice());
 
     const AjustlastOperation = operations.slice().reverse().find(operation => new Date(operation.date) <= new Date(analytics_index.value));
     const AjustlastSold = AjustlastOperation?.new_sold;
 
     if (forecast_ajust.checked) {
-        slope = (AjustlastSold - intercept) / new Date(analytics_index.value).getTime();
+        intercept = AjustlastSold - slope * new Date(analytics_index.value).getTime();
     }
 
     const regressionData = calculateRegressionLine(slope, intercept);
+    forecast_slope_info.innerHTML = ` : ${(slope*86400000*30).toFixed(2)} €/month`;
 
     var prev = {
         stepped: false,
@@ -306,6 +310,7 @@ function forecast(data) {
 }
 
 function calculateRegressionParameters(points) {
+    points.pop(); // Remove fake last point created to fill the chart
     const x = points.map((operation) => new Date(operation.date).getTime());
     const y = points.map((operation) => operation.new_sold);
 

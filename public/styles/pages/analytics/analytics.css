@@ -49,6 +49,9 @@
   width: 33%;
   height: 66%;
 }
+#analytics-board #forecast-info {
+  color: rgb(49, 66, 221);
+}
 
 @media all and (max-width: 767px) {
   #analytics-board {
