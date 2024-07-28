@@ -12,6 +12,7 @@ const budgetAccountDivs = document.getElementsByClassName("budget-account-div");
 const account_expected_savings = document.getElementById("account-expected-savings");
 const account_additional_expenditure = document.getElementsByClassName("account-additional-expenditure");
 const additional_expenditure_fieldset = document.getElementById("additional-expenditure-fieldset");
+const logarithmic_box = document.getElementById("logarithmic-axis");
 
 let chart_labels = [];
 let chart_colors = [];
@@ -133,7 +134,16 @@ onload = () => {
                         },
                     },
                 },
-                
+                scales: { // axe y logarythmique
+                    y: {
+                        ticks: {
+                            callback: function (value) {
+                                return value + " €";
+                            }
+                        }
+                    }
+                }
+
             },
             data: {
                 labels: chart_labels,
@@ -160,6 +170,11 @@ onload = () => {
     selected_month.addEventListener("change", update_charts);
     account_expected_savings.addEventListener("change", update_charts);
     additional_expenditure_fieldset.addEventListener("change", update_charts);
+
+    logarithmic_box.addEventListener("change", () => {
+        budget_bar_chart.options.scales.y.type = logarithmic_box.checked ? 'logarithmic' : 'linear';
+        budget_bar_chart.update();
+    });
 
     // savings_account_list.addEventListener("change", update_savings_account_chart);
     // selected_duration.addEventListener("change", update_savings_account_chart);

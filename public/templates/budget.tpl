@@ -103,6 +103,10 @@
                 <canvas id="bar-chart-canvas" style="height: 500px; width: 100%;">Your browser does not support the
                     canvas element.</canvas>
             </div>
+            <div>
+                <input type="checkbox" id="logarithmic-axis" name="logarithmic-axis">
+                <label for="logarithmic-axis">Logarithmic axis</label>
+            </div>
         </section>
     </section>
 
