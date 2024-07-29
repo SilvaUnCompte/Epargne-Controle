@@ -41,7 +41,7 @@
                                 placeholder="Label">
                             <input type="number" name="account-additional-expenditure"
                                 class="account-additional-expenditure" placeholder="Amount"
-                                onchange="update_checking_account_chart()"><span> €</span>
+                                onchange="update_charts()"><span> €</span>
                         </section>
                         <img src="/assets/images/trash.png" class="button" alt="delete" class="card-button"
                             onclick="remove_expenditure(this)">

@@ -19,6 +19,7 @@ let budget_pie_chart;
 let budget_bar_chart;
 let accounts = [];
 let operation_type_list = [];
+let global_operations = [];
 
 window.addEventListener('resize', () => {
     budget_pie_chart.resize();
@@ -113,8 +114,8 @@ onload = () => {
     }
 
     selected_month.valueAsDate = new Date();
-    account_list.addEventListener("change", update_charts);
-    selected_month.addEventListener("change", update_charts);
+    account_list.addEventListener("change", update_global_operation);
+    selected_month.addEventListener("change", update_global_operation);
     account_expected_savings.addEventListener("change", update_charts);
     additional_expenditure_fieldset.addEventListener("change", update_charts);
 
@@ -175,15 +176,7 @@ function fill_account_lists() {
     xhr.send();
 }
 
-function update_charts() {
-    for (let i = 0; i < budgetAccountDivs.length; i++) {
-        budgetAccountDivs[i].style.filter = "none";
-    }
-
-    selected_month.disabled = false;
-    account_expected_savings.disabled = false;
-    additional_expenditure_fieldset.disabled = false;
-
+function update_global_operation() {
     let start = selected_month.value + "-01";
     let end = new Date(start);
     end.setMonth(end.getMonth() + 1);
@@ -195,15 +188,13 @@ function update_charts() {
         xhr.open("GET", `/database/api/get_operations_by_account.php?id_account=${account_list.value}&start=${start}&end=${end}]`, true);
         xhr.onload = () => {
             if (xhr.status == 200) {
-                operations = JSON.parse(xhr.responseText);
-                if (operations.length == 0) {
+                global_operations = JSON.parse(xhr.responseText);
+                if (global_operations.length == 0) {
                     new_popup("There is no operation this month", "info");
                     show_empty()
                 }
                 else {
-                    update_pie_chart(operations);
-                    update_datasheet(operations);
-                    update_bar_chart(operations);
+                    update_charts();
                 }
             }
             else {
@@ -218,20 +209,42 @@ function update_charts() {
     }
 }
 
-function update_pie_chart(operations) {
-    expected_savings = parseInt(account_expected_savings.value == "" ? 0 : account_expected_savings.value)
+function update_charts() {
+    for (let i = 0; i < budgetAccountDivs.length; i++) {
+        budgetAccountDivs[i].style.filter = "none";
+    }
 
+    selected_month.disabled = false;
+    account_expected_savings.disabled = false;
+    additional_expenditure_fieldset.disabled = false;
+
+    processed_operation = add_additional_operations();
+    update_pie_chart(processed_operation);
+    update_datasheet(processed_operation);
+    update_bar_chart(processed_operation);
+}
+
+function add_additional_operations() {
+    // Faire une deep copy de global_operations
+    let operations = JSON.parse(JSON.stringify(global_operations));
+
+    expected_savings = parseInt(account_expected_savings.value == "" ? 0 : account_expected_savings.value);
     let additional_expenditure = document.getElementsByClassName("account-additional-expenditure");
+
     additional_expenditure_acc = 0;
     for (let i = 0; i < additional_expenditure.length; i++) { additional_expenditure_acc += parseInt(additional_expenditure[i].value == "" ? 0 : additional_expenditure[i].value); }
     document.getElementById("total-add-expenditure").innerHTML = -additional_expenditure_acc;
-    operations.push({ ["amount"]: -additional_expenditure_acc, ["category"]: 6, ["label"]: "Additional expenditure" });
 
+    operations.push({ ["amount"]: -additional_expenditure_acc, ["category"]: 6, ["label"]: "Additional expenditure" });
+    operations.push({ ["amount"]: -expected_savings, ["category"]: 0, ["label"]: "Expected savings" });
+
+    return operations;
+}
+
+function update_pie_chart(operations) {
     let income = operations.reduce((acc, operation) => (operation.amount > 0) ? acc + operation.amount : acc, 0);
     let expenses = operations.reduce((acc, operation) => (operation.amount < 0) ? acc + operation.amount : acc, 0);
-    let remains = income + expenses - expected_savings;
-
-    operations.push({ ["amount"]: -expected_savings, ["category"]: 0, ["label"]: "Expected savings" });
+    let remains = income + expenses;
 
     let sum_per_categories = [];
     sum_per_categories[0] = { ["type"]: -1, ["amount"]: (remains > 0) ? remains : 0 };
@@ -281,7 +294,7 @@ function update_bar_chart(operations) {
     operations.sort((a, b) => { return b.amount - a.amount; });
 
     budget_bar_chart.data.datasets[0].data = operations.map(operation => operation.amount);
-    budget_bar_chart.data.labels = operations.map(operation => "");
+    budget_bar_chart.data.labels = operations.map(() => "");
     budget_bar_chart.data.datasets[0].backgroundColor = operations.map(operation => chart_colors[operation.category + 1]);
 
     budget_bar_chart.update();
@@ -310,7 +323,6 @@ function show_empty() {
 }
 
 function add_expenditure() {
-
     let new_expenditure = document.createElement("div");
     new_expenditure.classList.add("additional-expenditure");
     new_expenditure.innerHTML = `
@@ -318,7 +330,7 @@ function add_expenditure() {
             <div>
                 <input type="text" name="label-additional-expenditure" class="label-additional-expenditure"
                     placeholder="Label">
-                <input type="number" name="account-additional-expenditure" class="account-additional-expenditure" onchange="update_pie_chart()" placeholder="Amount"> €
+                <input type="number" name="account-additional-expenditure" class="account-additional-expenditure" onchange="update_charts()" placeholder="Amount"> €
             </div>
             <img src="/assets/images/trash.png" class="button" alt="delete" class="card-button"
                 onclick="remove_expenditure(this)">
@@ -330,5 +342,5 @@ function add_expenditure() {
 
 function remove_expenditure(self) {
     self.parentNode.remove();
-    update_pie_chart();
+    update_charts();
 }
