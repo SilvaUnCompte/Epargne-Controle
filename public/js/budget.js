@@ -255,7 +255,7 @@ function update_pie_chart(operations) {
     document.getElementById("account-incomes").value = income.toFixed(2);
     document.getElementById("account-expenses").value = expenses.toFixed(2);
     document.getElementById("account-remains").value = remains.toFixed(2);
-    document.getElementById("account-remains").style.color = ((parseInt(remains) >= 0) ? "" : "red");
+    document.getElementById("account-remains").style.color = ((parseInt(remains) > 0) ? "" : "red");
 
 
     budget_pie_chart.data.datasets[0].data = sum_per_categories.map(categorie => categorie.amount);

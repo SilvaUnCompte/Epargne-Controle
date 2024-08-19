@@ -106,6 +106,17 @@ function update_datasheet() {
                 </li>`;
             }
             else {
+                // trier events par label
+                events.sort(function (a, b) {
+                    if (a.label < b.label) {
+                      return -1;
+                    }
+                    if (a.label > b.label) {
+                      return 1;
+                    }
+                    return 0;
+                  });
+
                 for (let i = 0; i < nb_events; i++) {
                     datasheet.innerHTML += `<li class="table-row">
                         <div class="col col-1" data-label="Label"> ${events[i].label} </div>
@@ -199,7 +210,7 @@ function create_event() {
                 start_field.value = "";
                 end_field.value = "";
                 frequency_field.value = 0;
-                
+
                 new_popup("Event created", "success");
             }
             else {
@@ -213,12 +224,12 @@ function create_event() {
 function edit_element(id, element) {
     let card = element.parentNode.parentNode;
     card.classList.add("editing-row");
-    
+
     let start = new Date(card.children[3].innerHTML);
     let end = new Date(card.children[4].innerHTML);
     start.setDate(start.getDate() + 1);
     end.setDate(end.getDate() + 1);
-    
+
     let frequency = card.children[5].innerHTML == " Every Day " ? 0 : card.children[5].innerHTML == " Every Week " ? 1 : card.children[5].innerHTML == " Every Month " ? 2 : 3;
 
     let category = 0;
