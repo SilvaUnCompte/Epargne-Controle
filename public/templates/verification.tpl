@@ -50,6 +50,8 @@
     </section>
 </section>
 
+<br>
+<br>
 
 <link rel="stylesheet" href="/public/styles/pages/analytics/analytics.css">
 <link rel="stylesheet" href="/public/styles/pages/budget/budget.css">
