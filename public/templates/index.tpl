@@ -38,6 +38,9 @@
     </section>
 </section>
 
+<br>
+<br>
+
 <link rel="stylesheet" href="/public/styles/pages/home/home.css">
 <link rel="stylesheet" href="/public/styles/table/table.css">
 

@@ -74,6 +74,9 @@
 
 </section>
 
+<br>
+<br>
+
 <link rel="stylesheet" href="/public/styles/pages/events/events.css">
 <link rel="stylesheet" href="/public/styles/table/table.css">
 

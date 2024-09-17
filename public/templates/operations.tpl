@@ -71,7 +71,8 @@
     </section>
 </section>
 
-
+<br>
+<br>
 
 <link rel="stylesheet" href="/public/styles/pages/operations/operations.css">
 <link rel="stylesheet" href="/public/styles/table/table.css">
