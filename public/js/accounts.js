@@ -100,10 +100,9 @@ function process_transfer() {
         new_popup("Please fill all fields", "warn");
     }
     else {
-        label_val = label.value == "" ? "Transfer" : label.value;
+        label_val = label.value == "" ? get_account_shortname() : label.value;
 
         var xhr = new XMLHttpRequest();
-        console.log(`/controler/creating_elements/transaction.php?from=${transfer_data[0]}&to=${transfer_data[1]}&label=${label_val}&date=${date.value}&amount=${amount.value}`);
         xhr.open("GET", `/controler/creating_elements/transaction.php?from=${transfer_data[0]}&to=${transfer_data[1]}&label=${label_val}&date=${date.value}&amount=${amount.value}`, false);
         xhr.onload = () => {
             if (xhr.status == 200) {
@@ -117,6 +116,29 @@ function process_transfer() {
         xhr.send();
         f_onload();
     }
+}
+
+function get_account_shortname() {
+    let from_shortname = document.getElementById("card-" + transfer_data[0]).children[0].innerHTML;
+    let to_shortname = document.getElementById("card-" + transfer_data[1]).children[0].innerHTML;
+
+    if (from_shortname.includes(" ")) { // get first letter of each word OR get first 3 letters
+        from_shortname = from_shortname
+            .split(" ")
+            .map(word => word.charAt(0))
+            .join("")
+            .replace(/[^a-zA-Z]/g, "");
+    } else { from_shortname = from_shortname.slice(0, 3); }
+
+    if (to_shortname.includes(" ")) {
+        to_shortname = to_shortname
+            .split(" ")
+            .map(word => word.charAt(0))
+            .join("")
+            .replace(/[^a-zA-Z]/g, "");
+    } else { to_shortname = to_shortname.slice(0, 3); }
+
+    return "Trans. " + from_shortname + " => " + to_shortname;
 }
 
 function undo_transfer() {
