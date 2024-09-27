@@ -1,8 +1,7 @@
 
 function new_popup(text, popup_type) {
-    let popup = document.getElementsByClassName("popup")[0];
-
-    if (popup != undefined) { popup.remove(); }
+    let popup = document.getElementsByClassName("popup")[0];    // Test if popup already exists
+    if (popup != undefined) { popup.remove(); }                 // If it does, remove it
 
     document.body.insertAdjacentHTML("beforeEnd",`
         <div class="popup ${popup_type}">
@@ -11,8 +10,10 @@ function new_popup(text, popup_type) {
             <p>${text}</p>
         </div>`);
 
-    popup = document.getElementsByClassName("popup")[0];
-    let close = document.getElementsByClassName("close")[0];
+    popup = document.getElementsByClassName("popup")[0];        // Get the new popup
+    let close = document.getElementsByClassName("close")[0];    // Get the close button
+
+    popup_place();                                              // Place the popup at the top of the page
     
     close.onclick = () => delete_popup(popup);
     setTimeout(() => {
@@ -26,3 +27,12 @@ function delete_popup(popup) {
         popup.remove();
     }, 600);
 }
+
+function popup_place() {
+    let popup = document.getElementsByClassName("popup")[0];
+    if (popup) {
+        popup.style.top = `${window.scrollY+10}px`;
+    }
+}
+
+window.addEventListener('scroll', popup_place);
