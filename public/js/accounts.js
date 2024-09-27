@@ -103,7 +103,7 @@ function process_transfer() {
         label_val = label.value == "" ? get_account_shortname() : label.value;
 
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", `/controler/creating_elements/transaction.php?from=${transfer_data[0]}&to=${transfer_data[1]}&label=${label_val}&date=${date.value}&amount=${amount.value}`, false);
+        xhr.open("GET", `/controler/creating_elements/transaction.php?from=${transfer_data[0]}&to=${transfer_data[1]}&label=${encodeURIComponent(label_val)}&date=${date.value}&amount=${amount.value}`, false);
         xhr.onload = () => {
             if (xhr.status == 200) {
                 new_popup("Transaction process", "success");
@@ -173,7 +173,7 @@ function create_account() {
             }
 
             var xhr = new XMLHttpRequest();
-            xhr.open("GET", `/controler/creating_elements/account.php?label=${acc_label.value}&type=${acc_type.value}&sold=${acc_sold.value}`, true);
+            xhr.open("GET", `/controler/creating_elements/account.php?label=${encodeURIComponent(acc_label.value)}&type=${acc_type.value}&sold=${acc_sold.value}`, true);
             xhr.onload = () => {
                 if (xhr.status == 200) {
                     new_popup("Account created", "success");
@@ -227,7 +227,7 @@ function confirm_edit_element(label, sold, type, id) {
     }
     else {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", `/controler/updating_elements/account.php?id=${id}&label=${label}&sold=${sold}&type=${type}`, true);
+        xhr.open("GET", `/controler/updating_elements/account.php?id=${id}&label=${encodeURIComponent(label)}&sold=${sold}&type=${type}`, true);
         xhr.onload = () => {
             if (xhr.status == 200) {
                 new_popup("Account updated", "success");

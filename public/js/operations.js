@@ -229,7 +229,7 @@ function create_operation() {
     else {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "/controler/creating_elements/operation.php?id_account=" + account_list.value +
-            "&label=" + label +
+            "&label=" + encodeURIComponent(label) +
             "&amount=" + amount +
             "&category=" + category +
             "&date=" + operation_date.value, true);

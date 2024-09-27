@@ -194,7 +194,7 @@ function create_event() {
     else {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "/controler/creating_elements/event.php?id_account=" + account_list.value +
-            "&label=" + label +
+            "&label=" + encodeURIComponent(label) +
             "&amount=" + amount +
             "&category=" + category +
             "&start=" + start +
@@ -290,7 +290,7 @@ function confirm_edit_element(label, amount, start, end, frequency, category, id
     }
     else {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", `/controler/updating_elements/event.php?label=${label}&amount=${amount}&start=${start}&end=${end}&frequency=${frequency}&category=${category}&id=${id}`, true);
+        xhr.open("GET", `/controler/updating_elements/event.php?label=${encodeURIComponent(label)}&amount=${amount}&start=${start}&end=${end}&frequency=${frequency}&category=${category}&id=${id}`, true);
         xhr.onload = () => {
             if (xhr.status == 200) {
                 new_popup("Event updated", "success");
