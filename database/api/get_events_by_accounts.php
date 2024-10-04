@@ -16,6 +16,7 @@ $arg = json_decode($_GET["accounts"]);
 
 if (isset($_GET["date"])) {
     $date = $_GET["date"];
+    $futureDate = date('Y-m-d', strtotime('+1 year', strtotime($date)));
 } else {
     $date = date("Y-m-d");
 }
@@ -26,7 +27,7 @@ foreach ($arg as $key => $value) {
     $accounts[] = $value->id_account;
 }
 
-$query = $db->prepare('SELECT * FROM regular_event WHERE id_account IN (' . implode(',', $accounts) . ') ' . ' AND end >= \'' . $date . '\' ORDER BY start ASC');
+$query = $db->prepare('SELECT * FROM regular_event WHERE id_account IN (' . implode(',', $accounts) . ') ' . ' AND end >= \'' . $date . '\'' . ' AND start <= \'' . $futureDate . '\' ORDER BY start ASC');
 $query->execute();
 $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
