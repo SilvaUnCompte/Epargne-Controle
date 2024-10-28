@@ -1,5 +1,7 @@
 {include file='helpers/header.tpl'}
 
+<link rel="stylesheet" href="/public/styles/pages/analytics/analytics.css">
+
 <section id="analytics-board">
     <fieldset class="analytics-form" id="analytics-form">
         <div class="row-field">
@@ -33,8 +35,6 @@
 
 <br>
 <br>
-
-<link rel="stylesheet" href="/public/styles/pages/analytics/analytics.css">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@^4"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>

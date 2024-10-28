@@ -1,5 +1,7 @@
 {include file='index.tpl'}
 
+<link rel="stylesheet" href="/public/styles/pages/login/login.css">
+
 <section id="section-core">
     <div class="form-box">
         <div class="form-value">
@@ -42,5 +44,3 @@
     let side_bar = document.getElementById('side-menu');
     side_bar.style.filter = 'saturate(15%) brightness(50%)';
 </script>
-
-<link rel="stylesheet" href="/public/styles/pages/login/login.css">

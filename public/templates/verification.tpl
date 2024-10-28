@@ -1,5 +1,11 @@
 {include file='helpers/header.tpl'}
 
+<link rel="stylesheet" href="/public/styles/pages/analytics/analytics.css">
+<link rel="stylesheet" href="/public/styles/pages/budget/budget.css">
+<link rel="stylesheet" href="/public/styles/pages/operations/operations.css">
+<link rel="stylesheet" href="/public/styles/pages/verification/verification.css">
+<link rel="stylesheet" href="/public/styles/table/table.css">
+
 <section id="analytics-board">
     <fieldset class="analytics-form">
         <div class="row-field">
@@ -52,12 +58,6 @@
 
 <br>
 <br>
-
-<link rel="stylesheet" href="/public/styles/pages/analytics/analytics.css">
-<link rel="stylesheet" href="/public/styles/pages/budget/budget.css">
-<link rel="stylesheet" href="/public/styles/pages/operations/operations.css">
-<link rel="stylesheet" href="/public/styles/pages/verification/verification.css">
-<link rel="stylesheet" href="/public/styles/table/table.css">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/public/js/verification.js" type="text/javascript"></script>
