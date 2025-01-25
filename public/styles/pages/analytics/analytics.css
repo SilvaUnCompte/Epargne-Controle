@@ -39,7 +39,7 @@
 #analytics-board #analytics-form .row-field input {
   width: 100%;
 }
-#analytics-board #analytics-charts {
+#analytics-board .analytics-charts {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -52,11 +52,11 @@
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5);
   background-color: #f7f4f4;
 }
-#analytics-board #analytics-charts #log-account-div {
+#analytics-board .analytics-charts #log-account-div {
   width: 67%;
   height: 100%;
 }
-#analytics-board #analytics-charts #categories-account-div {
+#analytics-board .analytics-charts #categories-account-div {
   width: 33%;
   height: 66%;
 }

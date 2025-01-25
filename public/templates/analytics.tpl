@@ -18,7 +18,7 @@
         </div>
     </fieldset>
 
-    <section id="analytics-charts">
+    <section class="analytics-charts">
         <div id="log-account-div"><canvas id="log-account-chart">Your browser does not support the canvas
                 element.</canvas></div>
         <div id="categories-account-div"><canvas id="categories-account-chart">Your browser does not support the canvas
