@@ -2,8 +2,13 @@
 
 <link rel="stylesheet" href="/public/styles/pages/analytics/analytics.css">
 
+<section id="phone-warning">
+    <h1>Sorry, this page is not properly displayed on mobile devices.</h1>
+    <h2>Please use a computer to fully enjoy the analytics page.</h2>
+</section>
+
 <section id="analytics-board">
-    <fieldset class="analytics-form" id="analytics-form">
+    <fieldset id="analytics-form">
         <div class="row-field">
             <select name="selected-account" id="selected-account">
                 <option value="0"> Select an account </option>
@@ -13,23 +18,30 @@
         </div>
     </fieldset>
 
-    <section class="analytics-charts">
+    <section id="analytics-charts">
         <div id="log-account-div"><canvas id="log-account-chart">Your browser does not support the canvas
                 element.</canvas></div>
         <div id="categories-account-div"><canvas id="categories-account-chart">Your browser does not support the canvas
                 element.</canvas></div>
     </section>
 
-    <div class="forecast-checkbox">
-        <input type="checkbox" id="forecast-toggle" name="forecast-toggle">
-        <label for="forecast-toggle" class="noselect">Enable Forecast</label>
-        <span id="forecast-info"></span>
-    </div>
-    <div class="forecast-checkbox">
-        <input type="checkbox" id="forecast-ajust" name="forecast-ajust">
-        <label for="forecast-ajust" class="noselect">Ajust to date</label>
-    </div>
-    <input type="date" name="index" id="analytics-index">
+    <section id="under-chart">
+        <div>
+            <div class="forecast-checkbox">
+                <input type="checkbox" id="forecast-toggle" name="forecast-toggle">
+                <label for="forecast-toggle" class="noselect">Enable Forecast</label>
+                <span id="forecast-info"></span>
+            </div>
+            <div class="forecast-checkbox">
+                <input type="checkbox" id="forecast-ajust" name="forecast-ajust">
+                <label for="forecast-ajust" class="noselect">Ajust to date</label>
+            </div>
+            <input type="date" name="index" id="analytics-index">
+        </div>
+        <div>
+            <a id="export-csv-button" class="valide_button no-select" onclick="exportCSV()">Export CSV</a>
+        </div>
+    </section>
 
 </section>
 

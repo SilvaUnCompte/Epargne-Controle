@@ -1,3 +1,14 @@
+#phone-warning {
+  display: none;
+  color: rgb(238, 219, 219);
+  background-color: #da3737;
+  font-size: 1.5em;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
 #analytics-board {
   margin: 2vw;
   display: flex;
@@ -5,7 +16,7 @@
   flex-direction: column;
   height: 100%;
 }
-#analytics-board .analytics-form {
+#analytics-board #analytics-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,20 +26,20 @@
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5);
   background-color: #f7f4f4;
 }
-#analytics-board .analytics-form .row-field {
+#analytics-board #analytics-form .row-field {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
   padding: 3px 2px;
 }
-#analytics-board .analytics-form .row-field * {
+#analytics-board #analytics-form .row-field * {
   margin: 0 4px;
 }
-#analytics-board .analytics-form .row-field input {
+#analytics-board #analytics-form .row-field input {
   width: 100%;
 }
-#analytics-board .analytics-charts {
+#analytics-board #analytics-charts {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -41,16 +52,22 @@
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.5);
   background-color: #f7f4f4;
 }
-#analytics-board .analytics-charts #log-account-div {
+#analytics-board #analytics-charts #log-account-div {
   width: 67%;
   height: 100%;
 }
-#analytics-board .analytics-charts #categories-account-div {
+#analytics-board #analytics-charts #categories-account-div {
   width: 33%;
   height: 66%;
 }
 #analytics-board #forecast-info {
   color: rgb(49, 66, 221);
+}
+#analytics-board #under-chart {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 
 @media all and (max-width: 767px) {
@@ -62,5 +79,17 @@
   }
   #analytics-board #analytics-form .row-field {
     width: 100%;
+  }
+  #analytics-board #under-chart {
+    flex-direction: column;
+    height: 100px;
+  }
+  #analytics-board #under-chart #export-csv-button {
+    margin-top: 50px !important;
+  }
+}
+@media (pointer: coarse) {
+  #phone-warning {
+    display: block;
   }
 }/*# sourceMappingURL=analytics.css.map */

@@ -48,3 +48,5 @@
 		<li><a href="/controler/pages/verification.php">Verification</a></li>
 		<li><a href="/controler/pages/events.php">Events</a></li>
 </ul>
+
+<img id="loading-gif" src="/assets/images/load.gif" alt="loading">

@@ -133,6 +133,8 @@ onload = () => {
     forecast_toggle.addEventListener("change", update_charts);
     forecast_ajust.addEventListener("change", update_charts);
     analytics_index.addEventListener("change", update_charts);
+
+    document.getElementById("loading-gif").style.display = "none";
 }
 
 function fill_account_list() {
@@ -349,4 +351,22 @@ function calculateRegressionLine(slope, intercept){
 
 function DateToString(date) {
     return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+}
+
+function exportCSV() {
+    let csv = "Date,Amount,Label,Category\n";
+
+    let CSVoperations = operations.slice();
+    CSVoperations.shift(); // Remove the first operation
+    CSVoperations.pop(); // Remove the last operation
+
+    CSVoperations.forEach(operation => {
+        csv += `${operation.date},${operation.amount},${operation.label},${operation.category}\n`;
+    });   
+
+    let hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = `${selected_account.label}_operations.csv`;
+    hiddenElement.click();
 }

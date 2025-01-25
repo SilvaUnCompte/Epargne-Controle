@@ -15,7 +15,7 @@ onload = () => {
     datasheet.innerHTML = "";
     date.valueAsDate = new Date();
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/database/api/get_accounts_by_user.php?email=" + email, true);
+    xhr.open("GET", "/database/api/get_accounts_by_user.php?email=" + email, false);
     xhr.onload = () => {
         if (xhr.status == 200) {
             let accounts = JSON.parse(xhr.responseText);
@@ -53,6 +53,7 @@ onload = () => {
         }
     };
     xhr.send();
+    document.getElementById("loading-gif").style.display = "none";
 }
 
 function manage_account_transfer(id) {

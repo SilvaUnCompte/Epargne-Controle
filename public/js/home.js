@@ -132,6 +132,7 @@ onload = () => {
     xhr.send();
 
     set_operation_type_list();
+    document.getElementById("loading-gif").style.display = "none";
 }
 
 function set_operation_type_list() {
@@ -171,7 +172,7 @@ function fill_dataset() {
                 else if (operations[i].amount > 0) {
                     datasheet.children[nb_operations - i - 1].children[2].style.color = "green";
                 }
-                datasheet.children[nb_operations - i - 1].children[0].innerHTML = operations[i].date;
+                datasheet.children[nb_operations - i - 1].children[0].innerHTML = new Date(operations[i].date).toLocaleDateString("fr-FR");
                 datasheet.children[nb_operations - i - 1].children[1].innerHTML = operations[i].label;
                 datasheet.children[nb_operations - i - 1].children[2].innerHTML = (operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2) + " €";
                 datasheet.children[nb_operations - i - 1].children[3].innerHTML = operation_type_list[operations[i].category].title;

@@ -3,12 +3,12 @@
     "short_name": "Epargne Controle",
     "start_url": "/controler/pages/index.php",
     "display": "standalone",
-    "background_color": "#424549",
-    "theme_color": "#424549",
+    "background_color": "#2d4361",
+    "theme_color": "#2d4361",
     "orientation": "portrait-primary",
     "icons": [
         {
-            "src": "/assets/images/icon_b.png",
+            "src": "/assets/images/icon256.png",
             "type": "image/png",
             "sizes": "256x256",
             "purpose": "any maskable"

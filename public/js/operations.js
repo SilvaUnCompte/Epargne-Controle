@@ -24,8 +24,10 @@ onload = () => {
 }
 
 function sync_account_selection() {
+    document.getElementById("loading-gif").style.display = "flex";
     balance_view.value = account_list.value;
     selected_account = accounts.find(account => account.id_account == account_list.value)
+
     update_datasheet();
 }
 
@@ -99,6 +101,7 @@ function set_select_category() {
 
 function delete_element(element_id) {
     if (confirm("Are you sure you want to delete this operation ?")) {
+        document.getElementById("loading-gif").style.display = "flex";
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "/controler/deleting_elements/operation.php?id=" + element_id, true);
         xhr.onload = () => {
@@ -126,6 +129,7 @@ function datasheet_clear() {
 }
 
 function update_datasheet() {
+    document.getElementById("loading-gif").style.display = "flex";
     add_field.style.display = "flex";
     let date = date_to_search.value;
     let temp_account = accounts;
@@ -141,7 +145,7 @@ function update_datasheet() {
     datasheet_clear();
 
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + JSON.stringify(temp_account) + "&limit=14&date=" + date, true);
+    xhr.open("GET", "/database/api/get_operations_by_accounts.php?accounts=" + JSON.stringify(temp_account) + "&limit=14&date=" + date, false);
     xhr.onload = () => {
         if (xhr.status == 200) {
             operations = JSON.parse(xhr.responseText);
@@ -159,7 +163,7 @@ function update_datasheet() {
                 else {
                     datasheet.children[nb_operations - i - 1].children[2].style.color = "black";
                 }
-                datasheet.children[nb_operations - i - 1].children[0].innerHTML = operations[i].date;
+                datasheet.children[nb_operations - i - 1].children[0].innerHTML = new Date(operations[i].date).toLocaleDateString("fr-FR");
                 datasheet.children[nb_operations - i - 1].children[1].innerHTML = operations[i].label;
                 datasheet.children[nb_operations - i - 1].children[2].innerHTML = (operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2) + " €";
                 datasheet.children[nb_operations - i - 1].children[3].innerHTML = operation_type_list[operations[i].category].title;
@@ -174,6 +178,7 @@ function update_datasheet() {
         }
     }
     xhr.send();
+    document.getElementById("loading-gif").style.display = "none";
 }
 
 function fill_account_list() {
@@ -216,6 +221,7 @@ function creating_operation_pannel() {
 }
 
 function create_operation() {
+    
     label = document.getElementById("label").value;
     if (label.length > 50) {
         label = label.substring(0, 47) + "...";
@@ -227,6 +233,7 @@ function create_operation() {
         new_popup("Please fill all the fields", "warn")
     }
     else {
+        document.getElementById("loading-gif").style.display = "flex";
         var xhr = new XMLHttpRequest();
         xhr.open("GET", "/controler/creating_elements/operation.php?id_account=" + account_list.value +
             "&label=" + encodeURIComponent(label) +

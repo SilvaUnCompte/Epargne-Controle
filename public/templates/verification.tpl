@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/public/styles/table/table.css">
 
 <section id="analytics-board">
-    <fieldset class="analytics-form">
+    <fieldset id="analytics-form">
         <div class="row-field">
             <select name="selected-checking-account" id="selected-checking-account">
                 <option value="0"> Select a checking account </option>

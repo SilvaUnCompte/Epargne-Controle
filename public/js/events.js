@@ -16,9 +16,11 @@ let accounts = [];
 let operation_type_list = [];
 
 onload = () => {
-    fill_account_list();
     set_operation_type_list();
+    fill_account_list();
     date_to_search.valueAsDate = new Date();
+
+    document.getElementById("loading-gif").style.display = "none";
 }
 
 // Operation type list
@@ -122,8 +124,8 @@ function update_datasheet() {
                         <div class="col col-1" data-label="Label"> ${events[i].label} </div>
                         <div class="col col-2" data-label="Amount"> ${events[i].amount.toFixed(2)} € </div>
                         <div class="col col-3" data-label="Account"> ${accounts_list.find(account => account.id_account === events[i].id_account).label} </div>
-                        <div class="col col-4" data-label="Start"> ${events[i].start} </div>
-                        <div class="col col-5" data-label="End"> ${events[i].end} </div>
+                        <div class="col col-4" data-label="Start"> ${new Date(events[i].start).toLocaleDateString("fr-FR")} </div>
+                        <div class="col col-5" data-label="End"> ${new Date(events[i].start).toLocaleDateString("fr-FR")} </div>
                         <div class="col col-6" data-label="Frequency"> ${events[i].frequency_type == 0 ? "Every Day" : events[i].frequency_type == 1 ? "Every Week" : events[i].frequency_type == 2 ? "Every Month" : "Every Year"} </div>
                         <div class="col col-7" data-label="Category"> ${operation_type_list[events[i].category].title} </div>
                         <div class="col col-8" data-label="Actions"> --- </div>

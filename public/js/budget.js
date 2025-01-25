@@ -124,6 +124,7 @@ onload = () => {
         budget_bar_chart.update();
     });
 
+    document.getElementById("loading-gif").style.display = "none";
 }
 
 function set_operation_type_list() {
@@ -278,7 +279,7 @@ function update_datasheet(operations) {
     for (let i = 0; i < operations.length; i++) {
         datasheet.innerHTML += `
                     <li class="table-row" id_operation="${operations[i].id_operation}">
-                        <div class="col col-1" data-label="Date"> ${operations[i].date} </div>
+                        <div class="col col-1" data-label="Date"> ${new Date(operations[i].date).toLocaleDateString("fr-FR")} </div>
                         <div class="col col-2" data-label="Label"> ${operations[i].label} </div>
                         <div class="col col-3" data-label="Amount"> ${(operations[i].amount > 0 ? "+" : "") + operations[i].amount.toFixed(2)} € </div>
                         <div class="col col-4" data-label="Category"> ${operation_type_list[operations[i].category].title} </div>
