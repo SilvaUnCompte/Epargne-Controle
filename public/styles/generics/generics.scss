@@ -130,3 +130,9 @@ input[type=number] {
         width: 15px;
     }
 }
+
+@media (pointer: coarse)  {
+    #loading-gif {
+        width: 40%;
+    }
+}

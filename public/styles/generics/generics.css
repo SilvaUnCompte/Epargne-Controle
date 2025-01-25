@@ -119,4 +119,9 @@ input[type=number] {
   .card-button {
     width: 15px;
   }
+}
+@media (pointer: coarse) {
+  #loading-gif {
+    width: 40%;
+  }
 }/*# sourceMappingURL=generics.css.map */

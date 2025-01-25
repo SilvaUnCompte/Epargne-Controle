@@ -167,4 +167,7 @@ body {
   div {
     font-size: 15px;
   }
+  .form-box {
+    max-width: 90%;
+  }
 }/*# sourceMappingURL=login.css.map */
