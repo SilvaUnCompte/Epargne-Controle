@@ -1,3 +1,4 @@
 **/templates_c
 assets/vendors
 .vscode
+.env

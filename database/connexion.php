@@ -1,15 +1,23 @@
 <?php
 
-// $DB_HOST = "host";
-// $DB_USERNAME = "user";
-// $DB_PASSWORD = "pass";
-// $DB_NAME = "EpargneControle";
-$DB_PORT = "3306";
 
-$DB_HOST = "host";
-$DB_USERNAME = "user";
-$DB_PASSWORD = "password";
-$DB_NAME = "epargne-controle";
+// Load environment variables from .env file
+$envPath = $_SERVER['DOCUMENT_ROOT'] . '/.env';
+
+if (file_exists($envPath)) {
+    $lines = file($envPath);
+    foreach ($lines as $line) {
+        if (preg_match('/^([A-Z_]+)=(.*)$/', trim($line), $matches)) {
+            putenv("{$matches[1]}={$matches[2]}");
+        }
+    }
+}
+
+$DB_PORT = getenv('DB_PORT');
+$DB_HOST = getenv('DB_HOST');
+$DB_USERNAME = getenv('DB_USERNAME');
+$DB_PASSWORD = getenv('DB_PASSWORD');
+$DB_NAME = getenv('DB_NAME');
 
 global $db;
 
