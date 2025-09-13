@@ -20,7 +20,7 @@ if (isset($_GET['input_email']) && isset($_GET['input_password'])) {
 		require($_SERVER['DOCUMENT_ROOT'] . "/assets/vendors/smarty/libs/Smarty.class.php");
 		$smarty = new Smarty();
 		$smarty->setTemplateDir($_SERVER['DOCUMENT_ROOT'] . '/public/templates/');
-		$smarty->assign("title", "Epargne-controle - Login");
+		$smarty->assign("title", "Login");
 		$smarty->assign("error", 1);
 		$smarty->display("login.tpl");
 	}
