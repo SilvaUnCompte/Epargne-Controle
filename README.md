@@ -14,6 +14,8 @@
 - Budget tracking and analytics (charts, forecasts, CSV export)
 - Transaction history and verification
 
+<img height="300" alt="image" src="https://github.com/user-attachments/assets/9aa273cf-a04b-4c23-be79-20e6be515a96" />
+
 ## Technologies Used
 
 - PHP (backend logic)
@@ -41,6 +43,8 @@
 4. Set up regular events for recurring transactions (e.g., monthly rent).
 5. View analytics and budget charts to monitor your financial health.
 6. Export data as CSV if you're crazy about statistics (or just want to analyze your data further).
+
+<img height="300" alt="image" src="https://github.com/user-attachments/assets/2cec5d97-2fc2-4919-8567-406536f8db2e" />
 
 ## Folder Structure
 
