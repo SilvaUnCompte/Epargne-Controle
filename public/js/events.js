@@ -91,11 +91,6 @@ function update_datasheet() {
             nb_events = events.length;
 
             if (nb_events == 0) {
-                new_popup("There is no event at this date", "info");
-                return;
-            }
-
-            if (nb_events == 0) {
                 datasheet.innerHTML += `<li class="table-row">
                     <div class="col col-1" data-label="Label"> No regular event in this time </div>
                     <div class="col col-2" data-label="Amount"> --- </div>
@@ -106,18 +101,20 @@ function update_datasheet() {
                     <div class="col col-7" data-label="Category"> --- </div>
                     <div class="col col-8" data-label="Actions"> --- </div>
                 </li>`;
+
+                new_popup("There is no event at this date", "info");
             }
             else {
                 // trier events par label
                 events.sort(function (a, b) {
                     if (a.label < b.label) {
-                      return -1;
+                        return -1;
                     }
                     if (a.label > b.label) {
-                      return 1;
+                        return 1;
                     }
                     return 0;
-                  });
+                });
 
                 for (let i = 0; i < nb_events; i++) {
                     datasheet.innerHTML += `<li class="table-row">
@@ -125,7 +122,7 @@ function update_datasheet() {
                         <div class="col col-2" data-label="Amount"> ${events[i].amount.toFixed(2)} € </div>
                         <div class="col col-3" data-label="Account"> ${accounts_list.find(account => account.id_account === events[i].id_account).label} </div>
                         <div class="col col-4" data-label="Start"> ${new Date(events[i].start).toLocaleDateString("fr-FR")} </div>
-                        <div class="col col-5" data-label="End"> ${new Date(events[i].start).toLocaleDateString("fr-FR")} </div>
+                        <div class="col col-5" data-label="End"> ${new Date(events[i].end).toLocaleDateString("fr-FR")} </div>
                         <div class="col col-6" data-label="Frequency"> ${events[i].frequency_type == 0 ? "Every Day" : events[i].frequency_type == 1 ? "Every Week" : events[i].frequency_type == 2 ? "Every Month" : "Every Year"} </div>
                         <div class="col col-7" data-label="Category"> ${operation_type_list[events[i].category].title} </div>
                         <div class="col col-8" data-label="Actions"> --- </div>

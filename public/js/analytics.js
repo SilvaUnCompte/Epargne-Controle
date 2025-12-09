@@ -171,12 +171,12 @@ function selected_account_change() {
         today = new Date();
 
         if (selected_account.type == 0) {
-            analytics_start.valueAsDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+            analytics_start.valueAsDate = new Date(today.getFullYear() - 2, today.getMonth(), today.getDate());
             analytics_end.valueAsDate = today;
         }
         else {
-            analytics_start.valueAsDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
-            analytics_end.valueAsDate = new Date(today.getFullYear() + 2, today.getMonth(), today.getDate());
+            analytics_start.valueAsDate = new Date(today.getFullYear() - 3, today.getMonth(), today.getDate());
+            analytics_end.valueAsDate = new Date(today.getFullYear(), today.getMonth() + 3, today.getDate());
         }
 
         get_operations();
