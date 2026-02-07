@@ -224,8 +224,8 @@ function edit_element(id, element) {
     let card = element.parentNode.parentNode;
     card.classList.add("editing-row");
 
-    let start = new Date(card.children[3].innerHTML);
-    let end = new Date(card.children[4].innerHTML);
+    let start = parseFrenchDate(card.children[3].innerHTML);
+    let end = parseFrenchDate(card.children[4].innerHTML);
     start.setDate(start.getDate() + 1);
     end.setDate(end.getDate() + 1);
 
@@ -268,6 +268,19 @@ function edit_element(id, element) {
     card.children[6].value = category;
 }
 
+function parseFrenchDate(dateText) {
+    const trimmed = dateText.trim();
+    const parts = trimmed.split("/");
+    if (parts.length !== 3) {
+        return new Date(trimmed);
+    }
+
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10) - 1;
+    const year = parseInt(parts[2], 10);
+    return new Date(year, month, day);
+}
+
 function set_select_category_for_edit() {
     let temp;
     operation_type_list.forEach(operation_type => {
@@ -277,8 +290,6 @@ function set_select_category_for_edit() {
 }
 
 function confirm_edit_element(label, amount, start, end, frequency, category, id, element) {
-    element.parentNode.innerHTML = `<img src="/assets/images/load.gif" alt="load" class="card-button">`;
-
     if (label.length > 50) {
         label = label.substring(0, 47) + "...";
     }
@@ -288,12 +299,13 @@ function confirm_edit_element(label, amount, start, end, frequency, category, id
         new_popup("Please fill all the fields", "warn");
     }
     else {
+        element.parentNode.innerHTML = `<img src="/assets/images/load.gif" alt="load" class="card-button">`;
         var xhr = new XMLHttpRequest();
         xhr.open("GET", `/controler/updating_elements/event.php?label=${encodeURIComponent(label)}&amount=${amount}&start=${start}&end=${end}&frequency=${frequency}&category=${category}&id=${id}`, true);
         xhr.onload = () => {
             if (xhr.status == 200) {
                 new_popup("Event updated", "success");
-                onload();
+                fill_account_list();
             }
             else {
                 new_popup("Error updating event", "error")
