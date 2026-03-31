@@ -182,7 +182,7 @@ function update_global_operation() {
     let end = new Date(start);
     end.setMonth(end.getMonth() + 1);
     end.setDate(end.getDate() - 1);
-    end = end.toISOString().split('T')[0];
+    end = formatDateToString(end);
 
     if (account_list.value > 0) {
         let xhr = new XMLHttpRequest();

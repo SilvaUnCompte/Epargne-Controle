@@ -9,6 +9,7 @@
 	<link rel="manifest" href="/public/manifest.json">
 	<meta name="theme-color" content="#424549" />
 
+	<script src="/public/js/utils.js" type="text/javascript"></script>
 	<script src="/public/js/navbar.js" type="text/javascript"></script>
 	<script src="/public/js/popup.js" type="text/javascript"></script>
 	<link rel="stylesheet" href="/public/styles/header/header.css">

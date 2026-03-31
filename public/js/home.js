@@ -194,10 +194,10 @@ function set_log_charts() {
     let end = new Date(start);
 
     start.setFullYear(start.getFullYear() - 2);
-    let start_str = start.toISOString().split('T')[0];
+    let start_str = formatDateToString(start);
 
     end.setFullYear(end.getFullYear() + 1);
-    let end_str = end.toISOString().split('T')[0];
+    let end_str = formatDateToString(end);
 
     let xhr = new XMLHttpRequest();
     xhr.open("GET", `/database/api/get_operations_by_account.php?id_account=${highest_account.id_account}&start=${start_str}&end=${end_str}]`, true);
@@ -263,12 +263,12 @@ function set_pie_chart() {
 
     let start = new Date();
     start.setDate(1);
-    start = start.toISOString().split('T')[0];
+    start = formatDateToString(start);
 
     let end = new Date(start);
     end.setMonth(end.getMonth() + 1);
     end.setDate(end.getDate() - 1);
-    end = end.toISOString().split('T')[0];
+    end = formatDateToString(end);
 
     let xhr = new XMLHttpRequest();
     xhr.open("GET", `/database/api/get_operations_by_account.php?id_account=${random_checking_account.id_account}&start=${start}&end=${end}]`, true);

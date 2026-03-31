@@ -114,7 +114,7 @@ function update_datasheet() {
         let end = new Date(start_str);
         end.setMonth(end.getMonth() + 1);
         end.setDate(end.getDate() - 1);
-        end_str = end.toISOString().split('T')[0];
+        end_str = formatDateToString(end);
 
         datasheet.innerHTML = "";
 
