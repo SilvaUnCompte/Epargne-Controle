@@ -77,6 +77,41 @@ function sanitize_date(mixed $value): string
     return $value;
 }
 
+/**
+ * Validate an account icon: an optional base64 image data URI.
+ * On invalid input, responds with an explicit error so the caller knows what went wrong.
+ *
+ * @param mixed $value
+ * @return string|null The validated data URI, or null when no icon is provided.
+ */
+function sanitize_icon(mixed $value): ?string
+{
+    if ($value === null || $value === '') {
+        return null;
+    }
+    if (!is_string($value)) {
+        sendAPIResponse(400, 'Invalid icon: must be a base64 image data URI', []);
+    }
+
+    $value = trim($value);
+
+    if (strlen($value) > 5000000) {
+        sendAPIResponse(413, 'Invalid icon: image is too large (max ~5MB)', []);
+    }
+
+    // Expected shape: data:image/<type>;base64,<payload>
+    if (!preg_match('#^data:image/[a-zA-Z0-9.+-]+;base64,#', $value)) {
+        sendAPIResponse(400, 'Invalid icon: expected a base64 image data URI (data:image/...;base64,...)', []);
+    }
+
+    $payload = explode(',', $value, 2)[1] ?? '';
+    if ($payload === '' || base64_decode($payload, true) === false) {
+        sendAPIResponse(400, 'Invalid icon: payload is not valid base64', []);
+    }
+
+    return $value;
+}
+
 function sendAPIResponse(int $code, string $message, array $data = [], bool $exit = true): void
 {
     http_response_code($code);

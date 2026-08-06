@@ -41,8 +41,9 @@ if ($method === 'GET') {
 if ($method === 'POST') {
     ['label' => $label, 'type' => $type] = checkRequiredArg($body, ['label', 'type']);
     $sold = $body['sold'] ?: 0;
+    $icon = sanitize_icon($decoded['icon'] ?? null);
 
-    $id_account = Account::createAccount($label, $type, $_SESSION['email']);
+    $id_account = Account::createAccount($label, $type, $_SESSION['email'], $icon);
 
     if ($sold != 0) {
         Operation::createOperation("Init " . $label . " sold", "1999-01-01", $sold, 6, 0, $id_account);
@@ -55,10 +56,12 @@ if ($method === 'POST') {
 if ($method === 'PATCH') {
 
     ['id' => $id, 'label' => $label, 'type' => $type, 'sold' => $sold] = checkRequiredArg($body, ['id', 'label', 'type', 'sold']);
+    $icon = sanitize_icon($decoded['icon'] ?? null);
 
     $account = new Account($id);
     $account->setLabel($label);
     $account->setType($type);
+    $account->setIcon($icon);
 
     $prev_sold = Operation::getLastOperationSoldByAccount($id, date('Y-m-d'));
 
